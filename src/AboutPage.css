@@ -1,0 +1,72 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #f0f4f8, #e2e8f0); /* Gradient from light blue to light gray */
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.about-container {
+    max-width: 1000px;
+    margin: 50px auto 0 auto; /* 50px top margin to create a gap */
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.about-details {
+    text-align: left;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+    .about-details h1, .about-details h2 {
+        color: #333;
+    }
+
+    .about-details p {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+.contact-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-info li {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.about-footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+    margin-top: 40px;
+    flex-shrink: 0;
+}
+
+.footer-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+    .footer-links a:hover {
+        text-decoration: underline;
+    }

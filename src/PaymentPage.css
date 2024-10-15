@@ -1,0 +1,166 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Full page background */
+body {
+    background-color: #f3f4f6;
+    height: 100vh;
+    overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+/* Container for the payment form */
+.payment-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    min-height: calc(100vh - 60px); /* Adjust this based on the actual header height */
+}
+
+/* Title styling */
+.payment-title {
+    margin-bottom: 10px;
+    font-size: 24px; /* Increase font size */
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Center the title */
+}
+
+/* Description styling */
+.payment-description {
+    margin-bottom: 30px; /* Add space below the description */
+    font-size: 16px; /* Set a suitable font size */
+    color: #666; /* Subtle color */
+    text-align: center; /* Center the description */
+}
+
+/* Payment form styling */
+.payment-form {
+    background-color: white;
+    padding: 40px 50px; /* More padding for a spacious feel */
+    border-radius: 16px; /* More rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Input group styling */
+.input-group {
+    margin-bottom: 20px; /* Increased space between inputs */
+}
+
+    /* Input field styling */
+    .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc; /* Softer border color */
+        border-radius: 10px; /* Rounded input fields */
+        font-size: 16px;
+        outline: none;
+        background-color: #fff;
+        color: #333;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); /* Slight inner shadow */
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        /* Input focus effect */
+        .input-group input:focus {
+            border-color: #007bff; /* Focus border color */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Glow effect */
+        }
+
+/* Card input styling */
+.card-input-group {
+    margin-bottom: 20px;
+}
+
+.card-input {
+    padding: 12px; /* Padding for better spacing */
+    border: 1px solid #ccc; /* Border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+    width: 100%; /* Full width */
+    background-color: #fff; /* White background for clarity */
+    color: #333; /* Text color */
+    transition: border 0.3s ease; /* Transition for focus effect */
+}
+
+    /* Card input focus effect */
+    .card-input:focus {
+        border-color: #007bff; /* Highlight border color on focus */
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Glow effect */
+    }
+
+/* Submit button styling */
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    /* Submit button hover effect */
+    .submit-button:hover {
+        background: linear-gradient(135deg, #0056b3, #007bff); /* Reverse gradient */
+        transform: translateY(-3px); /* Lift effect on hover */
+    }
+
+/* Error message styling */
+.error-message {
+    color: #e74c3c; /* Red error color */
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Modal styles */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+    .modal h2 {
+        margin-bottom: 1.5rem;
+    }
+
+    .modal button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .modal button:hover {
+            background-color: #0056b3;
+        }

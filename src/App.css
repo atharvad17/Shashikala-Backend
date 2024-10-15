@@ -1,0 +1,406 @@
+/* General Styles */
+html, body {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+#root {
+    width: 100%;
+    margin: 0 auto; /* Center the content */
+    text-align: center;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: black;
+    color: white;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 100; /* Ensure header is on top of content */
+    height: 100px;
+}
+
+/* Logo container */
+.logo {
+    width: 150px;
+    height: 80px;
+    background-image: url('./Images/shashikalaLogo.jpg'); /* Path to your image */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+
+
+.nav {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 0.75;
+    margin-left: 50px;
+    gap: 20px;
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.navButton, .navButtonSignUp {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navButton {
+    background-color: #666;
+}
+
+.navButtonSignUp {
+    background-color: #007BFF;
+}
+
+    .navButton:hover, .navButtonSignUp:hover {
+        background-color: #0056b3;
+    }
+
+/* Hero section styles */
+.hero {
+    text-align: center;
+    padding: 150px 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 60vh;
+    position: relative;
+}
+
+.buttonContainer {
+    margin-top: 75px;
+}
+
+.ctaButton {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .ctaButton:hover {
+        background-color: #0056b3;
+    }
+
+.learnMoreButton {
+    padding: 15px 30px;
+    background-color: #666;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .learnMoreButton:hover {
+        background-color: #444;
+    }
+
+/* Slider Styles */
+.Slider {
+    width: 100%;
+    height: 820px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.ImageSlider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.SliderImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    opacity: 0;
+}
+
+    .SliderImage.active {
+        opacity: 1;
+    }
+
+/* Indicators */
+.Indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.Indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+    .Indicator.active {
+        background-color: #007BFF;
+    }
+
+/* Explore Artwork styles */
+.explore_artwork {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: white;
+    color: black;
+}
+
+.artworkGrid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.artworkCard {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.artworkImage {
+    width: 100%;
+    height: 60%;
+    border-radius: 5px;
+    background-image: url('./Images/homeScreen1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.ctaButton, .learnMoreButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    width: 40%;
+    transition: background-color 0.3s ease;
+}
+
+.ctaButton {
+    background-color: #007BFF;
+    color: white;
+}
+
+    .ctaButton:hover {
+        background-color: #0056b3;
+    }
+
+.learnMoreButton {
+    background-color: #666;
+    color: white;
+}
+
+    .learnMoreButton:hover {
+        background-color: #444;
+    }
+
+/* Footer styles */
+.footer {
+    flex-shrink: 0;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+.footerLinks {
+    margin-top: 10px;
+}
+
+    .footerLinks a {
+        color: white;
+        text-decoration: none;
+        margin: 0 5px;
+    }
+
+        .footerLinks a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .artworkGrid {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal Container */
+.modal {
+    background-color: #f9fafc; /* Light background color for the dialog */
+    padding: 3rem; /* Increase padding for a larger, more comfortable box */
+    width: 450px; /* Increase size */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out; /* Subtle fade-in effect */
+    z-index: 1001;
+    position: relative;
+}
+
+    /* Modal Title */
+    .modal h2 {
+        margin-bottom: 2rem;
+        font-size: 2rem; /* Larger font for the title */
+        color: #333;
+    }
+
+    /* Donation Amount Input */
+    .modal input[type="number"] {
+        width: 100%; /* Full width */
+        padding: 1rem; /* Larger padding for more comfortable input */
+        font-size: 1.4rem; /* Larger font size */
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 2rem; /* More space below */
+        transition: border 0.3s ease;
+        background-color: #fff; /* Light background */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+        color: black
+    }
+
+        /* Focus Effect */
+        .modal input[type="number"]:focus {
+            border-color: #e74c3c; /* Red highlight when input is focused */
+            outline: none;
+        }
+
+/* Modal Buttons Container */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Add space between the buttons */
+}
+
+/* Individual Button Styling */
+.modal button {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.2rem; /* Slightly larger font for buttons */
+    border: none;
+    border-radius: 8px; /* Rounded button corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-grow: 1; /* Make buttons fill available space */
+}
+
+/* Cancel Button */
+.modal-close {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+    .modal-close:hover {
+        background-color: #e0e0e0;
+    }
+
+/* Next Button */
+.modal-next {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+    .modal-next:hover {
+        background-color: #0056b3;
+    }
+
+/* Donation Amount Options */
+.amount-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px; /* Space between each option */
+    margin-bottom: 20px; /* Space below the options */
+}
+
+.amount-option {
+    background-color: #f4f4f4; /* Light background color for options */
+    color: #555;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    width: 100px;
+    text-align: center;
+}
+
+    .amount-option:hover {
+        background-color: #eaeaea; /* Lighter on hover */
+    }
+
+    .amount-option.selected {
+        border-color: #007BFF; /* Blue border for the selected option */
+        background-color: #cce5ff; /* Light blue background for the selected option */
+    }
+
+/* Keyframe Animation for Modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
