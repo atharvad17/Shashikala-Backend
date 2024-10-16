@@ -13,7 +13,9 @@
     <PackageJsonDependenciesStripeStripeJs Condition="$(PackageJsonDependenciesStripeStripeJs) == ''">^4.5.0</PackageJsonDependenciesStripeStripeJs>
     <PackageJsonDependenciesBodyParser Condition="$(PackageJsonDependenciesBodyParser) == ''">^1.20.3</PackageJsonDependenciesBodyParser>
     <PackageJsonDependenciesCors Condition="$(PackageJsonDependenciesCors) == ''">^2.8.5</PackageJsonDependenciesCors>
+    <PackageJsonDependenciesDotenv Condition="$(PackageJsonDependenciesDotenv) == ''">^16.4.5</PackageJsonDependenciesDotenv>
     <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^4.21.0</PackageJsonDependenciesExpress>
+    <PackageJsonDependenciesNodemailer Condition="$(PackageJsonDependenciesNodemailer) == ''">^6.9.15</PackageJsonDependenciesNodemailer>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.3.1</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.3.1</PackageJsonDependenciesReactDom>
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^6.26.2</PackageJsonDependenciesReactRouterDom>
