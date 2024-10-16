@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const stripe = require('stripe')('sk_test_51Q1XcZP6Zzgt2hEQNVjlWtIWcbF4qwRXpMxzB9A37ZAqdoDFcmYSXjeYxS2PPgInj1I55BOCnNU7GSSuDG98Q13G00tzOBoPmV'); // Replace with your Stripe Secret Key
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Using env variable for the key
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer'); // Add nodemailer for email notifications
+const nodemailer = require('nodemailer');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://shashikala-foundation.netlify.app' // Replace with your actual Netlify URL
+}));
 app.use(bodyParser.json());
 
 app.post('/create-payment-intent', async (req, res) => {
@@ -22,13 +25,13 @@ app.post('/create-payment-intent', async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'your-email@gmail.com', // Replace with your email
-                pass: 'your-email-password',  // Replace with your email password
+                user: process.env.EMAIL_USER, // Your email from .env
+                pass: process.env.EMAIL_PASS, // Your email password from .env
             },
         });
 
         const mailOptions = {
-            from: 'your-email@gmail.com',
+            from: process.env.EMAIL_USER,
             to: email,
             subject: 'Payment Confirmation',
             text: `Thank you for your payment of $${amount / 100}.`,
