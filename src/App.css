@@ -32,7 +32,7 @@ html, body {
 .logo {
     width: 150px;
     height: 80px;
-    background-image: url('./Images/shashikalaLogo.jpg'); /* Path to your image */
+    background-image: url('./Images/shashikalaFoundationLogo.jpg'); /* Path to your image */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

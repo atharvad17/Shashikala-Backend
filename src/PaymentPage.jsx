@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -5,7 +6,6 @@ import './PaymentPage.css'; // Importing the external CSS file
 import { useLocation } from 'react-router-dom';
 import Footer from './Footer';
 
-// Initialize Stripe
 const stripePromise = loadStripe('pk_test_51Q1XcZP6Zzgt2hEQ5m35c1OTyPcDXFPGaO8VismRhL4mwsvmxnwNYMPPmf6VucVhD8eiA3U9iGNT1bLKxeHrrKvf0072xT6uwG');
 
 const Modal = ({ isOpen, onClose, message }) => {
@@ -21,13 +21,25 @@ const Modal = ({ isOpen, onClose, message }) => {
     );
 };
 
-const PaymentForm = ({ amount, initialEmail, title, description }) => {
+const PaymentForm = ({ amount, initialEmail, initialDetails, title, description, isDonation }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(initialEmail || '');
+    const [fullName, setFullName] = useState(
+        `${initialDetails.firstName || ''} ${initialDetails.middleName || ''} ${initialDetails.lastName || ''}`.trim()
+    );
+    {/*const [firstName, setFirstName] = useState(initialDetails.firstName || '');
+    const [middleName, setMiddleName] = useState(initialDetails.middleName || '');
+    const [lastName, setLastName] = useState(initialDetails.lastName || ''); */}
+    const [address1, setAddress1] = useState(initialDetails.address1 || '');
+    const [address2, setAddress2] = useState(initialDetails.address2 || '');
+    const [city, setCity] = useState(initialDetails.city || '');
+    const [state, setState] = useState(initialDetails.state || '');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+
+    //const fullName = `${firstName} ${middleName} ${lastName}`.trim(); // Combine first and last name
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,8 +50,12 @@ const PaymentForm = ({ amount, initialEmail, title, description }) => {
         const cardElement = elements.getElement(CardElement);
         const amountInCents = amount * 100;
 
+        {/*  */ }
+
+        {/* http://localhost:3001/create-payment-intent */ }
+
         try {
-            const response = await fetch('https://shashikala-backend-v1.onrender.com/create-payment-intent', {
+            const response = await fetch('https://shashikala-backend-v1.onrender.com/create-payment-intent  ', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,29 +94,76 @@ const PaymentForm = ({ amount, initialEmail, title, description }) => {
         }
     };
 
-    const handleModalClose = () => {
-        setIsModalOpen(false);
-    };
-
     return (
         <>
             <div className="payment-form-container">
-                {/* Title and Description based on event or donation */}
                 <h2 className="payment-title">{title}</h2>
                 <p className="payment-description">{description}</p>
 
                 <form onSubmit={handleSubmit} className="payment-form">
+                    {/* Name fields */}
+                    <div className="input-group">
+                        <label>Name on Card</label>
+                        <input
+                            type="text"
+                            placeholder="Name on Card"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            required={isDonation} // Required if it's a donation
+                        />
+                    </div>
+
+                    {/* Address fields */}
+                    <div className="input-group">
+                        <label>Address</label>
+                        <input
+                            type="text"
+                            placeholder="Address 1"
+                            value={address1}
+                            onChange={(e) => setAddress1(e.target.value)}
+                            required={isDonation} // Required if it's a donation
+                        />
+                        <input
+                            type="text"
+                            placeholder="Address 2"
+                            value={address2}
+                            onChange={(e) => setAddress2(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>City</label>
+                        <input
+                            type="text"
+                            placeholder="City"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required={isDonation} // Required if it's a donation
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>State</label>
+                        <input
+                            type="text"
+                            placeholder="State"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            required={isDonation} // Required if it's a donation
+                        />
+                    </div>
+
+                    {/* Email field */}
                     <div className="input-group">
                         <label>Email</label>
                         <input
                             type="email"
                             placeholder="Email address"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)} // Allow user to change prepopulated email
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
 
+                    {/* Card payment */}
                     <div className="input-group card-input-group">
                         <label>Card number</label>
                         <CardElement className="card-input" />
@@ -111,8 +174,7 @@ const PaymentForm = ({ amount, initialEmail, title, description }) => {
                     </button>
                 </form>
 
-                {/* Modal for showing transaction result */}
-                <Modal isOpen={isModalOpen} onClose={handleModalClose} message={modalMessage} />
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={modalMessage} />
             </div>
             <Footer />
         </>
@@ -123,6 +185,13 @@ const PaymentPage = () => {
     const location = useLocation();
     const paymentAmount = location.state?.paymentAmount || 0;
     const email = location.state?.email || '';
+    const firstName = location.state?.firstName || '';
+    const middleName = location.state?.firstName || '';
+    const lastName = location.state?.lastName || '';
+    const address1 = location.state?.address1 || '';
+    const address2 = location.state?.address2 || '';
+    const city = location.state?.city || '';
+    const state = location.state?.state || '';
 
     // Extracting event details from location.state directly
     const eventName = location.state?.eventName || '';
@@ -132,7 +201,16 @@ const PaymentPage = () => {
 
     const isEvent = !!eventName; // Check if it's an event or a donation
 
-    // Dynamic title and description based on event or donation
+    const initialDetails = {
+        firstName,
+        middleName,
+        lastName,
+        address1,
+        address2,
+        city,
+        state,
+    };
+
     const title = isEvent ? `Register for ${eventName}` : 'Donate to Our Organization';
     const description = isEvent
         ? `Date: ${eventDate} | Venue: ${eventVenue} | Time: ${eventTime}`
@@ -140,7 +218,7 @@ const PaymentPage = () => {
 
     return (
         <Elements stripe={stripePromise}>
-            <PaymentForm amount={paymentAmount} initialEmail={email} title={title} description={description} />
+            <PaymentForm amount={paymentAmount} initialEmail={email} initialDetails={initialDetails} title={title} description={description} isDonation={!isEvent} />
         </Elements>
     );
 };

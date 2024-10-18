@@ -8,6 +8,12 @@ import './App.css';
 import logoImage from './Images/shashikalaLogo.jpg';
 import AboutPage from './AboutPage.jsx';
 import Footer from './Footer.jsx';
+import VisionPage from './VisionPage.jsx';
+import MissionPage from './MissionPage.jsx';
+import TeamPage from './TeamPage.jsx';
+import SponsorsPage from './SponsorsPage.jsx';
+import EventCatalog from './EventCatalog.jsx';
+
 
 
 // Slider Images
@@ -89,8 +95,8 @@ function App() {
                 <Link to="/" className="logo"></Link>  {/* Navigates to home */}
                 <nav className="nav">
                     {/* <a href="#shop" className="navLink">Shop</a> */}
-                    <Link to="/event" className="navLink">Events</Link>
-                    <Link to="/about" className="navLink">About</Link>
+                    <Link to="/eventCard" className="navLink">Events</Link>
+                    <Link to="/vision" className="navLink">About</Link>
                     {/* <a href="#artists" className="navLink">Artists</a>
                     <Link to="/login" className="navButton">Login</Link>
                     <Link to="/signup" className="navButtonSignUp">Sign Up</Link> */}
@@ -214,6 +220,15 @@ const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
                 <Route path="/about" element={<AboutPage />} />
 
                 <Route path="/" element={<App />} />  {/* Home route */}
+
+                <Route path="/vision" element={<VisionPage />} />
+                <Route path="/mission" element={<MissionPage />} />
+                <Route path="/team" element={<TeamPage />} />
+                <Route path="/sponsors" element={<SponsorsPage />} />
+
+                <Route path="/eventCard" element={<EventCatalog />} />
+
+                <Route path="/event/:id" element={<EventPage />} />
             </Routes>
         </>
     );

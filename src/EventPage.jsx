@@ -1,79 +1,93 @@
 import React from 'react';
+import { useParams, Link } from 'react-router-dom';
 import './EventPage.css';
-import { Link } from 'react-router-dom'; // Import Link
 import Footer from './Footer.jsx';
+import image1 from './Images/homeScreen1.jpg'; // Import the image
+
+const eventsData = [
+    {
+        id: 1,
+        name: "Diwali Art Festival 2024",
+        date: "October 25, 2024",
+        location: "Atlanta, GA",
+        time: "7:00 PM EST",
+        price: 20,
+        description: "Celebrate Diwali with art exhibitions and workshops. Experience the fusion of culture and creativity.",
+        inclusions: ["Snacks", "Workshop Materials"],
+        artist: {
+            name: "Main Artist Name",
+            bio: "Brief description of the artist."
+        },
+        image: image1, // Use the imported image
+    },
+];
 
 const EventPage = () => {
-    const paymentAmount = 20; // Fixed payment amount for the event
-    const eventName = "Diwali Art Festival 2024";
-    const eventDate = "October 25, 2024";
-    const eventVenue = "Atlanta, GA";
-    const eventTime = "7:00 PM EST";
+    const { id } = useParams();
+    const event = eventsData.find((e) => e.id === parseInt(id));
+
+    if (!event) {
+        return <h1>Event not found</h1>;
+    }
 
     return (
         <>
             <div className="container">
                 <div className="event-box">
                     <div className="event-page">
-                        {/* Left Section: Event Details */}
                         <div className="event-details">
-                            <h1>{eventName}</h1>
-                            <p>Description of the event. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <h1>{event.name}</h1>
+                            <p>{event.description}</p>
 
-                            {/* Event Info */}
                             <div className="event-info">
                                 <h2>Event Details</h2>
                                 <ul>
-                                    <li>Event Name: {eventName}</li>
-                                    <li>Location: {eventVenue}</li>
-                                    <li>Date: {eventDate}</li>
-                                    <li>Time: {eventTime}</li>
+                                    <li>Location: {event.location}</li>
+                                    <li>Date: {event.date}</li>
+                                    <li>Time: {event.time}</li>
                                 </ul>
                             </div>
 
-                            {/* Event Inclusions */}
                             <div className="event-info">
                                 <h2>Inclusions</h2>
                                 <ul>
-                                    <li>Snacks</li>
-                                    <li>Workshop Materials</li>
+                                    {event.inclusions.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
                                 </ul>
                             </div>
 
-                            {/* Price */}
                             <div className="event-info">
                                 <h2>Entry Fee</h2>
                                 <ul>
-                                    <li>${paymentAmount}</li> {/* Display payment amount */}
+                                    <li>${event.price}</li>
                                 </ul>
                             </div>
 
-                            {/* Pass payment amount and event details to RegistrationForm */}
                             <Link
                                 to="/register"
                                 state={{
-                                    paymentAmount,
-                                    eventName,
-                                    eventDate,
-                                    eventVenue,
-                                    eventTime
+                                    paymentAmount: event.price,
+                                    eventName: event.name,
+                                    eventDate: event.date,
+                                    eventVenue: event.location,
+                                    eventTime: event.time
                                 }}
-                                className="register-button">
+                                className="register-button"
+                            >
                                 Register
                             </Link>
                         </div>
 
-                        {/* Right Section: Artist Info */}
                         <div className="artist-info">
-                            <div className="eventImage"></div>
-                            <h3>Main Artist Name</h3>
-                            <p>Brief description of the artist.</p>
+                            <div className="eventImage" style={{ backgroundImage: `url(${event.image})` }}></div>
+                            <h3>{event.artist.name}</h3>
+                            <p>{event.artist.bio}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Place the Footer outside the container so it spans the entire width */}
             <Footer />
         </>
     );

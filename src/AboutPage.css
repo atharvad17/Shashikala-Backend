@@ -15,8 +15,8 @@ body {
 
 .about-container {
     max-width: 1000px;
-    margin: 50px auto 0 auto; /* 50px top margin to create a gap */
-    padding: 4rem;
+    margin: 20px auto 0 auto; /* 20px top margin to create a gap */
+    padding: 10rem;
     background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
@@ -70,3 +70,30 @@ body {
     .footer-links a:hover {
         text-decoration: underline;
     }
+
+
+.navigation-links {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.links-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+}
+
+    .links-container a {
+        font-size: 1.2rem;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        background-color: #ff5722;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+        .links-container a:hover {
+            background-color: #e64a19;
+            color: white;
+        }
