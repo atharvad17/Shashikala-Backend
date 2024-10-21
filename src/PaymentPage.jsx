@@ -50,12 +50,10 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
         const cardElement = elements.getElement(CardElement);
         const amountInCents = amount * 100;
 
-        {/*  */ }
-
         {/* http://localhost:3001/create-payment-intent */ }
 
         try {
-            const response = await fetch('https://shashikala-backend-v1.onrender.com/create-payment-intent  ', {
+            const response = await fetch('https://shashikala-backend-v1.onrender.com/create-payment-intent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

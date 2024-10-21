@@ -52,28 +52,67 @@ html, body {
 .navLink {
     color: white;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 20px;
 }
 
+/* General Button Styles */
 .navButton, .navButtonSignUp {
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 50px; /* Rounded pill shape */
     color: white;
     text-decoration: none;
     cursor: pointer;
+    font-size: 1rem; /* Slightly larger text */
+    letter-spacing: 0.5px; /* Add some spacing between letters */
+    font-weight: 600;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: inline-block;
+    position: relative;
+    overflow: hidden; /* To ensure the background effects stay within bounds */
 }
 
+/* Button Backgrounds */
 .navButton {
-    background-color: #666;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Attractive gradient */
 }
 
 .navButtonSignUp {
-    background-color: #007BFF;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient with bold colors */
 }
 
+    /* Hover Effect */
     .navButton:hover, .navButtonSignUp:hover {
-        background-color: #0056b3;
+        transform: translateY(-4px); /* Slight lift on hover */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        filter: brightness(1.1); /* Slightly brighten the button on hover */
     }
+
+    /* Hover Effect with Shine */
+    .navButton::before, .navButtonSignUp::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300%;
+        height: 300%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%);
+        transition: opacity 0.5s, transform 0.5s;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    .navButton:hover::before, .navButtonSignUp:hover::before {
+        transform: translate(-50%, -50%) scale(1); /* Grow radial gradient */
+        opacity: 1;
+    }
+
+    /* Focus Styles */
+    .navButton:focus, .navButtonSignUp:focus {
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6), 0 0 0 6px rgba(0, 0, 0, 0.1); /* Custom focus ring */
+    }
+
 
 /* Hero section styles */
 .hero {
@@ -323,11 +362,20 @@ html, body {
             outline: none;
         }
 
+/* Cross Icon */
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #333;
+}
+
 /* Modal Buttons Container */
 .modal-buttons {
     display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Add space between the buttons */
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Individual Button Styling */
@@ -355,11 +403,18 @@ html, body {
 .modal-next {
     background-color: #007BFF;
     color: #fff;
+    padding: 0.8rem 1.6rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
     .modal-next:hover {
         background-color: #0056b3;
     }
+
 
 /* Donation Amount Options */
 .amount-options {
@@ -404,3 +459,39 @@ html, body {
     }
 }
 
+/* Who We Are Section */
+.who-we-are {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    text-align: justify;
+    color: #333;
+}
+
+    .who-we-are h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+.who-we-are-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.text-column {
+    flex: 1;
+    font-size: 1.625rem; /* Set font size in rem for scaling */
+    margin-right: 20%; /* Space between text and image as a percentage of the parent width */
+}
+
+.image-column {
+    flex: 1;
+}
+
+.about-image {
+    width: 100%; /* Use 100% to make it responsive */
+    max-width: 500px; /* Set a maximum width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: add rounded corners */
+}

@@ -13,7 +13,9 @@ import MissionPage from './MissionPage.jsx';
 import TeamPage from './TeamPage.jsx';
 import SponsorsPage from './SponsorsPage.jsx';
 import EventCatalog from './EventCatalog.jsx';
-
+import { FaTimes } from 'react-icons/fa'; // Import the close icon from react-icons
+import { FaHeart } from 'react-icons/fa';
+import image1 from './Images/homeScreen1.jpg'; // Import the image
 
 
 // Slider Images
@@ -29,10 +31,10 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
     const [selectedTemplate, setSelectedTemplate] = useState('');
 
     const handleDonate = () => {
-        const amountToDonate = selectedTemplate || donationAmount; // Use selected template if exists
+        const amountToDonate = selectedTemplate || donationAmount;
         onDonate(amountToDonate);
-        setDonationAmount(''); // Clear custom input field after donation
-        setSelectedTemplate(''); // Clear selected template after donation
+        setDonationAmount('');
+        setSelectedTemplate('');
         onClose();
     };
 
@@ -41,16 +43,18 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
     return (
         <div className="modal-backdrop">
             <div className="modal">
+                <div className="close-icon" onClick={onClose}>
+                    <FaTimes size={20} />
+                </div>
                 <h2>Enter Donation Amount</h2>
-                {/* Template Donation Options */}
                 <div className="amount-options">
-                    {['10', '20', '50', '100'].map((value) => (
+                    {['20', '50', '100', '200'].map((value) => (
                         <div
                             key={value}
                             className={`amount-option ${selectedTemplate === value ? 'selected' : ''}`}
                             onClick={() => {
                                 setSelectedTemplate(value);
-                                setDonationAmount(''); // Clear custom amount if template is selected
+                                setDonationAmount('');
                             }}
                         >
                             ${value}
@@ -58,19 +62,17 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
                     ))}
                 </div>
 
-                {/* Custom Donation Input */}
                 <input
                     type="number"
                     placeholder="Enter custom amount"
                     value={donationAmount}
                     onChange={(e) => {
                         setDonationAmount(e.target.value);
-                        setSelectedTemplate(''); // Clear template if custom amount is entered
+                        setSelectedTemplate('');
                     }}
                 />
 
                 <div className="modal-buttons">
-                    <button className="modal-close" onClick={onClose}>Cancel</button>
                     <button className="modal-next" onClick={handleDonate}>Next</button>
                 </div>
             </div>
@@ -92,19 +94,19 @@ function App() {
     return (
         <Router>
             <header className="header">
-                <Link to="/" className="logo"></Link>  {/* Navigates to home */}
+                <Link to="/" className="logo"></Link>
                 <nav className="nav">
-                    {/* <a href="#shop" className="navLink">Shop</a> */}
+                    <Link to="#shop" className="navLink">Shop</Link>
                     <Link to="/eventCard" className="navLink">Events</Link>
                     <Link to="/vision" className="navLink">About</Link>
-                    {/* <a href="#artists" className="navLink">Artists</a>
-                    <Link to="/login" className="navButton">Login</Link>
-                    <Link to="/signup" className="navButtonSignUp">Sign Up</Link> */}
-                    <button className="navButton" onClick={handleOpenModal}>Donate</button>
+                    <Link to="#artist" className="navLink">Artists</Link>
+                    <button className="navButton" onClick={handleOpenModal}>
+                        <FaHeart size={16} style={{ marginRight: '8px' }} />
+                        Donate Now
+                    </button>
                 </nav>
             </header>
 
-            {/* Modal for donation */}
             <Routes>
                 <Route path="/*" element={<AppRoutes isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />} />
             </Routes>
@@ -112,8 +114,7 @@ function App() {
     );
 }
 
-// Separate component for routes and donation handling
-const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
+const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
     const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -121,15 +122,13 @@ const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
         navigate('/payment', { state: { paymentAmount: amount } });
     };
 
-    // Automatically switch images every 3 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 3000); // Change image every 3 seconds
-        return () => clearInterval(interval); // Cleanup interval on component unmount
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
-    // Function to change image based on indicator click
     const handleIndicatorClick = (index) => {
         setCurrentIndex(index);
     };
@@ -145,8 +144,8 @@ const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
                             <h1>Handcrafted Art, Heartfelt Stories</h1>
                             <p>Your one-stop solution for managing tasks efficiently.</p>
                             <div className="buttonContainer">
-                                <Link to="/signup" className="ctaButton">Get Started</Link>
-                                <Link to="/about" className="learnMoreButton">Learn More</Link>
+                                {/**<Link to="/signup" className="ctaButton">Get Started</Link>
+                                <Link to="/about" className="learnMoreButton">Learn More</Link> */}
                             </div>
                             <div className="Indicators">
                                 {images.map((_, index) => (
@@ -159,10 +158,31 @@ const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
                             </div>
                         </section>
 
-                        {/* Image Slider Below Hero */}
-                        <div className="Slider" style={{ display: 'none' }}>
-                            {/* The slider is now part of the hero background */}
-                        </div>
+                        {/* Who We Are Section */}
+                        <section className="who-we-are">
+                            <div className="who-we-are-content">
+                                <div className="text-column">
+                                    <h1>Who We Are</h1>
+                                <p>
+                                    Shashikala Foundation is a non-profit organization dedicated to spreading joy through visual arts.
+                                    We aim to empower underprivileged children by providing them with art education, guidance, and mentorship.
+                                    Our goal is to promote creativity and bring happiness to the community by celebrating cultural diversity through art.
+                                </p>
+                                <p>
+                                    Our mission is to support and nurture young talents, helping them develop their artistic skills while fostering a
+                                    sense of belonging and appreciation for art in society. Join us in creating a brighter future for our next generation
+                                    of artists.
+                                    </p> <br></br>
+                                    <button className="navButton" onClick={handleOpenModal}>
+                <FaHeart size={16} style={{ marginRight: '8px' }} />
+                Donate Now
+            </button>
+                                </div>
+                                <div className="image-column">
+                                    <img src={image1} alt="About Us" className="about-image" />
+                                </div>
+                            </div>
+                        </section>
 
                         {/* Explore Artwork Section */}
                         <section className="explore_artwork">
@@ -198,36 +218,22 @@ const AppRoutes = ({ isModalOpen, handleCloseModal }) => {
                             </div>
                         </section>
 
-                        {/* Footer */}
                         <Footer />
                     </>
                 } />
 
-                {/* Signup Page */}
                 <Route path="/signup" element={<RegistrationForm />} />
-
-                {/* Login Page */}
                 <Route path="/login" element={<LoginForm />} />
-
-                {/* Payment Page Route */}
                 <Route path="/payment" element={<PaymentPage />} />
-
-                {/* Event Page Route */}
                 <Route path="/event" element={<EventPage />} />
-
                 <Route path="/register" element={<RegistrationForm />} />
-
                 <Route path="/about" element={<AboutPage />} />
-
-                <Route path="/" element={<App />} />  {/* Home route */}
-
+                <Route path="/" element={<App />} />
                 <Route path="/vision" element={<VisionPage />} />
                 <Route path="/mission" element={<MissionPage />} />
                 <Route path="/team" element={<TeamPage />} />
                 <Route path="/sponsors" element={<SponsorsPage />} />
-
                 <Route path="/eventCard" element={<EventCatalog />} />
-
                 <Route path="/event/:id" element={<EventPage />} />
             </Routes>
         </>
