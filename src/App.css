@@ -495,3 +495,13 @@ html, body {
     height: auto; /* Maintain aspect ratio */
     border-radius: 8px; /* Optional: add rounded corners */
 }
+
+.payment-toggle {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+    .payment-toggle label {
+        cursor: pointer;
+    }

@@ -29,12 +29,14 @@ const images = [
 const DonateModal = ({ isOpen, onClose, onDonate }) => {
     const [donationAmount, setDonationAmount] = useState('');
     const [selectedTemplate, setSelectedTemplate] = useState('');
+    const [isMonthly, setIsMonthly] = useState(false); // Toggle state
 
     const handleDonate = () => {
         const amountToDonate = selectedTemplate || donationAmount;
         onDonate(amountToDonate);
         setDonationAmount('');
         setSelectedTemplate('');
+        setIsMonthly(false); // Reset toggle state  
         onClose();
     };
 
@@ -47,6 +49,27 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
                     <FaTimes size={20} />
                 </div>
                 <h2>Enter Donation Amount</h2>
+
+                {/* Payment Type Toggle */}
+                <div className="payment-toggle">
+                    <label>
+                        <input
+                            type="radio"
+                            checked={!isMonthly}
+                            onChange={() => setIsMonthly(false)}
+                        />
+                        One-Time Payment
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            checked={isMonthly}
+                            onChange={() => setIsMonthly(true)}
+                        />
+                        Monthly Donation
+                    </label>
+                </div>
+
                 <div className="amount-options">
                     {['20', '50', '100', '200'].map((value) => (
                         <div

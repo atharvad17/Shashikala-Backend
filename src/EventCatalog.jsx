@@ -19,7 +19,7 @@ const EventCatalog = () => {
             name: "Thanksgiving Art Festival 2024",
             date: "November 5, 2024",
             location: "Atlanta, GA",
-            price: 40,
+            price: 0,
             image: image1, // Use the imported image
         },
         {

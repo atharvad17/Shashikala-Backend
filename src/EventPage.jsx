@@ -20,6 +20,22 @@ const eventsData = [
         },
         image: image1, // Use the imported image
     },
+    {
+        id: 2,
+        name: "Thanksgiving Art Festival 2024",
+        date: "November 5, 2024",
+        location: "Atlanta, GA",
+        price: 40,
+        image: image1, // Use the imported image      
+        time: "7:00 PM EST",
+        price: 0,
+        description: "Celebrate Thanksgiving with art exhibitions and workshops. Experience the fusion of culture and creativity.",
+        inclusions: ["Snacks", "Workshop Materials"],
+        artist: {
+            name: "Main Artist Name",
+            bio: "Brief description of the artist."
+        },
+    },
 ];
 
 const EventPage = () => {
