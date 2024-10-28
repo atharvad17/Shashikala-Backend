@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import './LoginForm.css'; // Importing the CSS file
+import './ArtistLoginForm.css'; // Importing the CSS file
+import Footer from './Footer';
 
-const LoginForm = () => {
+
+const ArtistLoginForm = () => {
     const [loginData, setLoginData] = useState({
         email: '',
         password: '',
@@ -21,6 +23,7 @@ const LoginForm = () => {
     };
 
     return (
+        <>
         <div className="login-form-container">
             <div className="login-form-card">
                 <h2 className="login-form-title">Login</h2>
@@ -50,8 +53,10 @@ const LoginForm = () => {
                     <button type="submit" className="login-submit-button">Login</button>
                 </form>
             </div>
-        </div>
+            </div>
+        <Footer />
+        </>
     );
 };
 
-export default LoginForm;
+export default ArtistLoginForm;

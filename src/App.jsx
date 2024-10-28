@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import RegistrationForm from './RegistrationForm.jsx';
-import LoginForm from './LoginForm.jsx';
+import EventRegistrationForm from './EventRegistrationForm.jsx';
+import LoginForm from './ArtistLoginForm.jsx';
 import PaymentPage from './PaymentPage.jsx';
 import EventPage from './EventPage.jsx';
 import './App.css';
@@ -16,6 +16,7 @@ import EventCatalog from './EventCatalog.jsx';
 import { FaTimes } from 'react-icons/fa'; // Import the close icon from react-icons
 import { FaHeart } from 'react-icons/fa';
 import image1 from './Images/homeScreen1.jpg'; // Import the image
+import ArtistHomePage from './ArtistHomePage.jsx';
 
 
 // Slider Images
@@ -122,7 +123,7 @@ function App() {
                     <Link to="#shop" className="navLink">Shop</Link>
                     <Link to="/eventCard" className="navLink">Events</Link>
                     <Link to="/vision" className="navLink">About</Link>
-                    <Link to="#artist" className="navLink">Artists</Link>
+                    <Link to="/artisthome" className="navLink">Artists</Link>
                     <button className="navButton" onClick={handleOpenModal}>
                         <FaHeart size={16} style={{ marginRight: '8px' }} />
                         Donate Now
@@ -245,11 +246,11 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                     </>
                 } />
 
-                <Route path="/signup" element={<RegistrationForm />} />
+                <Route path="/signup" element={<EventRegistrationForm />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/event" element={<EventPage />} />
-                <Route path="/register" element={<RegistrationForm />} />
+                <Route path="/register" element={<EventRegistrationForm />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/" element={<App />} />
                 <Route path="/vision" element={<VisionPage />} />
@@ -258,6 +259,7 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/sponsors" element={<SponsorsPage />} />
                 <Route path="/eventCard" element={<EventCatalog />} />
                 <Route path="/event/:id" element={<EventPage />} />
+                <Route path="/artisthome" element={<ArtistHomePage />} />
             </Routes>
         </>
     );

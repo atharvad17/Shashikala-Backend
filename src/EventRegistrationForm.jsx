@@ -1,9 +1,9 @@
 ﻿import React, { useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import './RegistrationForm.css'; // Importing the CSS file
+import './EventRegistrationForm.css'; // Importing the CSS file
 import Footer from './Footer.jsx';
 
-const RegistrationForm = () => {
+const EventEventRegistrationForm = () => {
     const location = useLocation();
     const navigate = useNavigate(); // For navigation after registration/payment
 
@@ -261,4 +261,4 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+export default EventEventRegistrationForm;
