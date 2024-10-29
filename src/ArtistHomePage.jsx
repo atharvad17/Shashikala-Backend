@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './ArtistHomePage.css';
-import templateImage from './Images/homeScreen1.jpg'; // Replace with your own image path
+import templateImage from './Images/homeScreen1.jpg'; // Replace with your image path
 import Footer from './Footer';
 
 const ArtistHomePage = () => {
-    const [isLogin, setIsLogin] = useState(true); // State to toggle between Login and Sign Up
+    const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
 
     return (
         <>
@@ -15,18 +16,8 @@ const ArtistHomePage = () => {
                         <h1>Welcome to the Artist Platform</h1>
                         <p>Showcase your talent, connect with fans, and manage your art catalog in one place.</p>
                         <div className="text-switch">
-                            <span
-                                onClick={() => setIsLogin(true)}
-                                className={isLogin ? 'active' : ''}
-                            >
-                                Login
-                            </span>
-                            <span
-                                onClick={() => setIsLogin(false)}
-                                className={!isLogin ? 'active' : ''}
-                            >
-                                Sign Up
-                            </span>
+                            <span onClick={() => setIsLogin(true)} className={isLogin ? 'active' : ''}>Login</span>
+                            <span onClick={() => setIsLogin(false)} className={!isLogin ? 'active' : ''}>Sign Up</span>
                         </div>
                         <div className="form-container">
                             {isLogin ? <LoginForm /> : <SignUpForm />}
@@ -34,27 +25,37 @@ const ArtistHomePage = () => {
                     </div>
                 </div>
             </div>
-            <Footer /> {/* Keep your footer here */}
+            <Footer /> {/* Footer remains at the bottom */}
         </>
     );
 };
 
-// Dummy Login Form Component
-const LoginForm = () => (
-    <form className="form">
-        <div className="form-group">
-            <label>Email:</label>
-            <input type="email" required />
-        </div>
-        <div className="form-group">
-            <label>Password:</label>
-            <input type="password" required />
-        </div>
-        <button type="submit" className="form-submit-button">Login</button>
-    </form>
-);
+// LoginForm Component
+const LoginForm = () => {
+    const navigate = useNavigate(); // Initialize navigate function
 
-// Dummy Sign Up Form Component
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Login form submitted');
+        navigate('/dashboard'); // Navigate to dashboard upon submission
+    };
+
+    return (
+        <form className="form" onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label>Email:</label>
+                <input type="email" required />
+            </div>
+            <div className="form-group">
+                <label>Password:</label>
+                <input type="password" required />
+            </div>
+            <button type="submit" className="form-submit-button">Login</button>
+        </form>
+    );
+};
+
+// SignUpForm Component
 const SignUpForm = () => (
     <form className="form">
         <div className="form-group">

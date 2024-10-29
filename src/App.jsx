@@ -17,6 +17,7 @@ import { FaTimes } from 'react-icons/fa'; // Import the close icon from react-ic
 import { FaHeart } from 'react-icons/fa';
 import image1 from './Images/homeScreen1.jpg'; // Import the image
 import ArtistHomePage from './ArtistHomePage.jsx';
+import ArtistDashboard from './ArtistDashboard.jsx';
 
 
 // Slider Images
@@ -260,6 +261,7 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/eventCard" element={<EventCatalog />} />
                 <Route path="/event/:id" element={<EventPage />} />
                 <Route path="/artisthome" element={<ArtistHomePage />} />
+                <Route path="/dashboard" element={<ArtistDashboard />} />
             </Routes>
         </>
     );
