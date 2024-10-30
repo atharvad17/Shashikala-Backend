@@ -59,20 +59,24 @@ const LoginForm = () => {
 const SignUpForm = () => (
     <form className="form">
         <div className="form-group">
-            <label>First Name:</label>
+            <label>First Name</label>
             <input type="text" required />
         </div>
         <div className="form-group">
-            <label>Last Name:</label>
+            <label>Last Name</label>
             <input type="text" required />
         </div>
         <div className="form-group">
-            <label>Email:</label>
+            <label>Email</label>
             <input type="email" required />
         </div>
         <div className="form-group">
-            <label>Password:</label>
+            <label>Password</label>
             <input type="password" required />
+        </div>
+        <div className="form-group">
+            <label>Phone</label>
+            <input type="phone" required />
         </div>
         <button type="submit" className="form-submit-button">Sign Up</button>
     </form>

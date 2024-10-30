@@ -1,13 +1,23 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    box-sizing: border-box;
+}
+
 /* General Dashboard Styles */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 90%;
+    min-height: 100vh; /* Full viewport height */
     margin: auto;
     font-family: Arial, sans-serif;
     color: #333;
+    box-sizing: border-box;
 }
 
 /* Profile Section */
@@ -92,8 +102,8 @@
     margin-bottom: 50px; /* Add margin at the bottom to prevent overlap with the save button */
 }
 
-/* Artwork Section */
-.artwork-section {
+/* Artwork and Analytics Sections */
+.artwork-section, .analytics-section {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
@@ -130,7 +140,6 @@
     margin-bottom: 10px; /* Add space below the price */
 }
 
-
 .learn-more-button {
     padding: 6px 12px;
     background-color: #007bff;
@@ -145,7 +154,6 @@
     transform: translateX(-50%); /* Adjust to center */
     margin-top: 20px; /* Add space between button and price */
 }
-
 
     .learn-more-button:hover {
         background-color: #0056b3;
@@ -296,3 +304,20 @@ input, textarea {
     border-radius: 4px; /* Add some rounding to the corners */
     object-fit: cover; /* Maintain aspect ratio */
 }
+
+
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+    .sales-table th, .sales-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sales-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
