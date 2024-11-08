@@ -1,5 +1,6 @@
 // ArtistDashboard.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ArtistDashboard.css';
 import profileImage from './Images/homeScreen1.jpg';
 import ArtworkGallery from './ArtworkGallery';
@@ -12,6 +13,11 @@ const ArtistDashboard = () => {
     const [isEditingArtwork, setIsEditingArtwork] = useState(false);
     const [aboutText, setAboutText] = useState("Hello, I'm [Artist's Name]! I'm a visual artist specializing in contemporary artwork. Here, I showcase some of my work for sale. Take a look and reach out if you’re interested!");
     const [profileImg, setProfileImg] = useState(profileImage);
+    const [artworks, setArtworks] = useState([
+        { id: 1, type: 'Clothing', title: 'Shirt Design', description: 'Unique shirt artwork', price: 50, imageUrl: 'https://via.placeholder.com/200' },
+        { id: 2, type: 'Digital Picture', title: 'Digital Landscape', description: 'High-quality digital landscape', price: 120, imageUrl: 'https://via.placeholder.com/200' },
+        { id: 3, type: 'Hard Copy', title: 'Printed Portrait', description: 'Framed portrait print', price: 200, imageUrl: 'https://via.placeholder.com/200' },
+    ]);
 
     // Sample data for sold artworks
     const [soldArtworks] = useState([
@@ -19,6 +25,8 @@ const ArtistDashboard = () => {
         { id: 2, itemName: 'Abstract Sculpture', quantity: 2, date: '2024-10-03', totalPrice: '$450' },
         { id: 3, itemName: 'Portrait Series', quantity: 1, date: '2024-10-07', totalPrice: '$350' },
     ]);
+
+    const navigate = useNavigate();
 
     const toggleEditingAbout = () => setIsEditingAbout(!isEditingAbout);
     const toggleEditingArtwork = () => setIsEditingArtwork(!isEditingArtwork);
@@ -34,10 +42,27 @@ const ArtistDashboard = () => {
         }
     };
 
-    const handleImageDelete = () => setProfileImg(null);
+    const handleImageDelete = () => setProfileImg(profileImage); // Reset to default image
 
-    const saveAboutSection = () => setIsEditingAbout(false);
-    const saveArtworkSection = () => setIsEditingArtwork(false);
+    const saveAboutSection = () => {
+        setIsEditingAbout(false);
+        console.log("About section saved:", { aboutText, profileImg });
+    };
+
+    const saveArtworkSection = () => {
+        setIsEditingArtwork(false);
+        console.log("Artwork section saved:", artworks);
+    };
+
+    const publishPublicPage = () => {
+        navigate('/artist-public', {
+            state: {
+                aboutText,
+                profileImg,
+                artworks,
+            },
+        });
+    };
 
     return (
         <>
@@ -50,7 +75,7 @@ const ArtistDashboard = () => {
                     </div>
                     <div className="profile-content">
                         <div className="profile-image-container">
-                            <img src={profileImg || profileImage} alt="Artist Profile" className="profile-image" />
+                            <img src={profileImg} alt="Artist Profile" className="profile-image" />
                             {isEditingAbout && (
                                 <div className="image-controls">
                                     <label className="upload-button">
@@ -72,9 +97,7 @@ const ArtistDashboard = () => {
                             <p>{aboutText}</p>
                         )}
                         {isEditingAbout && (
-                            <button className="save-button" onClick={saveAboutSection}>
-                                Save
-                            </button>
+                            <button className="save-button" onClick={saveAboutSection}>Save</button>
                         )}
                     </div>
                 </div>
@@ -86,7 +109,7 @@ const ArtistDashboard = () => {
                         <FaPen className="edit-icon" onClick={toggleEditingArtwork} />
                     </div>
                     <div className="artwork-gallery">
-                        <ArtworkGallery isEditing={isEditingArtwork} />
+                        <ArtworkGallery isEditing={isEditingArtwork} artworks={artworks} setArtworks={setArtworks} />
                         {isEditingArtwork && (
                             <button className="save-button artwork-save-button" onClick={saveArtworkSection}>
                                 Save
@@ -97,6 +120,10 @@ const ArtistDashboard = () => {
 
                 {/* Analytics Section */}
                 <SalesAnalytics soldArtworks={soldArtworks} />
+
+                <div className="publish-section">
+                    <button onClick={publishPublicPage} className="publish-button">Publish Now</button>
+                </div>
             </div>
             <Footer />
         </>

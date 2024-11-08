@@ -33,7 +33,11 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
 }
+
 
 .profile-content {
     display: flex;
@@ -103,7 +107,7 @@ html, body {
 }
 
 /* Artwork and Analytics Sections */
-.artwork-section, .analytics-section {
+.analytics-section {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
@@ -111,48 +115,59 @@ html, body {
     position: relative;
 }
 
+.artwork-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .artwork-gallery {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping to the next row */
-    gap: 20px; /* Space between cards */
+    flex-direction: column;
+    gap: 20px;
 }
-
 .artwork-card {
-    width: 200px; /* Fixed width for artwork cards */
-    height: auto; /* Change height to auto to accommodate content */
+    width: 200px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 10px 10px 50px; /* Added bottom padding for the button */
+    padding: 10px;
+    padding-bottom: 60px; /* Increased padding to avoid button overlap */
     text-align: center;
-    position: relative; /* Position relative for delete icon */
-    overflow: hidden; /* Prevent overflow */
-}
-
-.artwork-image {
-    width: 100%; /* Full width of card */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px;
-    border: 2px solid #ddd; /* Add border around the image */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .artwork-price {
     font-weight: bold;
-    margin-bottom: 10px; /* Add space below the price */
+    color: #333;
+    margin-top: 8px; /* Space between description and price */
+}
+
+.artwork-title, .artwork-price, .artwork-description {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.artwork-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 .learn-more-button {
-    padding: 6px 12px;
+    padding: 8px 12px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    position: absolute; /* Position absolutely within the card */
-    bottom: 10px; /* Position above the bottom */
-    left: 50%; /* Center the button horizontally */
-    transform: translateX(-50%); /* Adjust to center */
-    margin-top: 20px; /* Add space between button and price */
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
     .learn-more-button:hover {
@@ -160,22 +175,20 @@ html, body {
     }
 
 .add-artwork-card {
-    width: 200px; /* Same fixed width as artwork cards */
-    height: auto; /* Same fixed height */
-    border: 2px dashed #007bff; /* Dashed border for add card */
+    border: 2px dashed #007bff;
     border-radius: 8px;
-    padding: 20px;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer; /* Indicate clickable */
+    cursor: pointer;
     transition: background-color 0.3s;
+    padding: 30px;
+    gap: 8px;
 }
 
     .add-artwork-card:hover {
-        background-color: #f0f0f0; /* Light grey on hover */
+        background-color: #f0f0f0;
     }
 
 .delete-icon {
@@ -231,7 +244,7 @@ html, body {
     right: 20px;
 }
 
-/* Modal Styles */
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -242,18 +255,31 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it appears above other content */
+    z-index: 1000; /* Ensures it appears above other content */
 }
 
+/* Modal Content */
 .modal-content {
-    background-color: #fff;
+    background-color: #f7f9fc;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Set a fixed width for the modal */
-    position: relative; /* Position relative for close button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Set a fixed width */
+    max-height: 80vh; /* Set a max height */
+    overflow-y: auto; /* Allow scrolling within the modal */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Position for close button */
+    font-family: Arial, sans-serif;
 }
 
+.modal-body {
+    overflow-y: auto; /* Allow scrolling for the modal content */
+    flex-grow: 1;
+    padding-right: 10px; /* Add padding to avoid content touching the scrollbar */
+}
+
+/* Close Button */
 .close-modal {
     position: absolute;
     top: 10px;
@@ -267,6 +293,82 @@ html, body {
 
     .close-modal:hover {
         color: #c0392b; /* Darker red on hover */
+    }
+
+/* Modal Heading */
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Form Group */
+.modal-content label {
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input and Select Fields */
+.modal-content input[type="text"],
+.modal-content input[type="url"],
+.modal-content input[type="file"],
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccd5e0;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f0f3f9;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+    .modal-content input[type="text"]:focus,
+    .modal-content input[type="url"]:focus,
+    .modal-content input[type="file"]:focus,
+    .modal-content textarea:focus,
+    .modal-content select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+/* Textarea */
+.modal-content textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Additional Fields Heading */
+.modal-content h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Custom Field Container */
+.custom-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+    /* Custom Field Inputs */
+    .custom-field input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccd5e0;
+        border-radius: 4px;
+        background-color: #f0f3f9;
+        color: #333;
     }
 
 /* Input Styles */
@@ -286,12 +388,39 @@ input, textarea {
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 1rem;
+    font-size: 1rem;
+    align-self: center; /* Align the button to the right */
     transition: background-color 0.3s ease;
 }
 
     .dialog-save-button:hover {
         background-color: #0056b3;
     }
+
+.dialog-add-field-button:hover {
+    background-color: #218838;
+}
+
+/* Remove Custom Field Button */
+.custom-field button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+    .custom-field button:hover {
+        background-color: #c0392b;
+    }
+
 
 /* Image Preview Styles */
 .image-preview {
@@ -303,8 +432,8 @@ input, textarea {
     max-height: 200px; /* Set a max height for the preview */
     border-radius: 4px; /* Add some rounding to the corners */
     object-fit: cover; /* Maintain aspect ratio */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 .sales-table {
     width: 100%;
@@ -320,4 +449,160 @@ input, textarea {
     .sales-table th {
         background-color: #f4f4f4;
         font-weight: bold;
+    }
+
+/* ArtistDashboard.css */
+.artwork-group {
+    margin-bottom: 30px; /* Add space between groups */
+}
+
+    .artwork-group h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+.artwork-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.publish-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.publish-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .publish-button:hover {
+        background-color: #218838;
+    }
+
+.buy-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+    .buy-button:hover {
+        background-color: #0056b3;
+    }
+
+.checkout-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+    .checkout-button:hover {
+        background-color: #218838;
+    }
+
+
+/* ArtistPublicPage.css */
+
+.public-container {
+    padding: 20px;
+}
+
+.artwork-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.artwork-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artwork-price {
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-section {
+    margin-top: 30px;
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+}
+
+.cart-empty {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .checkout-button:hover {
+        background-color: #0056b3;
     }
