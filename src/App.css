@@ -540,34 +540,49 @@ html, body {
 
 /* Responsive Adjustments for Mobile Screens */
 
-/* For screens 768px wide and below */
 @media (max-width: 768px) {
-    /* Header */
+    /* Header adjustments */
     .header {
         flex-direction: column;
-        padding: 15px 20px;
+        padding: 10px;
         height: auto;
+        align-items: center;
     }
 
+    /* Logo adjustments */
     .logo {
-        width: 100px;
-        height: 50px;
+        width: 80px;
+        height: auto;
+        margin-bottom: 10px;
     }
 
+    /* Navigation links: Centered and vertically stacked */
     .nav {
         flex-direction: column;
         gap: 10px;
-        margin-left: 0;
-        font-size: 0.85rem;
+        font-size: 1rem; /* Increase font size for better visibility */
+        align-items: center;
     }
 
+    /* Display navigation links in a single column */
     .navLink {
-        font-size: 18px; /* Increase visibility on smaller screens */
+        font-size: 1rem;
+        color: white;
+        text-decoration: none;
+        margin: 5px 0;
     }
 
-    /* Hero Section */
+    /* Button adjustments: Full width on mobile */
+    .navButton, .navButtonSignUp {
+        padding: 10px 20px;
+        font-size: 1rem;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Hero section adjustments */
     .hero {
-        padding: 100px 10px;
+        padding: 50px 20px;
     }
 
     .buttonContainer {
@@ -576,11 +591,12 @@ html, body {
         margin-top: 20px;
     }
 
-    /* Slider */
+    /* Slider adjustments */
     .Slider {
-        height: 400px;
+        height: 300px;
     }
 
+    /* Artwork section adjustments */
     .artworkGrid {
         flex-direction: column;
         gap: 20px;
@@ -593,7 +609,7 @@ html, body {
         padding: 15px;
     }
 
-    /* Footer */
+    /* Footer adjustments */
     .footer {
         padding: 15px 10px;
     }
@@ -604,27 +620,37 @@ html, body {
     }
 }
 
-/* Additional Tweaks for Smaller Mobile Screens (600px and below) */
+/* Additional Tweaks for Screens 600px and Below */
+
 @media (max-width: 600px) {
+    /* Further adjustments to the header and button styles */
     .navButton, .navButtonSignUp {
-        padding: 8px 20px;
+        padding: 8px 15px;
         font-size: 0.85rem;
-        width: 90%;
+        width: 100%;
     }
 
+    /* Ensure the navigation links are always visible */
     .navLink {
-        display: none; /* Hide some links if too crowded */
+        font-size: 1rem;
+        margin: 5px 0;
     }
 
+        /* Hide additional links if screen is too small */
+        .navLink.extra-small {
+            display: none;
+        }
+
+    /* Full-width for buttons within content */
     .ctaButton, .learnMoreButton {
-        width: 100%; /* Full-width for smaller buttons */
+        width: 100%;
         padding: 12px;
         margin: 10px 0;
     }
 
-    /* Adjust Modal for Small Screens */
+    /* Modal adjustments for small screens */
     .modal {
-        width: 80%;
+        width: 90%;
         padding: 1.5rem;
     }
 
