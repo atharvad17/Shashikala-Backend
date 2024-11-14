@@ -538,13 +538,107 @@ html, body {
     }
 }
 
-@media (max-width: 600px) {
-    .navButton, .navButtonSignUp {
-        padding: 6px 12px;
-        font-size: 0.75rem;
+/* Responsive Adjustments for Mobile Screens */
+
+/* For screens 768px wide and below */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+        flex-direction: column;
+        padding: 15px 20px;
+        height: auto;
+    }
+
+    .logo {
+        width: 100px;
+        height: 50px;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 0;
+        font-size: 0.85rem;
     }
 
     .navLink {
-        display: none;
+        font-size: 18px; /* Increase visibility on smaller screens */
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 100px 10px;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    /* Slider */
+    .Slider {
+        height: 400px;
+    }
+
+    .artworkGrid {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .artworkCard {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 15px 10px;
+    }
+
+    .footerLinks a {
+        font-size: 0.85rem;
+        margin: 0 8px;
+    }
+}
+
+/* Additional Tweaks for Smaller Mobile Screens (600px and below) */
+@media (max-width: 600px) {
+    .navButton, .navButtonSignUp {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        width: 90%;
+    }
+
+    .navLink {
+        display: none; /* Hide some links if too crowded */
+    }
+
+    .ctaButton, .learnMoreButton {
+        width: 100%; /* Full-width for smaller buttons */
+        padding: 12px;
+        margin: 10px 0;
+    }
+
+    /* Adjust Modal for Small Screens */
+    .modal {
+        width: 80%;
+        padding: 1.5rem;
+    }
+
+        .modal h2 {
+            font-size: 1.5rem;
+        }
+
+        .modal input[type="number"] {
+            font-size: 1rem;
+            padding: 0.8rem;
+        }
+
+    .modal-buttons button {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
     }
 }
