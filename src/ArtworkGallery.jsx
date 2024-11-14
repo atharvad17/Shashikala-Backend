@@ -42,26 +42,26 @@ const ArtworkGallery = ({ isEditing, artworks, setArtworks }) => {
     }, {});
 
     return (
-        <div className="artwork-gallery">
+        <div className="artist-artwork-gallery">
             {Object.keys(groupedArtworks).map((type) => (
-                <div key={type} className="artwork-group">
+                <div key={type} className="artist-artwork-group">
                     <h3>{type}</h3>
-                    <div className="artwork-list">
+                    <div className="artist-artwork-list">
                         {groupedArtworks[type].map((artwork) => (
-                            <div key={artwork.id} className="artwork-card">
-                                <img src={artwork.imageUrl} alt={artwork.title} className="artwork-image" />
-                                <h3>{artwork.title}</h3>
-                                <p>{artwork.description}</p>
-                                <p className="artwork-price">${artwork.price}</p> {/* Display price correctly */}
+                            <div key={artwork.id} className="artist-artwork-card">
+                                <img src={artwork.imageUrl} alt={artwork.title} className="artist-artwork-image" />
+                                <h3 className="artist-artwork-title">{artwork.title}</h3>
+                                <p className="artist-artwork-description">{artwork.description}</p>
+                                <p className="artist-artwork-price">${artwork.price}</p>
                                 {isEditing && (
                                     <FaTrash
-                                        className="delete-icon"
+                                        className="artist-delete-icon"
                                         onClick={() => removeArtwork(artwork.id)}
                                         title="Delete Artwork"
                                     />
                                 )}
                                 <button
-                                    className="learn-more-button"
+                                    className="artist-learn-more-button"
                                     onClick={() => openEditModal(artwork)}
                                 >
                                     Add/Update Artwork
@@ -69,8 +69,8 @@ const ArtworkGallery = ({ isEditing, artworks, setArtworks }) => {
                             </div>
                         ))}
                         {isEditing && (
-                            <div className="artwork-card add-artwork-card" onClick={() => addArtwork(type)}>
-                                <FaPlus className="add-icon" title="Add New Artwork" />
+                            <div className="artist-artwork-card artist-add-artwork-card" onClick={() => addArtwork(type)}>
+                                <FaPlus className="artist-add-icon" title="Add New Artwork" />
                                 <p>Add New {type}</p>
                             </div>
                         )}
