@@ -123,20 +123,21 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Artwork Section */
+.artwork-section {
+    position: relative; /* Allows positioning within this container */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .artwork-gallery {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-.artwork-card {
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    padding-bottom: 60px; /* Increased padding to avoid button overlap */
-    text-align: center;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Allows positioning of save button within the container */
+    padding-bottom: 60px; /* Adds space at the bottom for the Save button */
 }
 
 .artwork-price {
@@ -240,9 +241,20 @@ html, body {
 /* Custom Save Button for Artwork Section */
 .artwork-save-button {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10px; /* Align to the bottom of artwork-gallery */
+    right: 10px; /* Align to the right of artwork-gallery */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+    .artwork-save-button:hover {
+        background-color: #218838;
+    }
 
 /* Modal Overlay */
 .modal-overlay {
@@ -605,4 +617,124 @@ input, textarea {
 
     .checkout-button:hover {
         background-color: #0056b3;
+    }
+
+
+/* ArtworkGallery specific styling */
+.artist-artwork-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.artist-artwork-group {
+    margin-bottom: 30px; /* Add space between groups */
+}
+
+    .artist-artwork-group h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+.artist-artwork-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.artist-artwork-card {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    padding-bottom: 70px; /* Increase padding to avoid button overlap */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artist-artwork-title {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.artist-artwork-description {
+    margin: 5px 0;
+}
+
+.artist-artwork-price {
+    font-weight: bold;
+    color: #333;
+    margin-top: 8px;
+}
+
+.artist-artwork-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.artist-learn-more-button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+    .artist-learn-more-button:hover {
+        background-color: #0056b3;
+    }
+
+.artist-add-artwork-card {
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 30px;
+    gap: 8px;
+}
+
+    .artist-add-artwork-card:hover {
+        background-color: #f0f0f0;
+    }
+
+.artist-delete-icon {
+    color: #e74c3c;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+}
+
+.artist-save-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+    .artist-save-button:hover {
+        background-color: #218838;
     }

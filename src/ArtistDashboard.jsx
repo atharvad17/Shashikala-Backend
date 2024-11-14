@@ -118,6 +118,7 @@ const ArtistDashboard = () => {
                     </div>
                 </div>
 
+
                 {/* Analytics Section */}
                 <SalesAnalytics soldArtworks={soldArtworks} />
 
