@@ -6,7 +6,7 @@ body {
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: auto;
 }
 
 /* Container for the Main Content */
@@ -116,6 +116,26 @@ body {
         color: #ff6f61;
         transform: scale(1.05);
     }
+
+.forgot-password {
+    color: #007BFF;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #0056b3;
+}
+
+.forgot-password-message {
+    font-size: 0.85rem;
+    color: #28a745; /* Green for success */
+    margin-top: 5px;
+    text-align: center;
+}
 
 /* Text Switch Styling */
 .text-switch {
