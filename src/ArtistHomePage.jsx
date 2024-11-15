@@ -171,7 +171,6 @@ export default ArtistHomePage;
 */}
 
 
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './ArtistHomePage.css';
@@ -204,9 +203,11 @@ const ArtistHomePage = () => {
     );
 };
 
-// LoginForm Component
+// LoginForm Component with Forgot Password functionality
 const LoginForm = () => {
     const navigate = useNavigate(); // Initialize navigate function
+    const [email, setEmail] = useState('');
+    const [forgotPasswordMessage, setForgotPasswordMessage] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -214,17 +215,49 @@ const LoginForm = () => {
         navigate('/dashboard'); // Navigate to dashboard upon submission
     };
 
+    const handleForgotPassword = async () => {
+        try {
+            const response = await fetch('https://example.com/api/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+                setForgotPasswordMessage('A password reset link has been sent to your email.');
+            } else {
+                setForgotPasswordMessage('Failed to send reset link. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setForgotPasswordMessage('An error occurred. Please try again later.');
+        }
+    };
+
     return (
         <form className="form" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label>Email:</label>
-                <input type="email" required />
+                <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
             </div>
             <div className="form-group">
                 <label>Password:</label>
                 <input type="password" required />
             </div>
             <button type="submit" className="form-submit-button">Login</button>
+            <p className="forgot-password" onClick={handleForgotPassword}>
+                Forgot Password?
+            </p>
+            {forgotPasswordMessage && (
+                <p className="forgot-password-message">{forgotPasswordMessage}</p>
+            )}
         </form>
     );
 };
