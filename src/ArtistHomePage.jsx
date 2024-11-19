@@ -31,11 +31,48 @@ const ArtistHomePage = () => {
     );
 };
 
-// LoginForm Component
+// Forgot Password Dialog Component
+const ForgotPasswordDialog = ({ isOpen, onClose, onSend }) => {
+    const [email, setEmail] = useState('');
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-backdrop">
+            <div className="modal">
+                <h2>Forgot Password</h2>
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="email-input"
+                />
+                <div className="modal-buttons">
+                    <button
+                        className="modal-next"
+                        onClick={() => onSend(email)}
+                    >
+                        Send Reset Link
+                    </button>
+                    <button
+                        className="modal-close"
+                        onClick={onClose}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// LoginForm Component with Forgot Password
 const LoginForm = () => {
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
+    const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,6 +107,28 @@ const LoginForm = () => {
         }
     };
 
+    const handleForgotPasswordSend = async (email) => {
+        try {
+            const response = await fetch('https://api.example.com/forgot-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+                setPopupMessage('A password reset link has been sent to your email.');
+            } else {
+                setPopupMessage('Failed to send reset link. Please try again.');
+            }
+        } catch (error) {
+            setPopupMessage('An error occurred. Please try again later.');
+        } finally {
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 2000);
+            setForgotPasswordOpen(false); // Close the dialog
+        }
+    };
+
     return (
         <>
             {showPopup && <Popup message={popupMessage} />}
@@ -83,7 +142,18 @@ const LoginForm = () => {
                     <input type="password" required />
                 </div>
                 <button type="submit" className="form-submit-button">Login</button>
+                <p
+                    className="forgot-password"
+                    onClick={() => setForgotPasswordOpen(true)}
+                >
+                    Forgot Password?
+                </p>
             </form>
+            <ForgotPasswordDialog
+                isOpen={forgotPasswordOpen}
+                onClose={() => setForgotPasswordOpen(false)}
+                onSend={handleForgotPasswordSend}
+            />
         </>
     );
 };
@@ -116,7 +186,7 @@ const SignUpForm = () => {
                 setShowPopup(true);
                 setTimeout(() => {
                     setShowPopup(false);
-                    navigate('/template'); // navigate to template screen
+                    navigate('/subscriptions'); // Navigate to the subscription page
                 }, 2000);
             } else {
                 setPopupMessage(`Signup failed: ${data.message}`);
@@ -160,6 +230,7 @@ const SignUpForm = () => {
     );
 };
 
+
 // Popup Component for success/failure messages
 const Popup = ({ message }) => (
     <div className="popup">
@@ -168,14 +239,17 @@ const Popup = ({ message }) => (
 );
 
 export default ArtistHomePage;
+
 */}
 
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
 import './ArtistHomePage.css';
 import templateImage from './Images/homeScreen1.jpg'; // Replace with your image path
 import Footer from './Footer';
+import SubscriptionPage from './SubscriptionPage.jsx';
+
 
 const ArtistHomePage = () => {
     const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
@@ -203,10 +277,46 @@ const ArtistHomePage = () => {
     );
 };
 
-// LoginForm Component with Forgot Password functionality
-const LoginForm = () => {
-    const navigate = useNavigate(); // Initialize navigate function
+// Forgot Password Dialog Component
+const ForgotPasswordDialog = ({ isOpen, onClose, onSend }) => {
     const [email, setEmail] = useState('');
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-backdrop">
+            <div className="modal">
+                <h2>Forgot Password</h2>
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="email-input"
+                />
+                <div className="modal-buttons">
+                    <button
+                        className="modal-next"
+                        onClick={() => onSend(email)}
+                    >
+                        Send Reset Link
+                    </button>
+                    <button
+                        className="modal-close"
+                        onClick={onClose}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// LoginForm Component
+const LoginForm = () => {
+    const navigate = useNavigate();
+    const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
     const [forgotPasswordMessage, setForgotPasswordMessage] = useState('');
 
     const handleSubmit = (e) => {
@@ -215,7 +325,7 @@ const LoginForm = () => {
         navigate('/dashboard'); // Navigate to dashboard upon submission
     };
 
-    const handleForgotPassword = async () => {
+    const handleForgotPasswordSend = async (email) => {
         try {
             const response = await fetch('https://example.com/api/forgot-password', {
                 method: 'POST',
@@ -233,32 +343,40 @@ const LoginForm = () => {
         } catch (error) {
             console.error('Error:', error);
             setForgotPasswordMessage('An error occurred. Please try again later.');
+        } finally {
+            setForgotPasswordOpen(false); // Close the dialog
         }
     };
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label>Email:</label>
-                <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label>Password:</label>
-                <input type="password" required />
-            </div>
-            <button type="submit" className="form-submit-button">Login</button>
-            <p className="forgot-password" onClick={handleForgotPassword}>
-                Forgot Password?
-            </p>
-            {forgotPasswordMessage && (
-                <p className="forgot-password-message">{forgotPasswordMessage}</p>
-            )}
-        </form>
+        <>
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label>Email</label>
+                    <input type="email" required />
+                </div>
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" required />
+                </div>
+                <button type="submit" className="form-submit-button">Login</button>
+                <p
+                    className="forgot-password"
+                    onClick={() => setForgotPasswordOpen(true)}
+                >
+                    Forgot Password?
+                </p>
+                {forgotPasswordMessage && (
+                    <p className="forgot-password-message">{forgotPasswordMessage}</p>
+                )}
+            </form>
+
+            <ForgotPasswordDialog
+                isOpen={forgotPasswordOpen}
+                onClose={() => setForgotPasswordOpen(false)}
+                onSend={handleForgotPasswordSend}
+            />
+        </>
     );
 };
 
@@ -285,7 +403,7 @@ const SignUpForm = () => (
             <label>Phone</label>
             <input type="phone" required />
         </div>
-        <button type="submit" className="form-submit-button">Sign Up</button>
+        <Link to="/subscription" className="form-submit-button">Sign Up</Link>
     </form>
 );
 

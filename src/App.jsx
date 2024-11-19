@@ -19,6 +19,8 @@ import image1 from './Images/homeScreen1.jpg'; // Import the image
 import ArtistHomePage from './ArtistHomePage.jsx';
 import ArtistDashboard from './ArtistDashboard.jsx';
 import ArtistPublicPage from './ArtistPublicPage.jsx';
+import SubscriptionPage from './SubscriptionPage.jsx';
+import ShoppingPage from './ShoppingPage.jsx';
 
 
 // Slider Images
@@ -122,7 +124,7 @@ function App() {
             <header className="header">
                 <Link to="/" className="logo"></Link>
                 <nav className="nav">
-                    <Link to="#shop" className="navLink">Shop</Link>
+                    <Link to="/shop" className="navLink">Shop</Link>
                     <Link to="/eventCard" className="navLink">Events</Link>
                     <Link to="/vision" className="navLink">About</Link>
                     <Link to="/artisthome" className="navLink">Artists</Link>
@@ -264,6 +266,8 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/artisthome" element={<ArtistHomePage />} />
                 <Route path="/dashboard" element={<ArtistDashboard />} />
                 <Route path="/artist-public" element={<ArtistPublicPage />} />
+                <Route path="/subscription" element={<SubscriptionPage />} />
+                <Route path="/shop" element={<ShoppingPage />} />
             </Routes>
         </>
     );

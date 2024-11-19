@@ -27,6 +27,7 @@ body {
     border: 1px solid #e3e6e9;
     margin: auto; /* Centering */
     margin-bottom: 20px;
+    min-width: 40%;
 }
 
 /* Title styling */
