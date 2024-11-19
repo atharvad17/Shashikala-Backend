@@ -1,0 +1,139 @@
+﻿/* General Page Styles */
+.subscription-page {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    min-height: calc(100vh - 200px); /* Adjust for header and footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .subscription-page h1 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+/* Subscription Models */
+.subscription-models {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* For responsiveness */
+}
+
+/* Subscription Cards */
+.subscription-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+    .subscription-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Highlight Premium Plan */
+    .subscription-card.premium {
+        border: 2px solid #6a11cb;
+        box-shadow: 0 6px 12px rgba(106, 17, 203, 0.3);
+    }
+
+/* Card Header */
+.card-header {
+    background-color: #6a11cb;
+    color: white;
+    padding: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Card Body */
+.card-body {
+    padding: 20px;
+    text-align: left;
+}
+
+    .card-body .price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #6a11cb;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .card-body ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .card-body li {
+        font-size: 1rem;
+        margin: 10px 0;
+        padding-left: 20px;
+        position: relative;
+    }
+
+        .card-body li::before {
+            content: "✔";
+            color: #6a11cb;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            line-height: 1rem;
+        }
+
+/* Card Footer */
+.card-footer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+/* Subscribe Button */
+.subscribe-button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .subscribe-button:hover {
+        background: linear-gradient(135deg, #2575fc, #6a11cb);
+        transform: scale(1.05);
+    }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .subscription-models {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .subscription-card {
+        width: 90%;
+    }
+
+    .card-body .price {
+        font-size: 1.8rem;
+    }
+}
