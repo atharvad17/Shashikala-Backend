@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './EventPage.css';
 import Footer from './Footer.jsx';
-import image1 from './Images/homeScreen1.jpg'; // Import the image
+import image1 from './Images/homeScreen1.jpg';
 
 const eventsData = [
     {
@@ -18,15 +18,13 @@ const eventsData = [
             name: "Main Artist Name",
             bio: "Brief description of the artist."
         },
-        image: image1, // Use the imported image
+        image: image1,
     },
     {
         id: 2,
         name: "Thanksgiving Art Festival 2024",
         date: "November 5, 2024",
         location: "Atlanta, GA",
-        price: 40,
-        image: image1, // Use the imported image      
         time: "7:00 PM EST",
         price: 0,
         description: "Celebrate Thanksgiving with art exhibitions and workshops. Experience the fusion of culture and creativity.",
@@ -35,6 +33,7 @@ const eventsData = [
             name: "Main Artist Name",
             bio: "Brief description of the artist."
         },
+        image: image1,
     },
 ];
 
@@ -83,6 +82,7 @@ const EventPage = () => {
                             <Link
                                 to="/register"
                                 state={{
+                                    eventId: event.id,
                                     paymentAmount: event.price,
                                     eventName: event.name,
                                     eventDate: event.date,
@@ -103,7 +103,6 @@ const EventPage = () => {
                     </div>
                 </div>
             </div>
-
             <Footer />
         </>
     );
