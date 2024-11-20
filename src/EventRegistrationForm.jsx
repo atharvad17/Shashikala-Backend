@@ -28,6 +28,7 @@ const EventRegistrationForm = () => {
     const [zipcode, setZipcode] = useState('');
     const [isRegistered, setIsRegistered] = useState(false);
     const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const validateFields = () => {
         const newErrors = {};
@@ -47,6 +48,7 @@ const EventRegistrationForm = () => {
 
     const handleRegister = async () => {
         if (validateFields()) {
+            setIsLoading(true);
             try {
                 const registrationData = {
                     eventId,
@@ -100,13 +102,16 @@ const EventRegistrationForm = () => {
                             eventDate,
                             eventVenue,
                             eventTime,
-                            registrationId: result.registration.registration_id
+                            registrationId: result.registration.registration_id,
+                            clientSecret: result.clientSecret
                         }
                     });
                 }
             } catch (error) {
                 console.error('Registration error:', error);
                 alert('Registration failed: ' + error.message);
+            } finally {
+                setIsLoading(false);
             }
         }
     };
@@ -132,7 +137,6 @@ const EventRegistrationForm = () => {
                 <h1 className="event-name">{eventName}</h1>
                 <p className="event-info">Date: {eventDate} | Time: {eventTime} | Location: {eventVenue}</p>
                 <form className="form" onSubmit={(e) => e.preventDefault()}>
-                    {/* Form fields remain the same */}
                     <div className="horizontal-group">
                         <div className="form-group">
                             <label>First Name*</label>
@@ -255,14 +259,16 @@ const EventRegistrationForm = () => {
                             {errors.zipcode && <p className="error">{errors.zipcode}</p>}
                         </div>
                     </div>
+
                     <p>Registration Fee: ${paymentAmount}</p>
 
                     <button
                         type="button"
                         onClick={handleRegister}
                         className="submit-button"
+                        disabled={isLoading}
                     >
-                        {paymentAmount > 0 ? 'Proceed to Payment' : 'Register'}
+                        {isLoading ? 'Processing...' : (paymentAmount > 0 ? 'Proceed to Payment' : 'Register')}
                     </button>
                 </form>
             </div>
@@ -283,6 +289,7 @@ const EventRegistrationForm = () => {
 };
 
 export default EventRegistrationForm;
+
 
 
 
