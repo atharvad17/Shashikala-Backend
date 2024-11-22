@@ -278,15 +278,32 @@ body {
     }
 }
 
-/* Responsive Adjustments */
+/* Mobile Styles */
 @media (max-width: 768px) {
-    /* Overlay and form-container adjustments */
+
+    /* General Styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        height: 100%;
+    }
+
+    /* Main wrapper adjustments */
+    #root {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Overlay for Login/Signup Section */
     .overlay {
         padding: 15px;
-        justify-content: center;
-        height: 100%; /* Ensure the overlay stretches fully */
+        justify-content: flex-start;
+        height: 100%;
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
     }
 
         .overlay h1 {
@@ -298,41 +315,86 @@ body {
             font-size: 1rem;
         }
 
+    /* Form container adjustments for mobile */
     .form-container {
         width: 90%;
         padding: 1.5rem;
         box-sizing: border-box; /* Ensure padding doesn't overflow */
-        margin-top: 20px; /* Added some margin for better spacing */
+        margin-top: 20px; /* Ensure the form starts below the header */
+        margin-bottom: 20px; /* Added some space below the form */
         flex-grow: 1; /* Allow the form container to take available space */
+        background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    /* Form inputs and buttons adjustments for mobile */
+    /* Form Inputs and Buttons */
     .form-group input {
         padding: 0.6rem;
         font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        transition: border-color 0.3s ease;
     }
+
+        .form-group input:focus {
+            border-color: #ffa94d;
+            outline: none;
+        }
 
     .form-submit-button {
-        padding: 0.6rem;
-        font-size: 1rem;
+        padding: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #ffa94d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
     }
 
-    /* Text switch adjustments */
+        .form-submit-button:hover {
+            background-color: #ffd1a1;
+            color: #ff6f61;
+            transform: scale(1.05);
+        }
+
+    /* Text Switch */
     .text-switch {
         font-size: 1rem;
         gap: 0.5rem;
         margin-top: 1rem;
+        display: flex;
+        justify-content: center;
     }
 
-    /* Footer adjustments */
+        .text-switch span {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            color: #ffa94d;
+            transition: color 0.3s ease;
+        }
+
+            .text-switch span.active,
+            .text-switch span:hover {
+                color: #ffd1a1;
+                border-bottom: 2px solid #ffd1a1;
+            }
+
+    /* Footer Adjustments */
     .footer {
+        padding: 15px 10px;
         font-size: 0.9rem;
-        padding: 1rem;
-        position: static; /* Ensure it is not fixed */
+        text-align: center;
+        position: static; /* Ensure footer is correctly positioned below content */
     }
 
         .footer a {
-            font-size: 0.9rem; /* Adjusting size for mobile */
+            font-size: 0.9rem;
         }
 
             .footer a:hover {
@@ -342,16 +404,7 @@ body {
 
 /* Adjustments for smaller mobile screens (480px and below) */
 @media (max-width: 480px) {
-    /* Overlay adjustments */
-    .overlay h1 {
-        font-size: 1.5rem;
-        margin-top: 20px;
-    }
-
-    .overlay p {
-        font-size: 0.9rem;
-    }
-
+    /* Form container adjustments */
     .form-container {
         width: 100%;
         padding: 1rem;
