@@ -278,37 +278,12 @@ body {
     }
 }
 
-/* Mobile Styles */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-
-    /* General Styles */
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
-        height: 100%; /* Ensure the page fills the screen height */
-    }
-
-    #root {
-        width: 100%;
-        margin: 0 auto;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh; /* Ensure the root takes the full screen */
-    }
-
-    /* Overlay for Login/Signup Section */
+    /* Overlay and form-container adjustments */
     .overlay {
         padding: 15px;
-        justify-content: flex-start;
-        flex-grow: 1; /* Make the overlay stretch to fit content */
-        display: flex;
-        flex-direction: column;
-        background-image: url('path-to-your-image.jpg'); /* Replace with your image path */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        justify-content: center;
     }
 
         .overlay h1 {
@@ -318,104 +293,56 @@ body {
 
         .overlay p {
             font-size: 1rem;
-            margin-bottom: 10px;
         }
 
-    /* Form container adjustments for mobile */
     .form-container {
         width: 90%;
         padding: 1.5rem;
-        box-sizing: border-box;
-        margin-top: 20px; /* Ensure spacing below the header */
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        min-height: auto; /* Allow height to adjust based on content */
     }
 
-        /* Specific Heights for Login and Signup */
-        .form-container.login {
-            min-height: 50vh; /* Shorter height for login */
-        }
-
-        .form-container.signup {
-            min-height: 60vh; /* Larger height for signup */
-        }
-
-    /* Form Inputs and Buttons */
+    /* Input and button adjustments */
     .form-group input {
         padding: 0.6rem;
         font-size: 0.9rem;
-        width: 100%;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        transition: border-color 0.3s ease;
     }
-
-        .form-group input:focus {
-            border-color: #ffa94d;
-            outline: none;
-        }
 
     .form-submit-button {
-        padding: 0.8rem;
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #ffa94d;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        width: 100%;
+        padding: 0.6rem;
+        font-size: 1rem;
     }
 
-        .form-submit-button:hover {
-            background-color: #ffd1a1;
-            color: #ff6f61;
-            transform: scale(1.05);
-        }
-
-    /* Text Switch */
+    /* Text switch adjustments */
     .text-switch {
         font-size: 1rem;
         gap: 0.5rem;
-        margin-top: 1rem;
-        display: flex;
-        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Overlay text size adjustments */
+    .overlay h1 {
+        font-size: 1.5rem;
+        margin-top: 20px;
     }
 
-        .text-switch span {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            color: #ffa94d;
-            transition: color 0.3s ease;
-        }
-
-            .text-switch span.active,
-            .text-switch span:hover {
-                color: #ffd1a1;
-                border-bottom: 2px solid #ffd1a1;
-            }
-
-    /* Footer Adjustments */
-    .footer {
-        padding: 15px 10px;
+    .overlay p {
         font-size: 0.9rem;
-        text-align: center;
-        background-color: #333;
-        color: #fff;
-        flex-shrink: 0; /* Prevent the footer from shrinking */
     }
 
-        .footer a {
-            font-size: 0.9rem;
-            color: #ffa94d;
-            text-decoration: none;
-        }
+    /* Form-container adjustments */
+    .form-container {
+        width: 100%;
+        padding: 1rem;
+    }
 
-            .footer a:hover {
-                text-decoration: underline;
-            }
+    /* Text switch adjustments */
+    .text-switch {
+        font-size: 0.9rem;
+        gap: 0.4rem;
+    }
+
+    /* Footer font size adjustments */
+    .footer {
+        font-size: 0.9rem;
+    }
 }
