@@ -286,24 +286,29 @@ body {
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        height: auto; /* Allow content to adjust based on height */
+        height: 100%; /* Ensure the page fills the screen height */
     }
 
-    /* Main wrapper adjustments */
     #root {
         width: 100%;
         margin: 0 auto;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensure the root takes the full screen */
     }
 
     /* Overlay for Login/Signup Section */
     .overlay {
         padding: 15px;
         justify-content: flex-start;
-        min-height: calc(100vh - 80px); /* Adjust for header/footer */
+        flex-grow: 1; /* Make the overlay stretch to fit content */
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
+        background-image: url('path-to-your-image.jpg'); /* Replace with your image path */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
         .overlay h1 {
@@ -313,7 +318,7 @@ body {
 
         .overlay p {
             font-size: 1rem;
-            margin-bottom: 10px; /* Add spacing below text */
+            margin-bottom: 10px;
         }
 
     /* Form container adjustments for mobile */
@@ -321,13 +326,21 @@ body {
         width: 90%;
         padding: 1.5rem;
         box-sizing: border-box;
-        margin-top: 20px; /* Space below the header */
-        margin-bottom: 0; /* Remove unnecessary extra space */
-        flex-grow: 1;
+        margin-top: 20px; /* Ensure spacing below the header */
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        min-height: auto; /* Allow height to adjust based on content */
     }
+
+        /* Specific Heights for Login and Signup */
+        .form-container.login {
+            min-height: 50vh; /* Shorter height for login */
+        }
+
+        .form-container.signup {
+            min-height: 60vh; /* Larger height for signup */
+        }
 
     /* Form Inputs and Buttons */
     .form-group input {
@@ -391,11 +404,15 @@ body {
         padding: 15px 10px;
         font-size: 0.9rem;
         text-align: center;
-        position: relative; /* Ensure it remains below content */
+        background-color: #333;
+        color: #fff;
+        flex-shrink: 0; /* Prevent the footer from shrinking */
     }
 
         .footer a {
             font-size: 0.9rem;
+            color: #ffa94d;
+            text-decoration: none;
         }
 
             .footer a:hover {
