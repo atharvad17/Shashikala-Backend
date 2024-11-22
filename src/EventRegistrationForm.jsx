@@ -75,8 +75,7 @@ const EventRegistrationForm = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'  // Add this line
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',  // Add this line
                 },
                 body: JSON.stringify(registrationData)
             });
