@@ -47,83 +47,82 @@ const EventRegistrationForm = () => {
     };
 
     const handleRegister = async () => {
-        if (validateFields()) {
-            setIsLoading(true);
-            try {
-                const registrationData = {
-                    eventId,
-                    eventName,
-                    eventDate,
-                    eventVenue,
-                    eventTime,
-                    firstName,
-                    middleName,
-                    lastName,
-                    email,
-                    contact,
-                    address1,
-                    address2,
-                    city,
-                    state,
-                    zipcode,
-                    paymentAmount
-                };
+    if (validateFields()) {
+        setIsLoading(true);
+        try {
+            const registrationData = {
+                eventId,
+                eventName,
+                eventDate,
+                eventVenue,
+                eventTime,
+                firstName,
+                middleName,
+                lastName,
+                email,
+                contact,
+                address1,
+                address2,
+                city,
+                state,
+                zipcode,
+                paymentAmount
+            };
 
-                console.log('Sending registration data:', registrationData);
+            console.log('Sending registration data:', registrationData);
 
-                const response = await fetch('https://shashikala-backend-gddy.onrender.com/api/event-registration', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(registrationData)
-                });
+            const response = await fetch('https://shashikala-backend-gddy.onrender.com/api/event-registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(registrationData)
+            });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Server response:', errorText);
-                    throw new Error(`Server responded with status ${response.status}`);
-                }
-
-                const result = await response.json();
-                console.log('Registration response:', result);
-
-                if (!result.success) {
-                    throw new Error(result.message);
-                }
-
-                if (paymentAmount === 0) {
-                    setIsRegistered(true);
-                } else {
-                    navigate('/payment', {
-                        state: {
-                            paymentAmount,
-                            email,
-                            fullName: `${firstName} ${lastName}`,
-                            address1,
-                            address2,
-                            city,
-                            state,
-                            eventName,
-                            eventDate,
-                            eventVenue,
-                            eventTime,
-                            registrationId: result.registration.registration_id,
-                            clientSecret: result.clientSecret,
-                            zipcode
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                alert('Registration failed: ' + error.message);
-            } finally {
-                setIsLoading(false);
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server response:', errorText);
+                throw new Error(`Server responded with status ${response.status}`);
             }
-        }
-    };
 
+            const result = await response.json();
+            console.log('Registration response:', result);
+
+            if (!result.success) {
+                throw new Error(result.message);
+            }
+
+            if (paymentAmount === 0) {
+                setIsRegistered(true);
+            } else {
+                navigate('/payment', {
+                    state: {
+                        paymentAmount,
+                        email,
+                        fullName: `${firstName} ${lastName}`,
+                        address1,
+                        address2,
+                        city,
+                        state,
+                        eventName,
+                        eventDate,
+                        eventVenue,
+                        eventTime,
+                        registrationId: result.registration.registration_id,
+                        clientSecret: result.clientSecret,
+                        zipcode
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Registration failed: ' + error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+};
     const handleCloseDialog = () => {
         setFirstName('');
         setMiddleName('');
