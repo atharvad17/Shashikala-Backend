@@ -71,33 +71,22 @@ const EventRegistrationForm = () => {
 
             console.log('Sending registration data:', registrationData);
 
-<<<<<<< HEAD
-            // Update the URL to the correct endpoint
-=======
->>>>>>> dev
             const response = await fetch('https://shashikala-backend-gddy.onrender.com/api/event-registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-<<<<<<< HEAD
                     'Accept': 'application/json'  // Add this line
-=======
                     'Accept': 'application/json'
->>>>>>> dev
                 },
                 body: JSON.stringify(registrationData)
             });
 
             if (!response.ok) {
-<<<<<<< HEAD
                 // Log the actual response for debugging
-=======
->>>>>>> dev
                 const errorText = await response.text();
                 console.error('Server response:', errorText);
                 throw new Error(`Server responded with status ${response.status}`);
             }
-<<<<<<< HEAD
 
             const result = await response.json();
             console.log('Registration response:', result);
@@ -135,9 +124,6 @@ const EventRegistrationForm = () => {
         }
     }
 };
-
-=======
->>>>>>> dev
 
             const result = await response.json();
             console.log('Registration response:', result);
