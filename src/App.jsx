@@ -20,7 +20,8 @@ import ArtistHomePage from './ArtistHomePage.jsx';
 import ArtistDashboard from './ArtistDashboard.jsx';
 import ArtistPublicPage from './ArtistPublicPage.jsx';
 import SubscriptionPage from './SubscriptionPage.jsx';
-import ShoppingPage from './ShoppingPage.jsx';
+import ShoppingPage from './ShoppingPage.jsx'; 
+import ShoppingCart from './ShoppingCart.jsx'
 
 
 // Slider Images
@@ -268,6 +269,7 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/artist-public" element={<ArtistPublicPage />} />
                 <Route path="/subscription" element={<SubscriptionPage />} />
                 <Route path="/shop" element={<ShoppingPage />} />
+                <Route path="/cart" element={<ShoppingCart />} />
             </Routes>
         </>
     );

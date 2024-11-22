@@ -71,22 +71,33 @@ const EventRegistrationForm = () => {
 
             console.log('Sending registration data:', registrationData);
 
+<<<<<<< HEAD
             // Update the URL to the correct endpoint
+=======
+>>>>>>> dev
             const response = await fetch('https://shashikala-backend-gddy.onrender.com/api/event-registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+<<<<<<< HEAD
                     'Accept': 'application/json'  // Add this line
+=======
+                    'Accept': 'application/json'
+>>>>>>> dev
                 },
                 body: JSON.stringify(registrationData)
             });
 
             if (!response.ok) {
+<<<<<<< HEAD
                 // Log the actual response for debugging
+=======
+>>>>>>> dev
                 const errorText = await response.text();
                 console.error('Server response:', errorText);
                 throw new Error(`Server responded with status ${response.status}`);
             }
+<<<<<<< HEAD
 
             const result = await response.json();
             console.log('Registration response:', result);
@@ -125,7 +136,46 @@ const EventRegistrationForm = () => {
     }
 };
 
+=======
+>>>>>>> dev
 
+            const result = await response.json();
+            console.log('Registration response:', result);
+
+            if (!result.success) {
+                throw new Error(result.message);
+            }
+
+            if (paymentAmount === 0) {
+                setIsRegistered(true);
+            } else {
+                navigate('/payment', {
+                    state: {
+                        paymentAmount,
+                        email,
+                        fullName: `${firstName} ${lastName}`,
+                        address1,
+                        address2,
+                        city,
+                        state,
+                        eventName,
+                        eventDate,
+                        eventVenue,
+                        eventTime,
+                        registrationId: result.registration.registration_id,
+                        clientSecret: result.clientSecret,
+                        zipcode
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Registration failed: ' + error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+};
     const handleCloseDialog = () => {
         setFirstName('');
         setMiddleName('');
@@ -281,24 +331,21 @@ const EventRegistrationForm = () => {
                         {isLoading ? 'Processing...' : (paymentAmount > 0 ? 'Proceed to Payment' : 'Register')}
                     </button>
                 </form>
-            </div>
 
-            {isRegistered && (
-                <div className="dialog-backdrop">
-                    <div className="dialog-box">
-                        <h2>Registration Successful!</h2>
-                        <p>You have successfully registered for {eventName}.</p>
-                        <button onClick={handleCloseDialog}>Close</button>
+                {isRegistered && (
+                    <div className="dialog">
+                        <p>Thank you for registering! A confirmation email has been sent.</p>
+                        <button onClick={handleCloseDialog} className="close-button">Close</button>
                     </div>
-                </div>
-            )}
-
+                )}
+            </div>
             <Footer />
         </>
     );
 };
 
 export default EventRegistrationForm;
+
 
 
 

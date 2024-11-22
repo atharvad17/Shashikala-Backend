@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import './PaymentPage.css'; // Importing the external CSS file
+import './PaymentPage.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, message }) => {
     );
 };
 
-const PaymentForm = ({ amount, initialEmail, initialDetails, title, description, isDonation }) => {
+const PaymentForm = ({ amount, initialEmail, initialDetails, title, description }) => {
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
@@ -33,6 +33,7 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
     const [address2, setAddress2] = useState(initialDetails.address2 || '');
     const [city, setCity] = useState(initialDetails.city || '');
     const [state, setState] = useState(initialDetails.state || '');
+    const [zipcode, setZipcode] = useState(initialDetails.zipcode || '');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
@@ -44,8 +45,6 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
 
         const cardElement = elements.getElement(CardElement);
         const amountInCents = amount * 100;
-
-        {/* https://shashikala-backend-v1.onrender.com/create-payment-intent */ }
 
         try {
             const response = await fetch('https://shashikala-backend-gddy.onrender.com/create-payment-intent', {
@@ -68,7 +67,7 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
             const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
-                    billing_details: { email },
+                    billing_details: { email, name: fullName, address: { line1: address1, line2: address2, city, state, postal_code: zipcode } },
                 },
             });
 
@@ -83,6 +82,7 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
                 setAddress2('');
                 setCity('');
                 setState('');
+                setZipcode('');
                 // Redirect to home after showing modal
                 setTimeout(() => {
                     navigate('/');
@@ -113,7 +113,7 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
                             placeholder="Name on Card"
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
-                            required={isDonation}
+                            required
                         />
                     </div>
 
@@ -125,7 +125,6 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
                             placeholder="Address 1"
                             value={address1}
                             onChange={(e) => setAddress1(e.target.value)}
-                            required={isDonation}
                         />
                         <input
                             type="text"
@@ -141,7 +140,6 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
                             placeholder="City"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
-                            required={isDonation}
                         />
                     </div>
                     <div className="input-group">
@@ -151,7 +149,15 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
                             placeholder="State"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
-                            required={isDonation}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Zipcode</label>
+                        <input
+                            type="text"
+                            placeholder="Zipcode"
+                            value={zipcode}
+                            onChange={(e) => setZipcode(e.target.value)}
                         />
                     </div>
 
@@ -187,7 +193,7 @@ const PaymentForm = ({ amount, initialEmail, initialDetails, title, description,
 
 const PaymentPage = () => {
     const location = useLocation();
-    const paymentAmount = location.state?.paymentAmount || 0;
+    const paymentAmount = location.state?.totalAmount || location.state?.paymentAmount || 0;
     const email = location.state?.email || '';
     const firstName = location.state?.firstName || '';
     const middleName = location.state?.middleName || '';
@@ -196,14 +202,25 @@ const PaymentPage = () => {
     const address2 = location.state?.address2 || '';
     const city = location.state?.city || '';
     const state = location.state?.state || '';
+    const zipcode = location.state?.zipcode || '';
+    const cartItems = location.state?.cartItems || [];
 
-    // Extracting event details from location.state directly
-    const eventName = location.state?.eventName || '';
-    const eventDate = location.state?.eventDate || '';
-    const eventVenue = location.state?.eventVenue || '';
-    const eventTime = location.state?.eventTime || '';
+    const isEvent = !!location.state?.eventName;
+    const isShopping = cartItems.length > 0;
 
-    const isEvent = !!eventName; // Check if it's an event or a donation
+    const title = isEvent
+        ? `Register for ${location.state.eventName}`
+        : isShopping
+            ? 'Complete Your Purchase'
+            : 'Donate to Our Organization';
+
+    const description = isEvent
+        ? `Date: ${location.state.eventDate} | Venue: ${location.state.eventVenue} | Time: ${location.state.eventTime}`
+        : isShopping
+            ? `Thank You for purchasing the following items:\n${cartItems
+                .map((item) => `${item.name} x ${item.quantity}`)
+                .join(', ')}`
+            : 'Your donation helps us continue our mission. Thank you for your generosity.';
 
     const initialDetails = {
         firstName,
@@ -213,21 +230,20 @@ const PaymentPage = () => {
         address2,
         city,
         state,
+        zipcode,
     };
-
-    const title = isEvent ? `Register for ${eventName}` : 'Donate to Our Organization';
-    const description = isEvent
-        ? `Date: ${eventDate} | Venue: ${eventVenue} | Time: ${eventTime}`
-        : 'Your donation helps us continue our mission. Thank you for your generosity.';
 
     return (
         <Elements stripe={stripePromise}>
-            <PaymentForm amount={paymentAmount} initialEmail={email} initialDetails={initialDetails} title={title} description={description} isDonation={!isEvent} />
+            <PaymentForm
+                amount={paymentAmount}
+                initialEmail={email}
+                initialDetails={initialDetails}
+                title={title}
+                description={description}
+            />
         </Elements>
     );
 };
 
-{/* http://localhost:3001/create-payment-intent */ }
 export default PaymentPage;
-
-
