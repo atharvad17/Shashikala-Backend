@@ -45,7 +45,7 @@ const ShoppingCart = () => {
                 <h1>Your Cart</h1>
                 <div className="cart-items">
                     {cartItems.length === 0 ? (
-                        <p>Your cart is empty</p>
+                        <p className="empty-cart">Your cart is empty.</p>
                     ) : (
                         cartItems.map((item) => (
                             <div key={item.id} className="cart-item">
@@ -55,8 +55,8 @@ const ShoppingCart = () => {
                                     className="cart-item-image"
                                 />
                                 <div className="cart-item-details">
-                                    <p>{item.name}</p>
-                                    <p>{item.price}</p>
+                                    <h4>{item.name}</h4>
+                                    <p className="cart-item-price">{item.price}</p>
                                     <div className="quantity-controls">
                                         <button
                                             className="quantity-button"
@@ -85,7 +85,9 @@ const ShoppingCart = () => {
                 </div>
                 {cartItems.length > 0 && (
                     <div className="cart-total">
-                        <p><strong>Total: ${totalAmount.toFixed(2)}</strong></p>
+                        <p>
+                            <strong>Total: ${totalAmount.toFixed(2)}</strong>
+                        </p>
                         <button
                             onClick={handleProceedToPayment}
                             className="proceed-to-payment"

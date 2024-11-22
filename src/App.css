@@ -538,65 +538,88 @@ html, body {
     }
 }
 
-/* Responsive Adjustments for Mobile Screens */
-
+/* Mobile Styles */
 @media (max-width: 768px) {
-    /* Header adjustments */
+
+    /* General Styles */
+    html, body {
+        height: auto;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    #root {
+        width: 100%;
+        margin: 0 auto; /* Center the content */
+        text-align: center;
+    }
+
+    /* Header Styles */
     .header {
         flex-direction: column;
-        padding: 10px;
+        padding: 10px 15px;
         height: auto;
-        align-items: center;
+        text-align: center;
     }
 
-    /* Logo adjustments */
     .logo {
-        width: 80px;
-        height: auto;
-        margin-bottom: 10px;
+        width: 100px;
+        height: 50px;
     }
 
-    /* Navigation links: Centered and vertically stacked */
     .nav {
         flex-direction: column;
         gap: 10px;
-        font-size: 1rem; /* Increase font size for better visibility */
+        font-size: 0.8rem;
+        margin-left: 0;
         align-items: center;
     }
 
-    /* Display navigation links in a single column */
     .navLink {
-        font-size: 1rem;
         color: white;
         text-decoration: none;
-        margin: 5px 0;
-    }
-
-    /* Button adjustments: Full width on mobile */
-    .navButton, .navButtonSignUp {
-        padding: 10px 20px;
         font-size: 1rem;
-        width: 100%;
-        margin-top: 10px;
     }
 
-    /* Hero section adjustments */
+    .navButton, .navButtonSignUp {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+        width: 90%;
+    }
+
+    /* Hero Section Styles */
     .hero {
-        padding: 50px 20px;
+        padding: 100px 10px;
+        min-height: 50vh;
     }
 
     .buttonContainer {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
+        margin-top: 60px;
     }
 
-    /* Slider adjustments */
+    .ctaButton, .learnMoreButton {
+        padding: 12px 25px;
+        font-size: 1rem;
+        width: 80%;
+    }
+
+    /* Slider Styles */
     .Slider {
-        height: 300px;
+        height: 400px;
     }
 
-    /* Artwork section adjustments */
+    .SliderImage {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Artwork Grid Styles */
+    .explore_artwork {
+        padding: 30px 20px;
+        background-color: white;
+    }
+
     .artworkGrid {
         flex-direction: column;
         gap: 20px;
@@ -606,65 +629,116 @@ html, body {
     .artworkCard {
         width: 90%;
         height: auto;
-        padding: 15px;
+        margin: 0 auto;
     }
 
-    /* Footer adjustments */
+    .artworkImage {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .ctaButton, .learnMoreButton {
+        width: 90%;
+        padding: 10px 20px;
+    }
+
+    /* Footer Styles */
     .footer {
         padding: 15px 10px;
+        text-align: center;
     }
 
     .footerLinks a {
-        font-size: 0.85rem;
-        margin: 0 8px;
-    }
-}
-
-/* Additional Tweaks for Screens 600px and Below */
-
-@media (max-width: 600px) {
-    /* Further adjustments to the header and button styles */
-    .navButton, .navButtonSignUp {
-        padding: 8px 15px;
-        font-size: 0.85rem;
-        width: 100%;
+        font-size: 0.8rem;
     }
 
-    /* Ensure the navigation links are always visible */
-    .navLink {
-        font-size: 1rem;
-        margin: 5px 0;
-    }
-
-        /* Hide additional links if screen is too small */
-        .navLink.extra-small {
-            display: none;
-        }
-
-    /* Full-width for buttons within content */
-    .ctaButton, .learnMoreButton {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-    }
-
-    /* Modal adjustments for small screens */
+    /* Modal Styles */
     .modal {
-        width: 90%;
-        padding: 1.5rem;
+        width: 100%;
+        max-width: 450px;
+        padding: 2rem;
     }
 
         .modal h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
         }
 
         .modal input[type="number"] {
-            font-size: 1rem;
+            font-size: 1.2rem;
             padding: 0.8rem;
         }
 
-    .modal-buttons button {
-        padding: 0.6rem 1rem;
-        font-size: 1rem;
+    .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
     }
+
+    .modal button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    /* Donation Amount Options */
+    .amount-options {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .amount-option {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+    }
+
+        .amount-option.selected {
+            border-color: #007BFF;
+            background-color: #cce5ff;
+        }
+
+    /* Who We Are Section */
+    .who-we-are {
+        padding: 40px 20px;
+        text-align: justify;
+    }
+
+        .who-we-are h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+    .who-we-are-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .text-column {
+        font-size: 1.4rem;
+        margin-right: 0;
+    }
+
+    .image-column {
+        width: 100%;
+    }
+
+    .about-image {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .payment-toggle {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .payment-toggle label {
+            cursor: pointer;
+            font-size: 1rem;
+        }
 }

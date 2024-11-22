@@ -4,22 +4,28 @@
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
-    position: relative;
-    min-height: calc(100vh - 100px); /* Adjust for footer height */
+    background: linear-gradient(to bottom, #f0f8ff, #e6e6fa); /* Subtle gradient background */
+    min-height: calc(100vh - 100px);
 }
 
 /* Filter Section */
 .filter-section {
-    width: 20%;
-    background-color: #f4f4f4;
+    width: 15%; /* Reduced width */
+    background-color: #f8f9fa;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-left: 5px solid #007bff;
 }
 
-    .filter-section h3 {
-        margin-bottom: 15px;
+    .filter-section h3, .filter-section h4 {
+        margin-bottom: 10px;
         font-size: 1.2rem;
+        color: #007bff;
     }
 
 .filter-option {
@@ -33,11 +39,15 @@
         margin-right: 10px;
     }
 
+    .filter-option label {
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
 /* Artwork Section */
 .artwork-section {
     flex-grow: 1;
-    background-color: #fff;
-    padding: 15px;
+    background-color: white;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -47,6 +57,7 @@
     font-size: 1.5rem;
     margin-bottom: 20px;
     text-align: center;
+    color: #333;
 }
 
 .cart-icon {
@@ -73,8 +84,8 @@
 .items-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    justify-content: flex-start;
+    gap: 20px;
+    justify-content: flex-start; /* Align to start */
 }
 
 .item-card {
@@ -85,15 +96,17 @@
     padding: 15px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
     .item-card:hover {
         transform: scale(1.05);
+        background-color: #f0f8ff;
     }
 
     .item-card.highlighted {
-        border: 2px solid #28a745; /* Green border for highlighted items */
+        border: 2px solid #28a745;
+        background-color: #e6ffe6;
     }
 
 .item-image {
@@ -123,6 +136,7 @@
     .item-card button:hover {
         background-color: #0056b3;
     }
+
 
 /* Mobile Styles */
 @media (max-width: 768px) {
