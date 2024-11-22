@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SubscriptionPage.css';
-import Footer from './Footer';
+import Footer from './Footer.jsx';
 
 const SubscriptionPage = () => {
     const navigate = useNavigate();

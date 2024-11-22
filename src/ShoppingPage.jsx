@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Ensure this is imported
+import { useNavigate } from 'react-router-dom';
 import './ShoppingPage.css';
+import { FaShoppingCart } from 'react-icons/fa'; // Cart icon
+import Footer from './Footer.jsx';
 
 const ShoppingPage = () => {
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [cart, setCart] = useState([]);
-    const navigate = useNavigate(); // For navigating to the payment page
+    const [highlightedItems, setHighlightedItems] = useState([]); // To highlight items when added to cart
+    const navigate = useNavigate(); // For navigating to the cart page
 
     const items = [
         { id: 1, name: "Stylish Shirt", category: "Clothing", price: "$50", imageUrl: "https://via.placeholder.com/150" },
@@ -23,70 +26,68 @@ const ShoppingPage = () => {
     };
 
     const handleAddToCart = (item) => {
-        setCart((prev) => [...prev, item]);
-    };
-
-    const handleRemoveFromCart = (itemId) => {
-        setCart((prev) => prev.filter((item) => item.id !== itemId));
+        setCart((prev) => {
+            const existingItem = prev.find((i) => i.id === item.id);
+            if (existingItem) {
+                return prev.map((i) =>
+                    i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+                );
+            }
+            return [...prev, { ...item, quantity: 1 }];
+        });
+        setHighlightedItems((prev) => [...prev, item.id]); // Highlight the added item
     };
 
     const filteredItems = selectedFilters.length
         ? items.filter((item) => selectedFilters.includes(item.category))
         : items;
 
-    const handleProceedToPayment = () => {
-        navigate('/payment', { state: { cartItems: cart } }); // Pass cart items to payment page
+    const handleGoToCart = () => {
+        navigate('/cart', { state: { cartItems: cart } });
     };
 
     return (
-        <div className="shopping-portal">
-            <div className="filter-section">
-                <h3>Filters</h3>
-                {filters.map((filter) => (
-                    <div key={filter} className="filter-option">
-                        <input
-                            type="checkbox"
-                            id={filter}
-                            checked={selectedFilters.includes(filter)}
-                            onChange={() => handleFilterChange(filter)}
-                        />
-                        <label htmlFor={filter}>{filter}</label>
-                    </div>
-                ))}
-            </div>
-            <div className="items-section">
-                <div className="items-grid">
-                    {filteredItems.map((item) => (
-                        <div key={item.id} className="item-card">
-                            <img src={item.imageUrl} alt={item.name} className="item-image" />
-                            <h4>{item.name}</h4>
-                            <p>{item.category}</p>
-                            <p>{item.price}</p>
-                            <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
+        <>
+            <div className="shopping-portal">
+                <div className="filter-section">
+                    <h3>Filters</h3>
+                    {filters.map((filter) => (
+                        <div key={filter} className="filter-option">
+                            <input
+                                type="checkbox"
+                                id={filter}
+                                checked={selectedFilters.includes(filter)}
+                                onChange={() => handleFilterChange(filter)}
+                            />
+                            <label htmlFor={filter}>{filter}</label>
                         </div>
                     ))}
                 </div>
-            </div>
-            <div className="cart-section">
-                <h3>Cart</h3>
-                {cart.length === 0 ? (
-                    <p>Your cart is empty</p>
-                ) : (
-                    <div>
-                        {cart.map((item) => (
-                            <div key={item.id} className="cart-item">
-                                <p>{item.name}</p>
+
+                <div className="artwork-section">
+                    <div className="cart-icon" onClick={handleGoToCart}>
+                        <FaShoppingCart size={30} />
+                        {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+                    </div>
+                    <h2 className="artwork-title">Available Artworks</h2>
+                    <div className="items-container">
+                        {filteredItems.map((item) => (
+                            <div
+                                key={item.id}
+                                className={`item-card ${highlightedItems.includes(item.id) ? 'highlighted' : ''}`}
+                            >
+                                <img src={item.imageUrl} alt={item.name} className="item-image" />
+                                <h4>{item.name}</h4>
+                                <p>{item.category}</p>
                                 <p>{item.price}</p>
-                                <button onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
+                                <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
                             </div>
                         ))}
-                        <button className="proceed-to-payment" onClick={handleProceedToPayment}>
-                            Proceed to Payment
-                        </button>
                     </div>
-                )}
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

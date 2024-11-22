@@ -71,13 +71,20 @@ const EventRegistrationForm = () => {
 
                 console.log('Sending registration data:', registrationData);
 
-                const response = await fetch('https://shashikala-backend-v1.onrender.com/api/event-registration', {
+                const response = await fetch('https://shashikala-backend-gddy.onrender.com/api/event-registration', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(registrationData)
                 });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Server response:', errorText);
+                    throw new Error(`Server responded with status ${response.status}`);
+                }
 
                 const result = await response.json();
                 console.log('Registration response:', result);
@@ -103,7 +110,8 @@ const EventRegistrationForm = () => {
                             eventVenue,
                             eventTime,
                             registrationId: result.registration.registration_id,
-                            clientSecret: result.clientSecret
+                            clientSecret: result.clientSecret,
+                            zipcode
                         }
                     });
                 }
@@ -271,24 +279,21 @@ const EventRegistrationForm = () => {
                         {isLoading ? 'Processing...' : (paymentAmount > 0 ? 'Proceed to Payment' : 'Register')}
                     </button>
                 </form>
-            </div>
 
-            {isRegistered && (
-                <div className="dialog-backdrop">
-                    <div className="dialog-box">
-                        <h2>Registration Successful!</h2>
-                        <p>You have successfully registered for {eventName}.</p>
-                        <button onClick={handleCloseDialog}>Close</button>
+                {isRegistered && (
+                    <div className="dialog">
+                        <p>Thank you for registering! A confirmation email has been sent.</p>
+                        <button onClick={handleCloseDialog} className="close-button">Close</button>
                     </div>
-                </div>
-            )}
-
+                )}
+            </div>
             <Footer />
         </>
     );
 };
 
 export default EventRegistrationForm;
+
 
 
 
