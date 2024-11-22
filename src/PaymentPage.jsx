@@ -217,7 +217,7 @@ const PaymentPage = () => {
     const description = isEvent
         ? `Date: ${location.state.eventDate} | Venue: ${location.state.eventVenue} | Time: ${location.state.eventTime}`
         : isShopping
-            ? `You are purchasing the following items:\n${cartItems
+            ? `Thank You for purchasing the following items:\n${cartItems
                 .map((item) => `${item.name} x ${item.quantity}`)
                 .join(', ')}`
             : 'Your donation helps us continue our mission. Thank you for your generosity.';
