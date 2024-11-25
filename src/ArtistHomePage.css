@@ -634,74 +634,74 @@ body {
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        min-height: 100%; /* Ensure full height for content */
         display: flex;
         flex-direction: column;
+        height: 100%;
     }
 
     #root {
         width: 100%;
         margin: 0 auto;
         text-align: center;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
+        flex: 1; /* Allow root to take up the main content height */
     }
 
     /* Overlay Section */
     .overlay {
-        padding: 15px;
-        justify-content: flex-start;
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
-        background: url('/path/to/your/image.jpg') no-repeat center center; /* Background Image */
-        background-size: cover;
-        min-height: calc(100vh - 80px); /* Stretch from header to form section */
+        text-align: center;
         box-sizing: border-box;
+        padding: 15px;
+        background: url('/path/to/your/image.jpg') no-repeat center center; /* Set background image */
+        background-size: cover;
+        min-height: calc(100vh - 60px); /* Stretch background image between header and footer */
     }
 
         .overlay h1 {
             font-size: 1.8rem;
             margin-top: 20px;
+            color: #fff;
         }
 
         .overlay p {
             font-size: 1rem;
-            margin-bottom: 10px;
+            margin: 10px 0;
+            color: #fff;
         }
 
     /* Form Container */
     .form-container {
         width: 90%;
-        padding: 1.5rem;
+        padding: 20px;
+        margin-top: 20px; /* Space below the header */
+        margin-bottom: 0; /* Align with footer */
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
         align-items: center;
-        justify-content: center;
-        overflow-y: auto; /* Add scroll for overflow */
-        margin-bottom: 20px; /* Ensure spacing above the footer */
+        box-sizing: border-box;
+        min-height: auto;
     }
 
-        /* Adjust Heights Dynamically */
         .form-container.login {
-            min-height: 50vh; /* Suitable height for login */
+            min-height: 50vh; /* Adjust height for login form */
         }
 
         .form-container.signup {
-            min-height: 60vh; /* Suitable height for signup */
+            min-height: 65vh; /* Adjust height for signup form */
         }
 
     /* Form Inputs and Buttons */
     .form-group input {
-        padding: 0.6rem;
+        padding: 10px;
         font-size: 0.9rem;
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         border-radius: 5px;
         border: 1px solid #ddd;
         transition: border-color 0.3s ease;
@@ -713,16 +713,15 @@ body {
         }
 
     .form-submit-button {
-        padding: 0.8rem;
+        padding: 12px;
         font-size: 1.1rem;
-        font-weight: bold;
         color: #fff;
         background-color: #ffa94d;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
         width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
         .form-submit-button:hover {
@@ -731,38 +730,22 @@ body {
             transform: scale(1.05);
         }
 
-    /* Text Switch */
-    .text-switch {
-        font-size: 1rem;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        display: flex;
-        justify-content: center;
-    }
-
-        .text-switch span {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            color: #ffa94d;
-            transition: color 0.3s ease;
-        }
-
-            .text-switch span.active,
-            .text-switch span:hover {
-                color: #ffd1a1;
-                border-bottom: 2px solid #ffd1a1;
-            }
-
-    /* Footer Styles */
+    /* Footer Section */
     .footer {
-        padding: 15px 10px;
+        padding: 15px;
         text-align: center;
         background-color: #333;
         color: #fff;
-        margin-top: auto; /* Push footer below content */
+        flex-shrink: 0;
     }
 
-    .footerLinks a {
-        font-size: 0.8rem;
-    }
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+            .footer a:hover {
+                text-decoration: underline;
+            }
 }
+
