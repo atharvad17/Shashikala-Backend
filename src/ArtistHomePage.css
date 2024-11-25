@@ -634,9 +634,9 @@ body {
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        min-height: 100%; /* Ensure full height for content */
+        min-height: 100%; /* Full height for content */
         display: flex;
-        flex-direction: column; /* Ensure footer stays at the bottom */
+        flex-direction: column; /* Stack header, form, and footer */
     }
 
     #root {
@@ -652,7 +652,7 @@ body {
     .overlay {
         padding: 15px;
         justify-content: flex-start;
-        min-height: auto; /* Allow overlay height to adjust dynamically */
+        min-height: calc(100vh - 80px); /* Adjust height for header/footer */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -683,15 +683,17 @@ body {
         box-sizing: border-box;
         align-items: center;
         justify-content: center;
+        overflow-y: auto; /* Add scroll for overflow */
+        max-height: 80vh; /* Prevent form container from growing too large */
     }
 
-        /* Dynamic Height for Forms */
+        /* Adjust Height Dynamically for Login/Signup */
         .form-container.login {
-            min-height: auto; /* Adjust height dynamically based on content */
+            min-height: 50vh; /* Suitable height for login */
         }
 
         .form-container.signup {
-            min-height: auto; /* Adjust height dynamically based on content */
+            min-height: 60vh; /* Suitable height for signup */
         }
 
     /* Form Inputs and Buttons */
@@ -751,7 +753,7 @@ body {
                 border-bottom: 2px solid #ffd1a1;
             }
 
-    /* Footer Adjustments */
+    /* Footer Styles */
     .footer {
         margin-top: auto; /* Push footer below content */
         padding: 15px 10px;
