@@ -634,24 +634,30 @@ body {
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        height: auto; /* Allow content to grow as needed */
+        min-height: 100%; /* Ensure full height for content */
+        display: flex;
+        flex-direction: column; /* Ensure footer stays at the bottom */
     }
 
-    /* Main wrapper adjustments */
     #root {
         width: 100%;
         margin: 0 auto;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
-    /* Overlay for Login/Signup Section */
+    /* Overlay Section */
     .overlay {
         padding: 15px;
         justify-content: flex-start;
-        min-height: calc(100vh - 80px); /* Stretch to full viewport, minus header/footer */
+        min-height: auto; /* Allow overlay height to adjust dynamically */
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
+        align-items: center;
+        background: url('/path/to/your/image.jpg') no-repeat center center; /* Add background image */
+        background-size: cover;
     }
 
         .overlay h1 {
@@ -661,22 +667,32 @@ body {
 
         .overlay p {
             font-size: 1rem;
-            margin-bottom: 10px; /* Add spacing below text */
+            margin-bottom: 10px;
         }
 
-    /* Form container adjustments for mobile */
+    /* Form Container */
     .form-container {
         width: 90%;
         padding: 1.5rem;
-        box-sizing: border-box;
-        margin-top: 20px; /* Ensure the form starts below the header */
-        margin-bottom: 0; /* Remove unnecessary extra space */
-        flex-grow: 1; /* Allow the form container to take available space */
+        margin: 20px 0;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        overflow-y: auto; /* Enable vertical scrolling for longer forms */
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
     }
+
+        /* Dynamic Height for Forms */
+        .form-container.login {
+            min-height: auto; /* Adjust height dynamically based on content */
+        }
+
+        .form-container.signup {
+            min-height: auto; /* Adjust height dynamically based on content */
+        }
 
     /* Form Inputs and Buttons */
     .form-group input {
@@ -737,14 +753,17 @@ body {
 
     /* Footer Adjustments */
     .footer {
+        margin-top: auto; /* Push footer below content */
         padding: 15px 10px;
-        font-size: 0.9rem;
         text-align: center;
-        position: static; /* Ensure footer is correctly positioned below content */
+        background-color: #333;
+        color: #fff;
     }
 
         .footer a {
             font-size: 0.9rem;
+            color: #007BFF;
+            text-decoration: none;
         }
 
             .footer a:hover {
