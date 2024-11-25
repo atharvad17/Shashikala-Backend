@@ -657,7 +657,7 @@ body {
         padding: 15px;
         background: url('/path/to/your/image.jpg') no-repeat center center; /* Set background image */
         background-size: cover;
-        min-height: calc(100vh - 60px); /* Stretch background image between header and footer */
+        min-height: calc(100vh - 80px); /* Stretch between header and footer */
     }
 
         .overlay h1 {
@@ -676,8 +676,7 @@ body {
     .form-container {
         width: 90%;
         padding: 20px;
-        margin-top: 20px; /* Space below the header */
-        margin-bottom: 0; /* Align with footer */
+        margin: 20px 0;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -712,6 +711,18 @@ body {
             outline: none;
         }
 
+    .forgot-password {
+        font-size: 0.9rem;
+        color: #007BFF; /* Visible blue color for mobile screens */
+        margin-top: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+        .forgot-password:hover {
+            color: #0056b3; /* Slightly darker on hover */
+        }
+
     .form-submit-button {
         padding: 12px;
         font-size: 1.1rem;
@@ -736,6 +747,7 @@ body {
         text-align: center;
         background-color: #333;
         color: #fff;
+        margin-top: auto; /* Ensure footer is pushed below content */
         flex-shrink: 0;
     }
 
@@ -747,5 +759,10 @@ body {
             .footer a:hover {
                 text-decoration: underline;
             }
+
+    /* Ensure spacing above footer */
+    .overlay ~ .footer {
+        margin-top: 20px; /* Add space above footer */
+    }
 }
 
