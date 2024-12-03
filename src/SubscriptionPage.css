@@ -21,13 +21,12 @@
     display: flex;
     gap: 20px;
     justify-content: center;
-    flex-wrap: wrap; /* For responsiveness */
+    flex-wrap: wrap;
 }
 
 /* Subscription Cards */
 .subscription-card {
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
@@ -42,21 +41,46 @@
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
-    /* Highlight Premium Plan */
-    .subscription-card.premium {
-        border: 2px solid #6a11cb;
-        box-shadow: 0 6px 12px rgba(106, 17, 203, 0.3);
+    /* Specific Plan Styles */
+    .subscription-card.free {
+        border: 2px solid #00aaff;
+    }
+
+    .subscription-card.bronze {
+        border: 2px solid #cd7f32;
+    }
+
+    .subscription-card.silver {
+        border: 2px solid #c0c0c0;
+    }
+
+    .subscription-card.gold {
+        border: 2px solid #ffd700;
     }
 
 /* Card Header */
 .card-header {
-    background-color: #6a11cb;
-    color: white;
     padding: 20px;
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
-    text-transform: uppercase;
+    color: white;
+}
+
+.subscription-card.free .card-header {
+    background-color: #00aaff;
+}
+
+.subscription-card.bronze .card-header {
+    background-color: #cd7f32;
+}
+
+.subscription-card.silver .card-header {
+    background-color: #c0c0c0;
+}
+
+.subscription-card.gold .card-header {
+    background-color: #ffd700;
 }
 
 /* Card Body */
@@ -68,7 +92,6 @@
     .card-body .price {
         font-size: 2rem;
         font-weight: bold;
-        color: #6a11cb;
         margin-bottom: 20px;
         text-align: center;
     }
@@ -119,6 +142,15 @@
     .subscribe-button:hover {
         background: linear-gradient(135deg, #2575fc, #6a11cb);
         transform: scale(1.05);
+    }
+
+/* Free Plan Button */
+.free-button {
+    background-color: #00aaff;
+}
+
+    .free-button:hover {
+        background-color: #008ecc;
     }
 
 /* Mobile Styles */

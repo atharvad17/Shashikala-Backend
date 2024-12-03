@@ -1,0 +1,160 @@
+/* General Layout */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Header Section */
+.public-header {
+    text-align: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: white;
+    padding: 40px 20px;
+}
+
+    .public-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .public-header p {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+/* About Me Section */
+.about-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: #ffffff;
+}
+
+.about-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.profile-image-container {
+    flex: 1;
+    max-width: 200px;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.about-text-container {
+    flex: 3;
+}
+
+    .about-text-container h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #ff6f61;
+    }
+
+    .about-text-container p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #555;
+    }
+
+/* Artworks Section */
+.artworks-section {
+    padding: 40px 20px;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+    .artworks-section h2 {
+        font-size: 2rem;
+        color: #ff6f61;
+        margin-bottom: 30px;
+    }
+
+.artworks-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.artwork-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .artwork-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+.artwork-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.artwork-details {
+    padding: 20px;
+    text-align: center;
+}
+
+    .artwork-details h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .artwork-details p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+.artwork-price {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.customize-button {
+    padding: 10px 15px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+    .customize-button:hover {
+        background-color: #ff8a80;
+    }
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}

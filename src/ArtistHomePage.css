@@ -626,47 +626,40 @@ body {
     }
 }
 
-/* General Styles */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    min-height: 100%; /* Ensure the body takes full height */
-    display: flex;
-    flex-direction: column;
-}
+/* Mobile Styles */
+@media (max-width: 768px) {
 
-#root {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    flex: 1; /* Allow root to grow and fill remaining space */
-}
-
-/* Overlay Section */
-.overlay {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 15px;
-    background: url('/path/to/your/image.jpg') no-repeat center center; /* Add your background image */
-    background-size: cover;
-    min-height: auto;
-    padding-bottom: 20px; /* Ensure spacing between form and footer */
-}
-
-    /* Dynamic Height for Background */
-    .overlay:after {
-        content: '';
-        display: block;
-        height: auto;
-        min-height: calc(100vh - 80px); /* Ensures bg image stretches to fit content */
+    /* General Styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
-    /* Text Inside Overlay */
+    #root {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        flex: 1; /* Allow root to take up the main content height */
+    }
+
+    /* Overlay Section */
+    .overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 15px;
+        background: url('/path/to/your/image.jpg') no-repeat center center; /* Set background image */
+        background-size: cover;
+        min-height: calc(100vh - 80px); /* Stretch between header and footer */
+    }
+
     .overlay h1 {
         font-size: 1.8rem;
         margin-top: 20px;
@@ -679,69 +672,68 @@ html, body {
         color: #fff;
     }
 
-/* Form Container */
-.form-container {
-    width: 90%;
-    padding: 20px;
-    margin: 20px 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-}
+    /* Form Container */
+    .form-container {
+        width: 90%;
+        padding: 20px;
+        margin: 20px 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+        min-height: auto;
+    }
 
     .form-container.login {
-        padding-bottom: 20px;
-        min-height: auto; /* Adjust height for login */
+        min-height: 50vh; /* Adjust height for login form */
     }
 
     .form-container.signup {
-        padding-bottom: 30px;
-        min-height: auto; /* Adjust height for signup */
+        min-height: 65vh; /* Adjust height for signup form */
     }
 
-/* Inputs and Buttons */
-.form-group input {
-    padding: 10px;
-    font-size: 0.9rem;
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    transition: border-color 0.3s ease;
-}
+    /* Form Inputs and Buttons */
+    .form-group input {
+        padding: 10px;
+        font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        transition: border-color 0.3s ease;
+    }
 
     .form-group input:focus {
         border-color: #ffa94d;
         outline: none;
     }
 
-.forgot-password {
-    font-size: 0.9rem;
-    color: #007BFF;
-    margin-top: 10px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-    .forgot-password:hover {
-        color: #0056b3;
+    .forgot-password {
+        font-size: 0.9rem;
+        color: #007BFF; /* Visible blue color for mobile screens */
+        margin-top: 10px;
+        text-decoration: underline;
+        cursor: pointer;
     }
 
-.form-submit-button {
-    padding: 12px;
-    font-size: 1.1rem;
-    color: #fff;
-    background-color: #ffa94d;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .forgot-password:hover {
+        color: #0056b3; /* Slightly darker on hover */
+    }
+
+    .form-submit-button {
+        padding: 12px;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #ffa94d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
     .form-submit-button:hover {
         background-color: #ffd1a1;
@@ -749,22 +741,28 @@ html, body {
         transform: scale(1.05);
     }
 
-/* Footer */
-.footer {
-    padding: 15px;
-    text-align: center;
-    background-color: #333;
-    color: #fff;
-    margin-top: auto; /* Ensure footer appears below the content */
-    flex-shrink: 0;
-}
+    /* Footer Section */
+    .footer {
+        padding: 15px;
+        text-align: center;
+        background-color: #333;
+        color: #fff;
+        margin-top: auto; /* Ensure footer is pushed below content */
+        flex-shrink: 0;
+    }
 
     .footer a {
         color: #007BFF;
         text-decoration: none;
     }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Ensure spacing above footer */
+    .overlay ~ .footer {
+        margin-top: 20px; /* Add space above footer */
+    }
+}
 

@@ -12,53 +12,86 @@ const SubscriptionPage = () => {
 
     return (
         <>
-        <div className="subscription-page">
-            <h1>Choose Your Subscription</h1>
-            <div className="subscription-models">
-                <div className="subscription-card">
-                    <div className="card-header">
-                        <h2>Basic Plan</h2>
+            <div className="subscription-page">
+                <h1>Choose Your Subscription Plan</h1>
+                <div className="subscription-models">
+                    <div className="subscription-card free">
+                        <div className="card-header">Free Plan</div>
+                        <div className="card-body">
+                            <p className="price">Free</p>
+                            <ul>
+                                <li>Access to public gallery</li>
+                                <li>Browse featured artists</li>
+                                <li>Email updates</li>
+                            </ul>
+                        </div>
+                        <div className="card-footer">
+                            <button
+                                className="subscribe-button free-button"
+                                onClick={() => handleProceedToPay(0)}
+                            >
+                                Start Free
+                            </button>
+                        </div>
                     </div>
-                    <div className="card-body">
-                        <p className="price">$20/month</p>
-                        <ul>
-                            <li>Access to basic features</li>
-                            <li>Upload up to 10 artworks</li>
-                            <li>Email support</li>
-                        </ul>
+                    <div className="subscription-card bronze">
+                        <div className="card-header">Bronze Plan</div>
+                        <div className="card-body">
+                            <p className="price">$10/month</p>
+                            <ul>
+                                <li>Access to basic features</li>
+                                <li>Upload up to 5 artworks</li>
+                                <li>Email support</li>
+                            </ul>
+                        </div>
+                        <div className="card-footer">
+                            <button
+                                className="subscribe-button"
+                                onClick={() => handleProceedToPay(10)}
+                            >
+                                Proceed to Pay
+                            </button>
+                        </div>
                     </div>
-                    <div className="card-footer">
-                        <button
-                            className="subscribe-button"
-                            onClick={() => handleProceedToPay(20)}
-                        >
-                            Proceed to Pay
-                        </button>
+                    <div className="subscription-card silver">
+                        <div className="card-header">Silver Plan</div>
+                        <div className="card-body">
+                            <p className="price">$30/month</p>
+                            <ul>
+                                <li>Access to all features</li>
+                                <li>Upload up to 20 artworks</li>
+                                <li>Priority email support</li>
+                            </ul>
+                        </div>
+                        <div className="card-footer">
+                            <button
+                                className="subscribe-button"
+                                onClick={() => handleProceedToPay(30)}
+                            >
+                                Proceed to Pay
+                            </button>
+                        </div>
+                    </div>
+                    <div className="subscription-card gold">
+                        <div className="card-header">Gold Plan</div>
+                        <div className="card-body">
+                            <p className="price">$60/month</p>
+                            <ul>
+                                <li>Unlimited uploads</li>
+                                <li>Personalized recommendations</li>
+                                <li>Dedicated account manager</li>
+                            </ul>
+                        </div>
+                        <div className="card-footer">
+                            <button
+                                className="subscribe-button"
+                                onClick={() => handleProceedToPay(60)}
+                            >
+                                Proceed to Pay
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div className="subscription-card premium">
-                    <div className="card-header">
-                        <h2>Premium Plan</h2>
-                    </div>
-                    <div className="card-body">
-                        <p className="price">$50/month</p>
-                        <ul>
-                            <li>Access to all features</li>
-                            <li>Unlimited artwork uploads</li>
-                            <li>Priority support</li>
-                            <li>Personalized recommendations</li>
-                        </ul>
-                    </div>
-                    <div className="card-footer">
-                        <button
-                            className="subscribe-button"
-                            onClick={() => handleProceedToPay(50)}
-                        >
-                            Proceed to Pay
-                        </button>
-                    </div>
-                </div>
-            </div>
             </div>
             <Footer />
         </>
