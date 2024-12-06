@@ -22,6 +22,7 @@ import ArtistPublicPage from './ArtistPublicPage.jsx';
 import SubscriptionPage from './SubscriptionPage.jsx';
 import ShoppingPage from './ShoppingPage.jsx'; 
 import ShoppingCart from './ShoppingCart.jsx'
+import ArtistProfilePage from './ArtistProfilePage.jsx';
 
 
 // Slider Images
@@ -129,6 +130,7 @@ function App() {
                     <Link to="/eventCard" className="navLink">Events</Link>
                     <Link to="/vision" className="navLink">About</Link>
                     <Link to="/artisthome" className="navLink">Artists</Link>
+                    <Link to="/artistprofile" className="navLink">Profile</Link>
                     <button className="navButton" onClick={handleOpenModal}>
                         <FaHeart size={16} style={{ marginRight: '8px' }} />
                         Donate Now
@@ -270,6 +272,7 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/subscription" element={<SubscriptionPage />} />
                 <Route path="/shop" element={<ShoppingPage />} />
                 <Route path="/cart" element={<ShoppingCart />} />
+                <Route path="/artistprofile" element={<ArtistProfilePage />} />
             </Routes>
         </>
     );

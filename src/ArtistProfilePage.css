@@ -1,0 +1,224 @@
+/* Overall Container */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.dashboard-main {
+    display: flex;
+    flex: 1;
+    height: 100%; /* Ensures both sections take the full height */
+}
+
+/* Sidebar Section */
+.dashboard-sidebar {
+    width: 20%;
+    background-color: #ffeecd;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items at the top */
+    height: 100%; /* Ensures sidebar stretches to full height */
+}
+
+/* Adjusts the space between the profile section and the menu */
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f4b400;
+}
+
+/* Sidebar Options */
+.sidebar-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Allow the sidebar options to take up remaining space */
+}
+
+    .sidebar-options li {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: left;
+        font-size: 1rem;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .sidebar-options li:hover,
+        .sidebar-options .active {
+            background-color: #f4b400;
+            color: white;
+        }
+
+/* Social Links Section */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.social-icon {
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+
+    .social-icon:hover {
+        color: #f4b400;
+    }
+
+/* Right Content Section */
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #e8f7ff;
+    overflow-y: auto;
+    width: 80%; /* Ensures the right section takes up remaining space */
+}
+
+/* Profile Management Section */
+.profile-management-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%; /* Ensures the form takes full available height */
+}
+
+    .profile-management-form h3 {
+        text-align: center;
+        font-size: 1.6rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+.form-group {
+    width: 100%;
+}
+
+    .form-group label {
+        display: block;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+    }
+
+        .form-group input:focus {
+            border-color: #f4b400;
+        }
+
+/* Profile Photo Section (Inline) */
+.profile-photo-container {
+    display: flex;
+    flex-direction: column; /* Ensure label is on top */
+    margin-bottom: 20px; /* Adds spacing between sections */
+}
+
+.profile-photo-wrapper {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    gap: 20px; /* Adds space between the photo and the file input */
+}
+
+.profile-pic-edit {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f4b400; /* Optional: border around image */
+}
+
+.file-input {
+    font-size: 1rem;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.profile-save-button-container {
+    text-align: center;
+    width: 100%;
+}
+
+.profile-save-button {
+    margin-top:5px;
+    padding: 10px;
+    background-color: #f4b400;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: auto;
+    transition: background-color 0.3s ease;
+}
+
+    .profile-save-button:hover {
+        background-color: #d98d00;
+    }
+
+/* Popup message styling */
+.popup-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeOut 2s forwards;
+}
+
+/* Keyframe animation to fade out the popup */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+footer { 
+    background-color: #f4b400;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+}

@@ -30,7 +30,6 @@ const ArtistHomePage = () => {
     );
 };
 
-// Forgot Password Dialog
 const ForgotPasswordDialog = ({ isOpen, onClose, onSend }) => {
     const [email, setEmail] = useState('');
 
@@ -100,6 +99,13 @@ const TermsDialog = ({ isOpen, onClose, onAgree }) => {
                     <p>Donec lacinia ligula eu magna dapibus, at ultricies tortor pharetra.</p>
                     <p>Additional terms and conditions to ensure scrolling functionality.</p>
                     <p>Further legal information can be added here.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p>Donec lacinia ligula eu magna dapibus, at ultricies tortor pharetra.</p>
+                    <p>Additional terms and conditions to ensure scrolling functionality.</p>
+                    <p>Further legal information can be added here.</p> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p>Donec lacinia ligula eu magna dapibus, at ultricies tortor pharetra.</p>
+                    <p>Additional terms and conditions to ensure scrolling functionality.</p>
+                    <p>Further legal information can be added here.</p>
                 </div>
                 <div className="terms-footer">
                     <label className={`terms-checkbox-container ${isScrolledToEnd ? '' : 'disabled'}`}>
@@ -117,7 +123,6 @@ const TermsDialog = ({ isOpen, onClose, onAgree }) => {
     );
 };
 
-// LoginForm Component
 const LoginForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -172,28 +177,64 @@ const LoginForm = () => {
     );
 };
 
-// SignUpForm Component
 const SignUpForm = () => {
-    const [formData, setFormData] = useState({ email: '', firstName: '', lastName: '', password: '' });
+    const [formData, setFormData] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        confirmPassword: '',
+        phoneNumber: '',
+        city: '',
+        state: '',
+        country: ''
+    });
     const [verificationSent, setVerificationSent] = useState(false);
     const [signupMessage, setSignupMessage] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const [isTermsOpen, setIsTermsOpen] = useState(false);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-    const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        // Clear password error when user types again
+        if (name === 'confirmPassword' || name === 'password') {
+            setPasswordError('');
+        }
+    };
 
     const handleSignUpSubmit = async (e) => {
         e.preventDefault();
+
+        // Validate password match
+        if (formData.password !== formData.confirmPassword) {
+            setPasswordError('Passwords do not match');
+            return;
+        }
+
         if (!agreedToTerms) {
             setSignupMessage('Please agree to the terms and conditions.');
             return;
         }
-        const response = await fetch('https://example.com/api/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
-        if (response.ok) setVerificationSent(true);
+
+        try {
+            const response = await fetch('https://example.com/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setVerificationSent(true);
+            } else {
+                const data = await response.json();
+                setSignupMessage(data.message || 'Signup failed. Please try again.');
+            }
+        } catch (error) {
+            setSignupMessage('An error occurred. Please try again later.');
+        }
     };
 
     return (
@@ -213,20 +254,95 @@ const SignUpForm = () => {
                 <form className="form" onSubmit={handleSignUpSubmit}>
                     <div className="form-group">
                         <label>First Name</label>
-                        <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
                     <div className="form-group">
                         <label>Last Name</label>
-                        <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input
+                            type="tel"
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>City</label>
+                        <input
+                            type="text"
+                            name="city"
+                            value={formData.city}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>State</label>
+                        <input
+                            type="text"
+                            name="state"
+                            value={formData.state}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Country</label>
+                        <input
+                            type="text"
+                            name="country"
+                            value={formData.country}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
+                    <div className="form-group">
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    {passwordError && <p className="error-text">{passwordError}</p>}
                     <p className="terms-link" onClick={() => setIsTermsOpen(true)}>View Terms and Conditions</p>
                     <button type="submit" className="form-submit-button">Sign Up</button>
                     {signupMessage && <p className="error-text">{signupMessage}</p>}
@@ -235,5 +351,6 @@ const SignUpForm = () => {
         </>
     );
 };
+
 
 export default ArtistHomePage;
