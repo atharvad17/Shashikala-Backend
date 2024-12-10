@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import './ArtistProfilePage.css';
 import placeholderImage from './Images/homeScreen1.jpg'; // Placeholder image
 import Footer from './Footer.jsx';
@@ -13,6 +13,7 @@ const ArtistProfilePage = () => {
     const [currentSubscription, setCurrentSubscription] = useState('Premium'); // Default subscription
     const [publicLink, setPublicLink] = useState('www.artistprofile.com'); // Default public link
     const [popupMessage, setPopupMessage] = useState('');
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Sidebar visibility for mobile screens
 
     const renderContent = () => {
         switch (selectedOption) {
@@ -79,6 +80,29 @@ const ArtistProfilePage = () => {
                         </div>
                     </div>
                 );
+            case 'My Art':
+                return (
+                    <div className="card-section">
+                        <div className="card-container">
+                            <div className="art-card">
+                                <img src={placeholderImage} alt="Art" className="art-image" />
+                                <p className="art-title">Art Piece 1</p>
+                            </div>
+                            <div className="art-card">
+                                <img src={placeholderImage} alt="Art" className="art-image" />
+                                <p className="art-title">Art Piece 2</p>
+                            </div>
+                            <div className="art-card">
+                                <img src={placeholderImage} alt="Art" className="art-image" />
+                                <p className="art-title">Art Piece 3</p>
+                            </div>
+                            <div className="art-card">
+                                <img src={placeholderImage} alt="Art" className="art-image" />
+                                <p className="art-title">Art Piece 4</p>
+                            </div>
+                        </div>
+                    </div>
+                );
             default:
                 return <p>Select an option from the left menu.</p>;
         }
@@ -93,7 +117,6 @@ const ArtistProfilePage = () => {
     };
 
     const handleSave = () => {
-        // Save the profile image and artist name when Save button is clicked
         setProfileImage(profileImageTemp); // Save the temporary image to the actual profile image
         setDisplayName(artistName); // Update the artist name in the sidebar when Save is clicked
         setPopupMessage('Profile Saved Successfully!'); // Show the success message
@@ -113,42 +136,51 @@ const ArtistProfilePage = () => {
     return (
         <>
             <div className="dashboard-container">
-                <div className="dashboard-main">
-                    <nav className="dashboard-sidebar">
-                        <div className="profile-section">
-                            <img
-                                src={profileImage}
-                                alt="Artist Profile"
-                                className="profile-pic" // Left section profile image
-                            />
-                            <p>{displayName}</p> {/* Display name in the left sidebar */}
-                        </div>
-                        <ul className="sidebar-options">
-                            {[
-                                'My Art',
-                                'Events',
-                                'Contact Us',
-                                'About Us',
-                                'Manage Account',
-                                'Analytics',
-                                'Profile Management',
-                            ].map((option) => (
-                                <li
-                                    key={option}
-                                    className={selectedOption === option ? 'active' : ''}
-                                    onClick={() => setSelectedOption(option)}
-                                >
-                                    {option}
-                                </li>
-                            ))}
-                        </ul>
+                <button
+                    className="hamburger-menu"
+                    onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+                >
+                    ☰
+                </button>
 
-                        {/* Social Links Section */}
-                        <div className="social-links">
-                            <a href="#facebook" className="social-icon">FB</a>
-                            <a href="#instagram" className="social-icon">IG</a>
-                        </div>
-                    </nav>
+                <div className="dashboard-main">
+                    {isSidebarVisible && (
+                        <nav className="dashboard-sidebar">
+                            <div className="profile-section">
+                                <img
+                                    src={profileImage}
+                                    alt="Artist Profile"
+                                    className="profile-pic" // Left section profile image
+                                />
+                                <p>{displayName}</p> {/* Display name in the left sidebar */}
+                            </div>
+                            <ul className="sidebar-options">
+                                {[
+                                    'My Art',
+                                    'Events',
+                                    'Contact Us',
+                                    'About Us',
+                                    'Manage Account',
+                                    'Analytics',
+                                    'Profile Management',
+                                ].map((option) => (
+                                    <li
+                                        key={option}
+                                        className={selectedOption === option ? 'active' : ''}
+                                        onClick={() => setSelectedOption(option)}
+                                    >
+                                        {option}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            {/* Social Links Section */}
+                            <div className="social-links">
+                                <a href="#facebook" className="social-icon">FB</a>
+                                <a href="#instagram" className="social-icon">IG</a>
+                            </div>
+                        </nav>
+                    )}
 
                     {/* Content Section */}
                     <section className="dashboard-content">

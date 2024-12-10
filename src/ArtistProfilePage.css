@@ -1,14 +1,15 @@
-/* Overall Container */
 .dashboard-container {
     display: flex;
-    min-height: 100vh;
+    min-height: 80vh; /* Minimum height for the main container */
     flex-direction: column;
 }
 
+/* Main container for the sidebar and content */
 .dashboard-main {
     display: flex;
-    flex: 1;
-    height: 100%; /* Ensures both sections take the full height */
+    align-items: stretch; /* Ensures both sections stretch to the same height */
+    flex: 1; /* Ensures both sections take up remaining space */
+    height: auto; /* Automatically adjusts to match content height */
 }
 
 /* Sidebar Section */
@@ -16,12 +17,33 @@
     width: 20%;
     background-color: #ffeecd;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Align items at the top */
-    height: 100%; /* Ensures sidebar stretches to full height */
+    box-sizing: border-box; /* Includes padding in height calculation */
 }
+
+/* Content Section */
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #e8f7ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content at the top */
+    align-items: center;
+    overflow-y: auto;
+    box-sizing: border-box; /* Includes padding in height calculation */
+    height: auto; /* Automatically adjusts to content */
+    min-height: 100%; /* Matches sidebar height by default */
+}
+
+/* Debugging Utility for Heights */
+.dashboard-sidebar, .dashboard-content {
+    outline: 1px solid transparent; /* Add solid color temporarily for debugging */
+}
+
+
 
 /* Adjusts the space between the profile section and the menu */
 .profile-section {
@@ -30,8 +52,8 @@
 }
 
 .profile-pic {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #f4b400;
@@ -80,15 +102,6 @@
         color: #f4b400;
     }
 
-/* Right Content Section */
-.dashboard-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #e8f7ff;
-    overflow-y: auto;
-    width: 80%; /* Ensures the right section takes up remaining space */
-}
-
 /* Profile Management Section */
 .profile-management-form {
     max-width: 600px;
@@ -100,8 +113,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 100%; /* Ensures the form takes full available height */
+    height: auto; /* Adjust height based on content */
 }
+
 
     .profile-management-form h3 {
         text-align: center;
@@ -148,8 +162,8 @@
 }
 
 .profile-pic-edit {
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #f4b400; /* Optional: border around image */
@@ -212,7 +226,136 @@
     }
 }
 
-footer { 
+
+.card-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.upload-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.art-card {
+    width: 250px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.art-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.art-title {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-artwork-button,
+.cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-artwork-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.add-artwork-button:hover {
+    background-color: #45a049;
+}
+
+.cancel-button:hover {
+    background-color: #e53935;
+}
+
+
+
+footer {
     background-color: #f4b400;
     color: white;
     padding: 20px;
@@ -221,4 +364,46 @@ footer {
     position: relative;
     bottom: 0;
     margin-top: auto;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Sidebar Responsive Styles */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block; /* Show hamburger menu on smaller screens */
+    }
+
+    .dashboard-sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+        background-color: #ffeecd;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+        .dashboard-sidebar.collapsed {
+            transform: translateX(0); /* Show sidebar when expanded */
+        }
+
+    .dashboard-content {
+        width: 100%; /* Take full width when sidebar is collapsed */
+    }
+}
+
 }
