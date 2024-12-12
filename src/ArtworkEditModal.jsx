@@ -1,4 +1,3 @@
-// ArtworkEditModal.jsx
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
