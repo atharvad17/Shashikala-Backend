@@ -13,8 +13,7 @@ import MissionPage from './MissionPage.jsx';
 import TeamPage from './TeamPage.jsx';
 import SponsorsPage from './SponsorsPage.jsx';
 import EventCatalog from './EventCatalog.jsx';
-import { FaTimes } from 'react-icons/fa'; // Import the close icon from react-icons
-import { FaHeart } from 'react-icons/fa';
+import { FaTimes, FaBars, FaHeart} from 'react-icons/fa'; // Import the close icon from react-icons
 import image1 from './Images/homeScreen1.jpg'; // Import the image
 import ArtistHomePage from './ArtistHomePage.jsx';
 import ArtistDashboard from './ArtistDashboard.jsx';
@@ -65,7 +64,7 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
                             checked={!isMonthly}
                             onChange={() => setIsMonthly(false)}
                         />
-                        One-Time Payment
+                        One Time
                     </label>
                     <label>
                         <input
@@ -73,7 +72,7 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
                             checked={isMonthly}
                             onChange={() => setIsMonthly(true)}
                         />
-                        Monthly Donation
+                        Monthly
                     </label>
                 </div>
 
@@ -112,9 +111,18 @@ const DonateModal = ({ isOpen, onClose, onDonate }) => {
 
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false); // State to toggle mobile nav visibility
+
+    const toggleNav = () => {
+        setIsNavOpen((prev) => !prev);
+    };
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
+    };
+
+    const closeNav = () => {
+        setIsNavOpen(false);
     };
 
     const handleCloseModal = () => {
@@ -124,15 +132,18 @@ function App() {
     return (
         <Router>
             <header className="header">
+                <button className="hamburger" onClick={toggleNav}>
+                    <FaBars size={24} />
+                </button>
                 <Link to="/" className="logo"></Link>
-                <nav className="nav">
-                    <Link to="/shop" className="navLink">Shop</Link>
-                    <Link to="/eventCard" className="navLink">Events</Link>
-                    <Link to="/vision" className="navLink">About</Link>
-                    <Link to="/artisthome" className="navLink">Artists</Link>
-                    <Link to="/artistprofile" className="navLink">Profile</Link>
+                <nav className={`nav ${isNavOpen ? "nav-open" : ""}`}>
+                    <Link to="/shop" className="navLink" onClick={closeNav}>Shop</Link>
+                    <Link to="/eventCard" className="navLink" onClick={closeNav}>Events</Link>
+                    <Link to="/vision" className="navLink" onClick={closeNav}>About</Link>
+                    <Link to="/artisthome" className="navLink" onClick={closeNav}>Artists</Link>
+                    <Link to="/artistprofile" className="navLink" onClick={closeNav}>Profile</Link>
                     <button className="navButton" onClick={handleOpenModal}>
-                        <FaHeart size={16} style={{ marginRight: '8px' }} />
+                        <FaHeart size={16} style={{ marginRight: "8px" }} />
                         Donate Now
                     </button>
                 </nav>

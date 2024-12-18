@@ -95,14 +95,14 @@ const TeamPage = () => {
                     <Modal
                         isOpen={!!selectedMember}
                         onRequestClose={closeModal}
-                        className="modal"
-                        overlayClassName="modal-overlay"
+                        className="team-modal"
+                        overlayClassName="team-modal-overlay"
                     >
-                        <img src={selectedMember.image} alt={selectedMember.name} className="modal-image" />
+                        <img src={selectedMember.image} alt={selectedMember.name} className="team-modal-image" />
                         <h2>{selectedMember.name}</h2>
-                        <p className="modal-designation">{selectedMember.designation}</p>
+                        <p className="team-modal-designation">{selectedMember.designation}</p>
                         <p>{selectedMember.description}</p>
-                        <button onClick={closeModal} className="close-button">Close</button>
+                        <button onClick={closeModal} className="team-close-button">Close</button>
                     </Modal>
                 )}
 

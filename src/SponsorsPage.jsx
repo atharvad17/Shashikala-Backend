@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import './MissionPage.css';
+import './SponsorPage.css';
 import Footer from './Footer.jsx';
 
 const SponsorsPage = () => {
     return (
         <>
-            <div className="about-container">
-                <div className="about-description">
+            <div className="sponsor-about-container">
+                <div className="sponsor-about-description">
                     <h1 align="center">Our Sponsors</h1><br></br>
                 </div>
-                <div className="about-description">
+                <div className="sponsor-about-description">
                     <p>
                         We are grateful to our sponsors for their generous support, which allows us to continue our mission of empowering young artists and promoting visual art.
                     </p>

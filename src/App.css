@@ -17,7 +17,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
+    padding: 10px 15px;
     background-color: black;
     color: white;
     width: 100%;
@@ -37,6 +37,14 @@ html, body {
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .nav {
@@ -45,13 +53,19 @@ html, body {
     flex-grow: 0.75;
     margin-left: 50px;
     gap: 20px;
+    align-items: center;
 }
 
 .navLink {
     color: white;
     text-decoration: none;
     font-size: 20px;
+    transition: color 0.3s ease;
 }
+    .navLink:hover {
+        color: #007BFF;
+    }
+
 
 /* General Button Styles */
 .navButton, .navButtonSignUp {
@@ -107,6 +121,17 @@ html, body {
         outline: none;
         box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6), 0 0 0 6px rgba(0, 0, 0, 0.1);
     }
+
+.hamburger {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    left: 10px; /* Place hamburger on far left */
+}
 
 /* Hero section styles */
 .hero {
@@ -318,6 +343,8 @@ html, body {
     animation: fadeIn 0.3s ease-in-out;
     z-index: 1001;
     position: relative;
+    max-height: 80vh; /* Prevent the modal from getting too tall */
+    overflow-y: auto;
 }
 
     .modal h2 {
@@ -475,32 +502,84 @@ html, body {
 
 .payment-toggle {
     display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
+    flex-direction: row; /* Arrange radio buttons in a row */
+    justify-content: space-between; /* Space between options */
+    align-items: center; /* Vertically align elements */
+    margin-bottom: 20px;
+    padding: 0 10px; /* Add padding for more breathing room */
+    font-family: 'Arial', sans-serif; /* Add a clean font */
 }
 
     .payment-toggle label {
-        cursor: pointer;
+        display: flex; /* Use flexbox to align radio buttons and text horizontally */
+        align-items: center; /* Vertically align radio button and text */
+        font-size: 16px;
+        font-weight: 600; /* Make text slightly bolder */
+        color: #333; /* Darker color for better readability */
+        cursor: pointer; /* Show a pointer on hover for interactivity */
+        transition: color 0.3s ease; /* Smooth transition on hover */
+        white-space: nowrap; /* Prevent text from wrapping to the next line */
     }
+
+        .payment-toggle label:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
+    .payment-toggle input {
+        margin-right: 10px; /* Space between radio button and text */
+        accent-color: #007bff; /* Change the radio button color */
+        transform: scale(1.2); /* Slightly enlarge the radio button for better visibility */
+    }
+
 
 /* Mobile Styles */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: flex-start;
         padding: 10px 15px;
         height: auto;
     }
 
+    .hamburger {
+        display: block; /* Show the hamburger icon */
+        margin-right: 10px; /* Space between icon and logo */
+    }
+
+
     .logo {
         width: 100px;
         height: 50px;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto; /* Keep logo centered */
+        text-align: center;
     }
 
     .nav {
+        display: none; /* Hide navigation links */
         flex-direction: column;
-        gap: 10px;
-        font-size: 0.8rem;
-        margin-left: 0;
+        position: absolute;
+        top: 60px; /* Below the header */
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .nav-open {
+        display: flex; /* Show nav when toggled */
+    }
+
+    .navLink {
+        margin: 10px 0;
+        font-size: 1.2rem;
+    }
+
+    .navButton {
+        width: 90%;
+        margin: 10px auto;
     }
 
     .navButton, .navButtonSignUp {
@@ -655,9 +734,8 @@ html, body {
 
     /* Modal Styles */
     .modal {
-        width: 100%;
-        max-width: 450px;
-        padding: 2rem;
+        width: 80%; /* Modal takes up 80% of the screen width */
+        padding: 15px;
     }
 
         .modal h2 {
@@ -681,22 +759,32 @@ html, body {
         font-size: 1.2rem;
     }
 
-    /* Donation Amount Options */
+    .modal-next {
+        width: 100%; /* Make the Next button take full width on mobile */
+        padding: 14px;
+    }
+
+    /* Amount options (grid for mobile) */
     .amount-options {
-        flex-direction: column;
-        gap: 15px;
-        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
     }
 
     .amount-option {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 1.2rem;
+        cursor: pointer;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        width: 45%; /* Allow each amount option to take 45% width on mobile */
+        font-size: 14px;
     }
 
         .amount-option.selected {
-            border-color: #007BFF;
-            background-color: #cce5ff;
+            background-color: #007bff;
+            color: white;
         }
 
     /* Who We Are Section */
@@ -733,12 +821,19 @@ html, body {
     }
 
     .payment-toggle {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row; /* Stack options vertically on smaller screens */
+        align-items: flex-start; /* Align options to the left */
     }
 
         .payment-toggle label {
-            cursor: pointer;
-            font-size: 1rem;
+            font-size: 14px; /* Slightly smaller font for mobile */
+            white-space: nowrap; /* Prevent text from wrapping to the next line */
         }
+        .payment-toggle label:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
+    .payment-toggle input {
+        margin-bottom: 10px; /* Add margin between stacked options */
+    }
 }

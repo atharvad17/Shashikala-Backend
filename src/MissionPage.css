@@ -14,7 +14,7 @@ body {
 }
 
 /* Container for the Mission Page */
-.about-container {
+.mission-about-container, .sponsor-about-container {
     max-width: 1000px;
     margin: 0 auto; /* Center container horizontally */
     padding: 4rem 2rem; /* Adjust padding to eliminate white spaces */
@@ -25,13 +25,13 @@ body {
 }
 
 /* Header and Description Section */
-.about-description h1, .about-description h2 {
+.mission-about-description h1, .mission-about-description h2, .sponsor-about-description h1, .sponsor-about-description h2, {
     text-align: center;
     color: #333;
     margin-bottom: 1.5rem;
 }
 
-.about-description p {
+.mission-about-description p, .sponsor-about-description p {
     font-size: 1.1rem;
     line-height: 1.6;
     color: #555;

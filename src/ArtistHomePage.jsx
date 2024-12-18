@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ArtistHomePage.css';
-import templateImage from './Images/homeScreen1.jpg';
 import Footer from './Footer';
 
 // API endpoint configuration
@@ -15,7 +14,6 @@ const ArtistHomePage = () => {
         <>
             <div className="mainNav">
                 <div className="image-container">
-                    <img src={templateImage} alt="Artistic Background" />
                     <div className="overlay">
                         <h1>Welcome to the Artist Platform</h1>
                         <p>Showcase your talent, connect with fans, and manage your art catalog in one place.</p>

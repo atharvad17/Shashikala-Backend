@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 const VisionPage = () => {
     return (
         <>
-            <div className="about-container">
+            <div className="vision-about-container">
                 {/* Vision Section */}
-                <div className="about-description">
+                <div className="vision-about-description">
                     <h1 align="center">Our Vision</h1><br></br>
 
 
                     {/* Description Section */}
-                    <div className="about-description">
+                    <div className="vision-about-description">
                         <h2>What We Aim For</h2>
                         <p>
                             Our vision is to spread joy and happiness through the power of visual art. We believe that art has the unique ability to uplift spirits, inspire creativity, and connect people.

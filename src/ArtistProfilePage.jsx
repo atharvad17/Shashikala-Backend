@@ -79,6 +79,7 @@ const ArtistProfilePage = () => {
 
     const [showSubscriptionPlans, setShowSubscriptionPlans] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
+    const [currentPlan, setCurrentPlan] = useState("Bronze Plan"); // Initial current plan
     const [bankName, setBankName] = useState('');
     const [accountNumber, setAccountNumber] = useState('');
     const [routingNumber, setRoutingNumber] = useState('');
@@ -123,9 +124,12 @@ const ArtistProfilePage = () => {
         },
     ];
 
-    const handlePlanSelect = (plan) => {
-        setSelectedPlan(plan.name);
-        alert(`You have selected the ${plan.name} plan!`);  // Show a popup message
+    const handlePlanChange = (newPlan) => {
+        setCurrentPlan(newPlan); // Update the current plan
+        setPopupMessage(`Your plan has been switched to ${newPlan}. It will be activated starting next month.`);
+        setTimeout(() => {
+            setPopupMessage(''); 
+        }, 4000);
     };
 
     const handleEditClick = (artwork) => {
@@ -331,6 +335,7 @@ const ArtistProfilePage = () => {
                                 />
                             </div>
                         </div>
+                        <br></br>
 
                         <div className="form-group">
                             <label>Display Name</label>
@@ -550,30 +555,30 @@ const ArtistProfilePage = () => {
                 );
             case 'About Me':
                 return (
-                    <div className="profile-management-form">
-                        <div className="form-group">
-                            <div className="profile-photo-wrapper">
+                    <div className="about-me-section">
+                        <div className="about-me-group">
+                            <div className="photo-container">
                                 <img
                                     src={profileImageTemp}
                                     alt="Profile"
-                                    className="profile-pic-edit"
+                                    className="profile-photo"
                                 />
                             </div>
                         </div>
 
-                        <div className="form-group">
-                            <label>Bio</label>
+                        <div className="about-me-group">
+                            <label className="bio-label">Bio</label>
                             <textarea
                                 value={artistBio}
                                 onChange={(e) => setArtistBio(e.target.value)}
                                 placeholder="Write about yourself..."
                                 rows="5"
-                                className="bio-input"
+                                className="bio-textarea"
                             />
                         </div>
 
-                        <div className="profile-save-button-container">
-                            <button onClick={handleBioSave} className="profile-save-button">Save</button>
+                        <div className="save-button-container">
+                            <button onClick={handleBioSave} className="about-save-button">Save</button>
                         </div>
                     </div>
                 );
@@ -586,7 +591,7 @@ const ArtistProfilePage = () => {
                             <div className="current-subscription">
                                 <input
                                     type="text"
-                                    value="Bronze Plan"
+                                    value={currentPlan}
                                     readOnly
                                     className="subscription-input"
                                 />
@@ -599,45 +604,35 @@ const ArtistProfilePage = () => {
                             </div>
                         </div>
 
+                        {/* Subscription Plans */}
                         <div className="subscription-plans">
-                            <div className="subscription-card free">
-                                <div className="card-header">Free Plan</div>
-                                <div className="price">$0/month</div>
-                                <ul className="benefits-list">
-                                    <li>Access to basic features</li>
-                                </ul>
-                                <button className="select-plan-button">Select</button>
-                            </div>
-                            <div className="subscription-card bronze">
-                                <div className="card-header">Bronze Plan</div>
-                                <div className="price">$10/month</div>
-                                <ul className="benefits-list">
-                                    <li>Access to basic features</li>
-                                    <li>Priority support</li>
-                                </ul>
-                                <button className="select-plan-button">Select</button>
-                            </div>
-                            <div className="subscription-card silver">
-                                <div className="card-header">Silver Plan</div>
-                                <div className="price">$20/month</div>
-                                <ul className="benefits-list">
-                                    <li>Access to all features</li>
-                                    <li>Advanced analytics</li>
-                                </ul>
-                                <button className="select-plan-button">Select</button>
-                            </div>
-                            <div className="subscription-card gold">
-                                <div className="card-header">Gold Plan</div>
-                                <div className="price">$30/month</div>
-                                <ul className="benefits-list">
-                                    <li>Access to all features</li>
-                                    <li>Dedicated support</li>
-                                    <li>Premium features</li>
-                                </ul>
-                                <button className="select-plan-button">Select</button>
-                            </div>
+                            {[
+                                { name: "Free Plan", price: "$0/month", benefits: ["Access to basic features"], value: "Free Plan" },
+                                { name: "Bronze Plan", price: "$10/month", benefits: ["Access to basic features", "Priority support"], value: "Bronze Plan" },
+                                { name: "Silver Plan", price: "$20/month", benefits: ["Access to all features", "Advanced analytics"], value: "Silver Plan" },
+                                { name: "Gold Plan", price: "$30/month", benefits: ["Access to all features", "Dedicated support", "Premium features"], value: "Gold Plan" },
+                            ].map((plan) => (
+                                <div className={`subscription-card ${plan.value.toLowerCase().replace(" ", "-")}`} key={plan.value}>
+                                    <div className="card-header">{plan.name}</div>
+                                    <div className="price">{plan.price}</div>
+                                    <ul className="benefits-list">
+                                        {plan.benefits.map((benefit, index) => (
+                                            <li key={index} className="benefit-item">
+                                                <span className="tick-mark">✔</span> {benefit}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <button
+                                        className={`select-plan-button ${plan.value === currentPlan ? "current-plan-button" : ""
+                                            }`}
+                                        onClick={() => handlePlanChange(plan.value)}
+                                        disabled={plan.value === currentPlan}
+                                    >
+                                        {plan.value === currentPlan ? "Current" : "Select"}
+                                    </button>
+                                </div>
+                            ))}
                         </div>
-
 
                         {/* Bank Information */}
                         <div className="bank-info">
@@ -678,7 +673,7 @@ const ArtistProfilePage = () => {
                         </div>
                     </div>
                 );
-            default:
+                default:
                 return <p>Select an option from the left menu.</p>;
         }
     };
@@ -719,6 +714,7 @@ const ArtistProfilePage = () => {
             artistBio,
         });
     };
+
 
     return (
         <>

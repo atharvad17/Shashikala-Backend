@@ -6,12 +6,12 @@ import Footer from './Footer.jsx';
 const MissionPage = () => {
     return (
         <>
-            <div className="about-container">
-                <div className="about-description">
+            <div className="mission-about-container">
+                <div className="mission-about-description">
                     <h1 align="center">Our Mission</h1><br></br>
                 </div>
 
-                <div className="about-description">
+                <div className="mission-about-description">
                     <p>
                         We empower underprivileged children by providing scholarships for education, guidance, and mentorship. Through workshops, we aim to promote visual art within our community.
                     </p>
