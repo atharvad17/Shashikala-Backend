@@ -83,7 +83,7 @@ const LoginForm = () => {
             if (data.artistLogin.success) {
                 localStorage.setItem('artistToken', data.artistLogin.token);
                 localStorage.setItem('artistData', JSON.stringify(data.artistLogin.artist));
-                navigate('/dashboard');
+                navigate('/artistprofile');
             } else {
                 setLoginMessage(data.artistLogin.message);
             }

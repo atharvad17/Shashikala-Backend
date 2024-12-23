@@ -408,6 +408,7 @@ const ArtistProfilePage = () => {
                     <div className="catalog-section">
                         {catalogs.map((catalog, index) => (
                             <div key={index} className="catalog">
+                                {/* Catalog Header */}
                                 <div className="catalog-header">
                                     <h3>{catalog.name}</h3>
                                     <div className="header-icons">
@@ -426,6 +427,7 @@ const ArtistProfilePage = () => {
                                     </div>
                                 </div>
 
+                                {/* Catalog Content */}
                                 {catalog.expanded && (
                                     <div className="catalog-content">
                                         <div className="catalog-items">
@@ -441,14 +443,15 @@ const ArtistProfilePage = () => {
                                                     <div className="action-buttons">
                                                         <button
                                                             onClick={() => openModal(index, itemIndex)}
-                                                            className="icon-button edit-icon"
+                                                            className="icon-button-edit-icon"
                                                         >
                                                             <FaPen />
                                                         </button>
                                                         <button
                                                             onClick={() => handleDeleteItem(index, itemIndex)}
-                                                            className="icon-button delete-icon"
+                                                            className="icon-button-delete-icon"
                                                         >
+                                                            <FaTrash /> {/* Ensure delete icon is visible */}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -465,6 +468,7 @@ const ArtistProfilePage = () => {
                             </div>
                         ))}
 
+                        {/* Modal Component */}
                         {isModalOpen && (
                             <ArtworkEditModal
                                 artwork={currentArtwork}
@@ -715,27 +719,34 @@ const ArtistProfilePage = () => {
         });
     };
 
-
     return (
         <>
             <div className="dashboard-container">
-                <button
-                    className="hamburger-menu"
-                    onClick={() => setIsSidebarVisible(!isSidebarVisible)}
-                >
-                    ☰
-                </button>
-
+                {/* Main Content */}
                 <div className="dashboard-main">
-                    {isSidebarVisible && (
-                        <nav className="dashboard-sidebar">
+                    {/* Left Section (Hamburger Icon for Sidebar - Mobile) */}
+                    <div className="left-section">
+                        <button
+                            className="hamburger-menu"
+                            onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+                        >
+                            ☰
+                        </button>
+                    </div>
+
+                    {/* Sidebar */}
+                    {(isSidebarVisible || window.innerWidth > 768) && (
+                        <nav
+                            className={`dashboard-sidebar ${isSidebarVisible ? 'visible' : ''
+                                }`}
+                        >
                             <div className="profile-section">
                                 <img
                                     src={profileImage}
                                     alt="Artist Profile"
-                                    className="profile-pic" // Left section profile image
+                                    className="profile-pic"
                                 />
-                                <p>{displayName}</p> {/* Display name in the left sidebar */}
+                                <p>{displayName}</p>
                             </div>
                             <ul className="sidebar-options">
                                 {[
@@ -749,14 +760,18 @@ const ArtistProfilePage = () => {
                                     <li
                                         key={option}
                                         className={selectedOption === option ? 'active' : ''}
-                                        onClick={() => setSelectedOption(option)}
+                                        onClick={() => {
+                                            setSelectedOption(option);
+                                            if (window.innerWidth <= 768) {
+                                                // Only close the sidebar on mobile screens
+                                                setIsSidebarVisible(false);
+                                            }
+                                        }}
                                     >
                                         {option}
                                     </li>
                                 ))}
                             </ul>
-
-                            {/* Social Links Section */}
                             <div className="social-links">
                                 <a href="#facebook" className="social-icon">FB</a>
                                 <a href="#instagram" className="social-icon">IG</a>
@@ -764,11 +779,11 @@ const ArtistProfilePage = () => {
                         </nav>
                     )}
 
-                    {/* Content Section */}
+                    {/* Right Section */}
                     <section className="dashboard-content">
                         <h2>{selectedOption}</h2>
                         <div className="content-area">{renderContent()}</div>
-                        {popupMessage && <div className="popup-message">{popupMessage}</div>} {/* Popup message */}
+                        {popupMessage && <div className="popup-message">{popupMessage}</div>}
                     </section>
                 </div>
             </div>
