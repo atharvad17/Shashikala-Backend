@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './ArtistPublicPage.css';
 import { FaPaintBrush, FaPalette, FaCartPlus } from 'react-icons/fa'; // Icons for filters
 import Footer from './Footer.jsx';
@@ -9,12 +9,30 @@ const ArtistPublicPage = () => {
     const [highlightedItems, setHighlightedItems] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const artworks = [
         { id: 1, name: "Masterpiece 1", category: "Digital", price: "$100", imageUrl: "https://via.placeholder.com/150" },
         { id: 2, name: "Sculpture 1", category: "Physical", price: "$250", imageUrl: "https://via.placeholder.com/150" },
         { id: 3, name: "Abstract Art", category: "Canvas", price: "$150", imageUrl: "https://via.placeholder.com/150" },
         { id: 4, name: "Digital Illustration", category: "Digital", price: "$80", imageUrl: "https://via.placeholder.com/150" },
+    ];
+
+    const catalogItems = [
+        {
+            category: "Abstract",
+            topItems: [
+                { title: "Dreamscape", imageUrl: "https://via.placeholder.com/100" },
+                { title: "Whirlwind", imageUrl: "https://via.placeholder.com/100" },
+            ],
+        },
+        {
+            category: "Nature",
+            topItems: [
+                { title: "Forest Path", imageUrl: "https://via.placeholder.com/100" },
+                { title: "Golden Sunset", imageUrl: "https://via.placeholder.com/100" },
+            ],
+        },
     ];
 
     const categories = [
@@ -53,22 +71,38 @@ const ArtistPublicPage = () => {
     return (
         <>
             <div className="artist-page">
-                <div className="artist-grid">
-                    {/* Left Section: Artist Profile and Catalog */}
-                    <aside className="artist-profile">
-                        <img src="https://via.placeholder.com/150" alt="Artist" className="artist-image" />
-                        <h2>Artist's Name</h2>
-                        <p>Bio: This artist specializes in unique digital and physical artworks.</p>
+                {/* Top Section: Artist Details */}
+                <header className="artist-header">
+                    <img className="artist-photo" src="https://via.placeholder.com/150" alt="Artist" />
+                    <div className="artist-info">
+                        <h1>Artist Name</h1>
+                        <p>
+                            A short bio about the artist. This section introduces the artist, their style, and
+                            their inspiration behind creating stunning art pieces.
+                        </p>
+                    </div>
+                </header>
 
-                        <div className="catalog-section">
-                            <h3>Top Catalogs</h3>
-                            {categories.map((category) => (
-                                <div key={category.label} className="catalog-item">
-                                    {category.icon}
-                                    <span>{category.label}</span>
+                {/* Middle Section: Catalog and Artwork */}
+                <div className="content-grid">
+                    {/* Left Section: Catalog */}
+                    <aside className="catalog-section">
+                        <h2>Top Catalogs</h2>
+                        {catalogItems.map((catalog, index) => (
+                            <div className="catalog-card" key={index}>
+                                <h3>{catalog.category}</h3>
+                                <div className="catalog-images">
+                                    {catalog.topItems.map((item, idx) => (
+                                        <img
+                                            key={idx}
+                                            src={item.imageUrl}
+                                            alt={item.title}
+                                            title={item.title}
+                                        />
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </aside>
 
                     {/* Right Section: Artwork Section */}
@@ -111,10 +145,20 @@ const ArtistPublicPage = () => {
                         </div>
                     </main>
                 </div>
+                < footer className="contact-section" >
+                    <h2>Contact the Artist</h2>
+                    <form>
+                        <input type="text" placeholder="Your Name" required />
+                        <input type="email" placeholder="Your Email" required />
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </footer >
             </div>
             <Footer />
         </>
     );
 };
+
 
 export default ArtistPublicPage;
