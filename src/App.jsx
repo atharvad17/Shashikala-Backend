@@ -141,7 +141,7 @@ function App() {
                     <Link to="/eventCard" className="navLink" onClick={closeNav}>Events</Link>
                     <Link to="/vision" className="navLink" onClick={closeNav}>About</Link>
                     <Link to="/artisthome" className="navLink" onClick={closeNav}>Artists</Link>
-                    <Link to="/artistprofile" className="navLink" onClick={closeNav}>Profile</Link>
+                    <Link to="/artist-public" className="navLink" onClick={closeNav}>Profile</Link>
                     <button className="navButton" onClick={handleOpenModal}>
                         <FaHeart size={16} style={{ marginRight: "8px" }} />
                         Donate Now
@@ -284,6 +284,7 @@ const AppRoutes = ({ isModalOpen, handleCloseModal, handleOpenModal }) => {
                 <Route path="/shop" element={<ShoppingPage />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/artistprofile" element={<ArtistProfilePage />} />
+                <Route path="/verify-email/:token" element={<ArtistHomePage />} />
             </Routes>
         </>
     );

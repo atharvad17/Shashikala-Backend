@@ -1,61 +1,70 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+﻿import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ArtistPublicPage.css';
-import Footer from './Footer';
 
 const ArtistPublicPage = () => {
-    const location = useLocation();
-    const { aboutText, profileImg, artworks } = location.state || {};
+
+    const catalogItems = ["Abstract", "Modern", "Nature", "Portraits"];
+    const artworks = [
+        { id: 1, title: "Sunset Bliss", category: "Nature", imageUrl: "https://via.placeholder.com/300", price: "$300" },
+        { id: 2, title: "Ocean Waves", category: "Nature", imageUrl: "https://via.placeholder.com/300", price: "$250" },
+        { id: 3, title: "Mountain Dreams", category: "Abstract", imageUrl: "https://via.placeholder.com/300", price: "$400" },
+        { id: 4, title: "City Lights", category: "Modern", imageUrl: "https://via.placeholder.com/300", price: "$350" },
+    ];
 
     return (
-        <>
-            {/* Header Section */}
-            <header className="public-header">
-                <h1>Welcome to My Gallery</h1>
-                <p>Explore the artwork and creations that define my journey.</p>
+        <div className="artist-page">
+            {/* Top Section: Artist Details */}
+            <header className="artist-header">
+                <img className="artist-photo" src="https://via.placeholder.com/150" alt="Artist" />
+                <div className="artist-info">
+                    <h1>Artist Name</h1>
+                    <p>
+                        A short bio about the artist. This section introduces the artist, their style, and
+                        their inspiration behind creating stunning art pieces.
+                    </p>
+                </div>
             </header>
 
-            {/* About Me Section */}
-            <section className="about-section">
-                <div className="about-container">
-                    <div className="profile-image-container">
-                        <img src={profileImg} alt="Artist" className="profile-image" />
-                    </div>
-                    <div className="about-text-container">
-                        <h2>About Me</h2>
-                        <p>{aboutText}</p>
-                    </div>
-                </div>
-            </section>
+            {/* Middle Section: Catalog and Artwork */}
+            <div className="content-grid">
+                {/* Left Section: Catalog */}
+                <aside className="catalog-section">
+                    <h2>Top Catalogs</h2>
+                    <ul>
+                        {catalogItems.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+                </aside>
 
-            {/* Artworks Section */}
-            <section className="artworks-section">
-                <h2>My Artworks</h2>
-                <div className="artworks-gallery">
-                    {artworks && artworks.length > 0 ? (
-                        artworks.map((artwork) => (
-                            <div key={artwork.id} className="artwork-card">
-                                <img
-                                    src={artwork.imageUrl}
-                                    alt={artwork.title}
-                                    className="artwork-image"
-                                />
-                                <div className="artwork-details">
-                                    <h3>{artwork.title}</h3>
-                                    <p>{artwork.description}</p>
-                                    <p className="artwork-price">${artwork.price}</p>
-                                    <button className="customize-button">Customize</button>
-                                </div>
+                {/* Right Section: Artwork */}
+                <main className="artwork-section">
+                    <h2>Available Artworks</h2>
+                    <div className="artwork-grid">
+                        {artworks.map((art) => (
+                            <div className="artwork-card" key={art.id}>
+                                <img src={art.imageUrl} alt={art.title} />
+                                <h3>{art.title}</h3>
+                                <p>{art.price}</p>
+                                <button>Add to Cart</button>
                             </div>
-                        ))
-                    ) : (
-                        <p>No artworks available at the moment.</p>
-                    )}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </main>
+            </div>
 
-            <Footer />
-        </>
+            {/* Bottom Section: Contact Form */}
+            <footer className="contact-section">
+                <h2>Contact the Artist</h2>
+                <form>
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Your Email" required />
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </footer>
+        </div>
     );
 };
 

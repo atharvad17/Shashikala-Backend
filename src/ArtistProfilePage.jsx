@@ -1,10 +1,12 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import './ArtistProfilePage.css';
 import placeholderImage from './Images/homeScreen1.jpg';
 import Footer from './Footer.jsx';
 import { FaTrash, FaChevronDown, FaChevronUp, FaPen } from 'react-icons/fa';
 import ArtworkEditModal from './ArtworkEditModal';
 import ArtistEventDialog from './ArtistEventDialog';
+
+
 
 const ArtistProfilePage = () => {
     const [selectedOption, setSelectedOption] = useState('My Art');
@@ -16,7 +18,7 @@ const ArtistProfilePage = () => {
     const [emailAddress, setEmailAddress] = useState('abc@gmail.com');
     const [contactInfo, setContactInfo] = useState('1234567890');
     const [currentSubscription, setCurrentSubscription] = useState('Premium');
-    const [publicLink, setPublicLink] = useState('www.artistprofile.com');
+    const [publicLink, setPublicLink] = useState("");
     const [artistBio, setArtistBio] = useState('asdasdasdasdasdasdasdasdasdasd');
     const [popupMessage, setPopupMessage] = useState('');
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
@@ -123,6 +125,15 @@ const ArtistProfilePage = () => {
             ],
         },
     ];
+
+    useEffect(() => {
+        if (artistName) {
+            const formattedName = artistName.toLowerCase().replace(/\s+/g, '-');
+            setPublicLink(`www.shashikala-foundation.com/${formattedName}`);
+        } else {
+            setPublicLink("");
+        }
+    }, [artistName]);
 
     const handlePlanChange = (newPlan) => {
         setCurrentPlan(newPlan); // Update the current plan
@@ -372,8 +383,7 @@ const ArtistProfilePage = () => {
                             <input
                                 type="text"
                                 value={publicLink}
-                                onChange={(e) => setPublicLink(e.target.value)}
-                                placeholder="Enter your public link"
+                                readOnly
                             />
                         </div>
 

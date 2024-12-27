@@ -1,13 +1,75 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './ArtistHomePage.css';
 import Footer from './Footer';
 
 // API endpoint configuration
 const API_URL = 'https://shashikala-backend-gddy.onrender.com';
 
+const EmailVerification = () => {
+    const { token } = useParams();
+    const navigate = useNavigate();
+    const [verificationStatus, setVerificationStatus] = useState('Verifying...');
+
+    useEffect(() => {
+        const verifyEmail = async () => {
+            try {
+                const response = await fetch(`${API_URL}/graphql`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        operationName: 'VerifyEmail',
+                        query: `
+                           mutation VerifyEmail($token: String!) {
+                               verifyEmail(token: $token) {
+                                   success
+                                   message
+                               }
+                           }
+                       `,
+                        variables: { token }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.data?.verifyEmail?.success) {
+                    setVerificationStatus('Email verified successfully! You can now login.');
+                    setTimeout(() => {
+                        navigate('/'); // Redirect to login page
+                    }, 3000);
+                } else {
+                    setVerificationStatus(result.data?.verifyEmail?.message || 'Verification failed');
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                setVerificationStatus('An error occurred during verification');
+            }
+        };
+
+        if (token) {
+            verifyEmail();
+        }
+    }, [token, navigate]);
+
+    return (
+        <div className="verification-container">
+            <h2>Email Verification</h2>
+            <p>{verificationStatus}</p>
+        </div>
+    );
+};
 
 const ArtistHomePage = () => {
+    const { pathname } = window.location;
+    const isVerificationPage = pathname.includes('verify-email');
+
+    if (isVerificationPage) {
+        return <EmailVerification />;
+    }
+
     const [isLogin, setIsLogin] = useState(true);
 
     return (
@@ -55,19 +117,19 @@ const LoginForm = () => {
                 credentials: 'include',
                 body: JSON.stringify({
                     query: `
-                      mutation ArtistLogin($email: String!, $password: String!) {
-                          artistLogin(email: $email, password: $password) {
-                              success
-                              message
-                              token
-                              artist {
-                                  email
-                                  firstName
-                                  lastName
-                              }
-                          }
-                      }
-                  `,
+                     mutation ArtistLogin($email: String!, $password: String!) {
+                         artistLogin(email: $email, password: $password) {
+                             success
+                             message
+                             token
+                             artist {
+                                 email
+                                 firstName
+                                 lastName
+                             }
+                         }
+                     }
+                 `,
                     variables: { email, password }
                 })
             });
@@ -194,18 +256,18 @@ const SignUpForm = () => {
         try {
             const requestBody = {
                 query: `
-                   mutation ArtistSignup($input: ArtistSignupInput!) {
-                       artistSignup(input: $input) {
-                           success
-                           message
-                           artist {
-                               firstName
-                               lastName
-                               email
-                           }
-                       }
-                   }
-               `,
+                  mutation ArtistSignup($input: ArtistSignupInput!) {
+                      artistSignup(input: $input) {
+                          success
+                          message
+                          artist {
+                              firstName
+                              lastName
+                              email
+                          }
+                      }
+                  }
+              `,
                 variables: {
                     input: {
                         firstName: formData.firstName,
@@ -407,13 +469,13 @@ const ForgotPasswordDialog = ({ isOpen, onClose }) => {
                 credentials: 'include',
                 body: JSON.stringify({
                     query: `
-                      mutation RequestPasswordReset($email: String!) {
-                          requestPasswordReset(email: $email) {
-                              success
-                              message
-                          }
-                      }
-                  `,
+                     mutation RequestPasswordReset($email: String!) {
+                         requestPasswordReset(email: $email) {
+                             success
+                             message
+                         }
+                     }
+                 `,
                     variables: { email }
                 })
             });
