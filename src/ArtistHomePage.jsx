@@ -39,7 +39,7 @@ const EmailVerification = () => {
                 if (result.data?.verifyEmail?.success) {
                     setVerificationStatus('Email verified successfully! Redirecting to login...');
                     setTimeout(() => {
-                        navigate('/');
+                        navigate('/verify-email/:token');
                     }, 3000);
                 } else {
                     setVerificationStatus(result.data?.verifyEmail?.message || 'Verification failed');

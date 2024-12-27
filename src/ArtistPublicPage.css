@@ -7,194 +7,157 @@ body {
 }
 
 .artist-page {
+    padding: 20px;
+    background-color: #f4f4f9;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
 }
 
-/* Top Section: Artist Details */
-.artist-header {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-    border-radius: 8px;
-    justify-content: space-between;
-}
-
-.artist-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-right: 20px;
-    object-fit: cover;
-}
-
-.artist-info h1 {
-    margin: 0 0 10px;
-    font-size: 1.8em;
-}
-
-.artist-info p {
-    margin: 0;
-}
-
-/* Middle Section: Grid Layout */
-.content-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 20px;
-}
-
-/* Catalog Section */
-.catalog-section {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-    .catalog-section h2 {
-        margin: 0 0 10px;
-    }
-
-    .catalog-section ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .catalog-section li {
-        margin: 5px 0;
-        color: #007bff;
-        cursor: pointer;
-    }
-
-        .catalog-section li:hover {
-            text-decoration: underline;
-        }
-
-.catalog-card {
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 10px;
+.artist-banner {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
-.catalog-images img {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    border-radius: 4px;
-    object-fit: cover;
-}
-
-/* Artwork Section */
-.artwork-section {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-    .artwork-section h2 {
-        margin: 0 0 10px;
+    .artist-banner h1 {
+        font-size: 2rem;
+        color: #333;
     }
 
-.artwork-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    .artist-banner p {
+        color: #666;
+        font-size: 1.2rem;
+    }
+
+.filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .filter-section h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+.category-filters {
+    display: flex;
     gap: 15px;
 }
 
-.artwork-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-    .artwork-card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .artwork-card button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        background: #28a745;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        .artwork-card button:hover {
-            background: #218838;
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-
-    .artwork-card.selected {
-        border: 2px solid #28a745;
-        box-shadow: 0 4px 6px rgba(0, 128, 0, 0.3);
-    }
-
-.cart-icon {
-    font-size: 24px;
+.filter-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #555;
 }
 
-/* Bottom Section: Contact Form */
-.contact-section {
+    .filter-icon.active {
+        color: #007bff;
+        transform: scale(1.1);
+    }
+
+    .filter-icon span {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+.artwork-section {
     width: 100%;
     max-width: 1200px;
-    background: #fff;
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-    .contact-section h2 {
+    .artwork-section h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #333;
         margin-bottom: 20px;
     }
 
-    .contact-section form {
-        display: flex;
+.cart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #007bff;
+}
+
+.cart-count {
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    padding: 0 8px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.artwork-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.artwork-card {
+    width: 200px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+    .artwork-card:hover {
+        transform: scale(1.05);
+    }
+
+    .artwork-card.highlighted {
+        border: 2px solid #28a745;
+        background-color: #e6ffe6;
+    }
+
+.artwork-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.artwork-card h4 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.artwork-card button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .artwork-card button:hover {
+        background-color: #0056b3;
+    }
+
+@media (max-width: 768px) {
+    .artwork-grid {
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
     }
 
-    .contact-section input,
-    .contact-section textarea {
+    .artwork-card {
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
     }
-
-    .contact-section button {
-        padding: 10px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        .contact-section button:hover {
-            background: #0056b3;
-        }
+}
