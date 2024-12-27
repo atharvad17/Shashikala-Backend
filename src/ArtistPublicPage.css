@@ -23,6 +23,7 @@ body {
     max-width: 1200px;
     padding: 20px;
     border-radius: 8px;
+    justify-content: space-between;
 }
 
 .artist-photo {
@@ -79,6 +80,22 @@ body {
             text-decoration: underline;
         }
 
+.catalog-card {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.catalog-images img {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
 /* Artwork Section */
 .artwork-section {
     background: #fff;
@@ -103,6 +120,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
     .artwork-card img {
@@ -124,7 +142,19 @@ body {
 
         .artwork-card button:hover {
             background: #218838;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
+
+    .artwork-card.selected {
+        border: 2px solid #28a745;
+        box-shadow: 0 4px 6px rgba(0, 128, 0, 0.3);
+    }
+
+.cart-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
 
 /* Bottom Section: Contact Form */
 .contact-section {

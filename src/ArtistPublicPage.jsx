@@ -1,16 +1,41 @@
 ﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './ArtistPublicPage.css';
 
 const ArtistPublicPage = () => {
+    const location = useLocation();
 
-    const catalogItems = ["Abstract", "Modern", "Nature", "Portraits"];
+    const catalogItems = [
+        {
+            category: "Abstract",
+            topItems: [
+                { title: "Dreamscape", imageUrl: "https://via.placeholder.com/100" },
+                { title: "Whirlwind", imageUrl: "https://via.placeholder.com/100" },
+            ],
+        },
+        {
+            category: "Nature",
+            topItems: [
+                { title: "Forest Path", imageUrl: "https://via.placeholder.com/100" },
+                { title: "Golden Sunset", imageUrl: "https://via.placeholder.com/100" },
+            ],
+        },
+    ];
+
     const artworks = [
         { id: 1, title: "Sunset Bliss", category: "Nature", imageUrl: "https://via.placeholder.com/300", price: "$300" },
         { id: 2, title: "Ocean Waves", category: "Nature", imageUrl: "https://via.placeholder.com/300", price: "$250" },
         { id: 3, title: "Mountain Dreams", category: "Abstract", imageUrl: "https://via.placeholder.com/300", price: "$400" },
         { id: 4, title: "City Lights", category: "Modern", imageUrl: "https://via.placeholder.com/300", price: "$350" },
     ];
+
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (artwork) => {
+        if (!cart.includes(artwork)) {
+            setCart([...cart, artwork]);
+        }
+    };
 
     return (
         <div className="artist-page">
@@ -31,23 +56,42 @@ const ArtistPublicPage = () => {
                 {/* Left Section: Catalog */}
                 <aside className="catalog-section">
                     <h2>Top Catalogs</h2>
-                    <ul>
-                        {catalogItems.map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
+                    {catalogItems.map((catalog, index) => (
+                        <div className="catalog-card" key={index}>
+                            <h3>{catalog.category}</h3>
+                            <div className="catalog-images">
+                                {catalog.topItems.map((item, idx) => (
+                                    <img
+                                        key={idx}
+                                        src={item.imageUrl}
+                                        alt={item.title}
+                                        title={item.title}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </aside>
 
                 {/* Right Section: Artwork */}
                 <main className="artwork-section">
-                    <h2>Available Artworks</h2>
+                    <div className="artwork-header">
+                        <h2>Available Artworks</h2>
+                        <span className="cart-icon">🛒 {cart.length}</span>
+                    </div>
                     <div className="artwork-grid">
                         {artworks.map((art) => (
-                            <div className="artwork-card" key={art.id}>
+                            <div
+                                className={`artwork-card ${cart.includes(art) ? "selected" : ""
+                                    }`}
+                                key={art.id}
+                            >
                                 <img src={art.imageUrl} alt={art.title} />
                                 <h3>{art.title}</h3>
                                 <p>{art.price}</p>
-                                <button>Add to Cart</button>
+                                <button onClick={() => addToCart(art)}>
+                                    {cart.includes(art) ? "Added" : "Add to Cart"}
+                                </button>
                             </div>
                         ))}
                     </div>

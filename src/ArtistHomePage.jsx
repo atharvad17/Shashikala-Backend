@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import './ArtistHomePage.css';
 import Footer from './Footer';
 
@@ -34,11 +34,12 @@ const EmailVerification = () => {
                 });
 
                 const result = await response.json();
+                console.log('Verification result:', result);
 
                 if (result.data?.verifyEmail?.success) {
-                    setVerificationStatus('Email verified successfully! You can now login.');
+                    setVerificationStatus('Email verified successfully! Redirecting to login...');
                     setTimeout(() => {
-                        navigate('/'); // Redirect to login page
+                        navigate('/');
                     }, 3000);
                 } else {
                     setVerificationStatus(result.data?.verifyEmail?.message || 'Verification failed');
@@ -63,14 +64,14 @@ const EmailVerification = () => {
 };
 
 const ArtistHomePage = () => {
-    const { pathname } = window.location;
-    const isVerificationPage = pathname.includes('verify-email');
+    const location = useLocation();
+    const params = useParams();
+    const [isLogin, setIsLogin] = useState(true);
 
-    if (isVerificationPage) {
+    // Check if we're on the verification page
+    if (location.pathname.includes('verify-email') && params.token) {
         return <EmailVerification />;
     }
-
-    const [isLogin, setIsLogin] = useState(true);
 
     return (
         <>
@@ -94,6 +95,7 @@ const ArtistHomePage = () => {
     );
 };
 
+// Keep all existing components (LoginForm, SignUpForm, ForgotPasswordDialog, TermsDialog)
 const LoginForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -117,19 +119,19 @@ const LoginForm = () => {
                 credentials: 'include',
                 body: JSON.stringify({
                     query: `
-                     mutation ArtistLogin($email: String!, $password: String!) {
-                         artistLogin(email: $email, password: $password) {
-                             success
-                             message
-                             token
-                             artist {
-                                 email
-                                 firstName
-                                 lastName
-                             }
-                         }
-                     }
-                 `,
+                    mutation ArtistLogin($email: String!, $password: String!) {
+                        artistLogin(email: $email, password: $password) {
+                            success
+                            message
+                            token
+                            artist {
+                                email
+                                firstName
+                                lastName
+                            }
+                        }
+                    }
+                `,
                     variables: { email, password }
                 })
             });
@@ -145,7 +147,7 @@ const LoginForm = () => {
             if (data.artistLogin.success) {
                 localStorage.setItem('artistToken', data.artistLogin.token);
                 localStorage.setItem('artistData', JSON.stringify(data.artistLogin.artist));
-                navigate('/dashboard');
+                navigate('/artistprofile');
             } else {
                 setLoginMessage(data.artistLogin.message);
             }
@@ -256,18 +258,18 @@ const SignUpForm = () => {
         try {
             const requestBody = {
                 query: `
-                  mutation ArtistSignup($input: ArtistSignupInput!) {
-                      artistSignup(input: $input) {
-                          success
-                          message
-                          artist {
-                              firstName
-                              lastName
-                              email
-                          }
-                      }
-                  }
-              `,
+                 mutation ArtistSignup($input: ArtistSignupInput!) {
+                     artistSignup(input: $input) {
+                         success
+                         message
+                         artist {
+                             firstName
+                             lastName
+                             email
+                         }
+                     }
+                 }
+             `,
                 variables: {
                     input: {
                         firstName: formData.firstName,
@@ -469,13 +471,13 @@ const ForgotPasswordDialog = ({ isOpen, onClose }) => {
                 credentials: 'include',
                 body: JSON.stringify({
                     query: `
-                     mutation RequestPasswordReset($email: String!) {
-                         requestPasswordReset(email: $email) {
-                             success
-                             message
-                         }
-                     }
-                 `,
+                    mutation RequestPasswordReset($email: String!) {
+                        requestPasswordReset(email: $email) {
+                            success
+                            message
+                        }
+                    }
+                `,
                     variables: { email }
                 })
             });
@@ -604,6 +606,5 @@ const TermsDialog = ({ isOpen, onClose, onAgree }) => {
         </div>
     );
 };
-
-
 export default ArtistHomePage;
+
