@@ -5,10 +5,11 @@ import Footer from './Footer.jsx';
 import { FaTrash, FaChevronDown, FaChevronUp, FaPen } from 'react-icons/fa';
 import ArtworkEditModal from './ArtworkEditModal';
 import ArtistEventDialog from './ArtistEventDialog';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const ArtistProfilePage = () => {
+    const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('My Art');
     const [profileImage, setProfileImage] = useState(placeholderImage);
     const [profileImageTemp, setProfileImageTemp] = useState(placeholderImage);
@@ -125,6 +126,16 @@ const ArtistProfilePage = () => {
             ],
         },
     ];
+
+    const [socialLinks, setSocialLinks] = useState({
+        instagram: '',
+        facebook: '',
+        linkedin: '',
+    });
+
+    const handleSocialChange = (platform, value) => {
+        setSocialLinks((prev) => ({ ...prev, [platform]: value }));
+    };
 
     useEffect(() => {
         if (artistName) {
@@ -323,6 +334,9 @@ const ArtistProfilePage = () => {
         setPastEvents(updatedPast);
     };
 
+    const handleChangePasswordClick = () => {
+        navigate('/reset-password', { state: { isResetPassword: false } });    };
+
 
     const renderContent = () => {
         switch (selectedOption) {
@@ -407,6 +421,17 @@ const ArtistProfilePage = () => {
                                 placeholder="Enter your contact information"
                             />
                         </div>
+
+                        <div className="form-group">
+                            <p
+                                className="change-password-link"
+                                onClick={handleChangePasswordClick}
+                                style={{ color: '#4A90E2', cursor: 'pointer' }}
+                            >
+                                Change Password
+                            </p>
+                        </div>
+
 
                         <div className="profile-save-button-container">
                             <button onClick={handleSave} className="profile-save-button">Save</button>
@@ -571,18 +596,19 @@ const ArtistProfilePage = () => {
                 return (
                     <div className="about-me-section">
                         <div className="about-me-group">
-                            <div className="photo-container">
+                            <div className="about-photo-container">
                                 <img
                                     src={profileImageTemp}
                                     alt="Profile"
-                                    className="profile-photo"
+                                    className="about-profile-photo"
                                 />
                             </div>
                         </div>
 
                         <div className="about-me-group">
-                            <label className="bio-label">Bio</label>
+                            <label className="bio-label" htmlFor="bio-textarea">Bio</label>
                             <textarea
+                                id="bio-textarea"
                                 value={artistBio}
                                 onChange={(e) => setArtistBio(e.target.value)}
                                 placeholder="Write about yourself..."
@@ -590,6 +616,38 @@ const ArtistProfilePage = () => {
                                 className="bio-textarea"
                             />
                         </div>
+
+                        <div className="about-me-group">
+                            <label className="social-label" htmlFor="instagram-input">Instagram</label>
+                            <input
+                                id="instagram-input"
+                                type="text"
+                                placeholder="Enter Instagram handle..."
+                                className="social-input"
+                            />
+                        </div>
+
+                        <div className="about-me-group">
+                            <label className="social-label" htmlFor="facebook-input">Facebook</label>
+                            <input
+                                id="facebook-input"
+                                type="text"
+                                placeholder="Enter Facebook profile..."
+                                className="social-input"
+                            />
+                        </div>
+
+                        <div className="about-me-group">
+                            <label className="social-label" htmlFor="linkedin-input">LinkedIn</label>
+                            <input
+                                id="linkedin-input"
+                                type="text"
+                                placeholder="Enter LinkedIn profile..."
+                                className="social-input"
+                            />
+                        </div>
+
+
 
                         <div className="save-button-container">
                             <button onClick={handleBioSave} className="about-save-button">Save</button>

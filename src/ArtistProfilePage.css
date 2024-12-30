@@ -614,6 +614,89 @@
     justify-content: space-between;
 }
 
+.about-me-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.about-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-profile-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.bio-label,
+.social-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.bio-textarea {
+    width: 100%;
+    max-width: 700px; /* Wider bio area */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    box-sizing: border-box;
+    resize: vertical; /* Restrict resizing to vertical only */
+}
+
+.social-input {
+    width: 100%;
+    max-width: 500px; /* Wider social input fields */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+    .social-input::placeholder,
+    .bio-textarea::placeholder {
+        color: #aaa;
+    }
+
+.social-media-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.save-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.about-save-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .about-save-button:hover {
+        background-color: #0056b3;
+    }
 
 .manage-account {
     padding: 20px;
@@ -821,6 +904,19 @@ footer {
 .content-hamburger-menu {
     display: none; /* Hide both hamburgers on desktop */
 }
+
+.change-password-link {
+    font-size: 16px;
+    color: #4A90E2;
+    text-decoration: underline;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+    .change-password-link:hover {
+        color: #357ABD;
+    }
+
 
 @media (max-width: 768px) {
     .dashboard-main {
