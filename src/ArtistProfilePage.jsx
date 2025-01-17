@@ -6,7 +6,7 @@ import { FaTrash, FaChevronDown, FaChevronUp, FaPen } from 'react-icons/fa';
 import ArtworkEditModal from './ArtworkEditModal';
 import ArtistEventDialog from './ArtistEventDialog';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+//import axios from "axios";
 
 
 const ArtistProfilePage = () => {
