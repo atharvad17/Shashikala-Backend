@@ -6,6 +6,7 @@ import { FaTrash, FaChevronDown, FaChevronUp, FaPen } from 'react-icons/fa';
 import ArtworkEditModal from './ArtworkEditModal';
 import ArtistEventDialog from './ArtistEventDialog';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 
 const ArtistProfilePage = () => {
@@ -23,6 +24,8 @@ const ArtistProfilePage = () => {
     const [artistBio, setArtistBio] = useState('asdasdasdasdasdasdasdasdasdasd');
     const [popupMessage, setPopupMessage] = useState('');
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
     const [catalogs, setCatalogs] = useState([
         {
             name: 'Catalog 1',
@@ -83,10 +86,10 @@ const ArtistProfilePage = () => {
     const [showSubscriptionPlans, setShowSubscriptionPlans] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [currentPlan, setCurrentPlan] = useState("Bronze Plan"); // Initial current plan
-    const [bankName, setBankName] = useState('');
-    const [accountNumber, setAccountNumber] = useState('');
-    const [routingNumber, setRoutingNumber] = useState('');
-
+    const [bankName, setBankName] = useState("");
+    const [accountNumber, setAccountNumber] = useState("");
+    const [routingNumber, setRoutingNumber] = useState("");
+    const [accountHolderName, setAccountHolderName] = useState("");
     const subscriptionPlans = [
         {
             name: 'Free Plan',
@@ -146,12 +149,20 @@ const ArtistProfilePage = () => {
         }
     }, [artistName]);
 
-    const handlePlanChange = (newPlan) => {
-        setCurrentPlan(newPlan); // Update the current plan
-        setPopupMessage(`Your plan has been switched to ${newPlan}. It will be activated starting next month.`);
-        setTimeout(() => {
-            setPopupMessage(''); 
-        }, 4000);
+    const handlePlanChange = (selectedPlan) => {
+        setLoading(true);
+        try {
+            setCurrentPlan(selectedPlan);
+            setPopupMessage(`Your plan has been switched to ${newPlan}. It will be activated starting next month.`);
+            setTimeout(() => {
+                setPopupMessage('');
+            }, 4000);
+        } catch (error) {
+            console.error(error);
+            setPopupMessage("Failed to update subscription.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleEditClick = (artwork) => {
@@ -335,8 +346,44 @@ const ArtistProfilePage = () => {
     };
 
     const handleChangePasswordClick = () => {
-        navigate('/reset-password', { state: { isResetPassword: false } });    };
+        navigate('/reset-password', { state: { isResetPassword: false } });
+    };
 
+    const handleSaveBankInfo = async () => {
+        if (!accountHolderName || !accountNumber || !routingNumber) {
+            setMessage("Error: All fields are required.");
+            return;
+        }
+
+        setLoading(true);
+        setMessage("");
+
+        try {
+            const response = await fetch("http://localhost:3000/api/verify-bank", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    bankName,
+                    accountNumber,
+                    routingNumber,
+                    accountHolderName,
+                }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setMessage(`Success: ${data.message}`);
+                console.log("Bank token:", data.token);
+            } else {
+                setMessage(`Error: ${data.error}`);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setMessage("Error: Failed to save bank information.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const renderContent = () => {
         switch (selectedOption) {
@@ -654,19 +701,14 @@ const ArtistProfilePage = () => {
                         </div>
                     </div>
                 );
-            case 'Manage Account':
+            case "Manage Account":
                 return (
                     <div className="manage-account">
                         {/* Current Subscription */}
                         <div className="form-group">
                             <label>Current Subscription</label>
                             <div className="current-subscription">
-                                <input
-                                    type="text"
-                                    value={currentPlan}
-                                    readOnly
-                                    className="subscription-input"
-                                />
+                                <input type="text" value={currentPlan} readOnly className="subscription-input" />
                                 <button
                                     onClick={() => setShowSubscriptionPlans(!showSubscriptionPlans)}
                                     className="change-button"
@@ -677,51 +719,56 @@ const ArtistProfilePage = () => {
                         </div>
 
                         {/* Subscription Plans */}
-                        <div className="subscription-plans">
-                            {[
-                                { name: "Free Plan", price: "$0/month", benefits: ["Access to basic features"], value: "Free Plan" },
-                                { name: "Bronze Plan", price: "$10/month", benefits: ["Access to basic features", "Priority support"], value: "Bronze Plan" },
-                                { name: "Silver Plan", price: "$20/month", benefits: ["Access to all features", "Advanced analytics"], value: "Silver Plan" },
-                                { name: "Gold Plan", price: "$30/month", benefits: ["Access to all features", "Dedicated support", "Premium features"], value: "Gold Plan" },
-                            ].map((plan) => (
-                                <div className={`subscription-card ${plan.value.toLowerCase().replace(" ", "-")}`} key={plan.value}>
-                                    <div className="card-header">{plan.name}</div>
-                                    <div className="price">{plan.price}</div>
-                                    <ul className="benefits-list">
-                                        {plan.benefits.map((benefit, index) => (
-                                            <li key={index} className="benefit-item">
-                                                <span className="tick-mark">✔</span> {benefit}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <button
-                                        className={`select-plan-button ${plan.value === currentPlan ? "current-plan-button" : ""
-                                            }`}
-                                        onClick={() => handlePlanChange(plan.value)}
-                                        disabled={plan.value === currentPlan}
-                                    >
-                                        {plan.value === currentPlan ? "Current" : "Select"}
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
+                        {showSubscriptionPlans && (
+                            <div className="subscription-plans">
+                                {[
+                                    { name: "Free Plan", price: "$0/month", benefits: ["Access to basic features"], value: "Free Plan" },
+                                    { name: "Bronze Plan", price: "$10/month", benefits: ["Access to basic features", "Priority support"], value: "Bronze Plan" },
+                                    { name: "Silver Plan", price: "$20/month", benefits: ["Access to all features", "Advanced analytics"], value: "Silver Plan" },
+                                    { name: "Gold Plan", price: "$30/month", benefits: ["Access to all features", "Dedicated support", "Premium features"], value: "Gold Plan" },
+                                ].map((plan) => (
+                                    <div className={`subscription-card ${plan.value.toLowerCase().replace(" ", "-")}`} key={plan.value}>
+                                        <div className="card-header">{plan.name}</div>
+                                        <div className="price">{plan.price}</div>
+                                        <ul className="benefits-list">
+                                            {plan.benefits.map((benefit, index) => (
+                                                <li key={index} className="benefit-item">
+                                                    <span className="tick-mark">✔</span> {benefit}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <button
+                                            className={`select-plan-button ${plan.value === currentPlan ? "current-plan-button" : ""}`}
+                                            onClick={() => handlePlanChange(plan.value)}
+                                            disabled={plan.value === currentPlan}
+                                        >
+                                            {plan.value === currentPlan ? "Current" : "Select"}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         {/* Bank Information */}
                         <div className="bank-info">
                             <h2>Bank Information</h2>
-                            <div className="bank-form-group">
+                            <div className="form-group">
+                                <label>Account Holder Name</label>
+                                <input
+                                    type="text"
+                                    value={accountHolderName}
+                                    onChange={(e) => setAccountHolderName(e.target.value)}
+                                    placeholder="Enter account holder name"
+                                />
+                            </div>
+                            <div className="form-group">
                                 <label>Bank Name</label>
-                                <select
+                                <input
+                                    type="text"
                                     value={bankName}
                                     onChange={(e) => setBankName(e.target.value)}
-                                    className="bank-select"
-                                >
-                                    <option value="">Select your bank</option>
-                                    <option value="Chase">Chase Bank</option>
-                                    <option value="Wells Fargo">Wells Fargo</option>
-                                    <option value="Bank of America">Bank of America</option>
-                                    <option value="Citibank">Citibank</option>
-                                </select>
+                                    placeholder="Enter bank name (optional)"
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Bank Account Number</label>
@@ -732,7 +779,7 @@ const ArtistProfilePage = () => {
                                     placeholder="Enter account number"
                                 />
                             </div>
-                            <div className="bank-details-form-group">
+                            <div className="form-group">
                                 <label>Routing Number</label>
                                 <input
                                     type="text"
@@ -741,8 +788,19 @@ const ArtistProfilePage = () => {
                                     placeholder="Enter routing number"
                                 />
                             </div>
-                            <button className="save-bank-info-button">Save Bank Info</button>
+                            <button
+                                onClick={handleSaveBankInfo}
+                                disabled={!accountHolderName || !accountNumber || !routingNumber || loading}
+                                className="bank-save-button"
+                            >
+                                {loading ? "Saving..." : "Save Bank Info"}
+                            </button>
                         </div>
+                        {message && (
+                            <p className={`message ${message.startsWith("Error") ? "error-message" : "success-message"}`}>
+                                {message}
+                            </p>
+                        )}
                     </div>
                 );
                 default:
