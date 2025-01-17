@@ -349,6 +349,7 @@ const ArtistProfilePage = () => {
         navigate('/reset-password', { state: { isResetPassword: false } });
     };
 
+    {/* 
     const handleSaveBankInfo = async () => {
         if (!accountHolderName || !accountNumber || !routingNumber) {
             setMessage("Error: All fields are required.");
@@ -384,6 +385,25 @@ const ArtistProfilePage = () => {
             setLoading(false);
         }
     };
+    */}
+
+    const handleSaveBankInfo = () => {
+        // Validate that all required fields are filled
+        if (!accountHolderName || !accountNumber || !routingNumber) {
+            setMessage("Error: All fields are required.");
+            return;
+        }
+
+        // Simulate saving bank details locally
+        setMessage("Bank details saved successfully!");
+        console.log("Saved Bank Details:", {
+            bankName,
+            accountHolderName,
+            accountNumber,
+            routingNumber,
+        });
+    };
+
 
     const renderContent = () => {
         switch (selectedOption) {
