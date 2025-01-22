@@ -200,6 +200,37 @@ const ArtistProfilePage = () => {
         setModalOpen(true);
     };
 
+    {/* 
+    const handleAddItem = async (index) => {
+        const newItem = {
+            title: `New Art Piece ${catalogs[index].items.length + 1}`,
+            imageUrl: placeholderImage,
+            price: 0, // Default price
+        };
+
+        try {
+            const response = await fetch("https://placeholderapi.com/api/artwork", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newItem),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to add artwork.");
+            }
+
+            const addedItem = await response.json();
+            setCatalogs((prev) =>
+                prev.map((catalog, i) =>
+                    i === index ? { ...catalog, items: [...catalog.items, addedItem] } : catalog
+                )
+            );
+            setMessage("Artwork added successfully!");
+        } catch (error) {
+            setMessage(error.message || "Error: Failed to add artwork.");
+        }
+    };
+    */}
 
     const handleEditItem = (catalogIndex, itemIndex) => {
         const itemToEdit = catalogs[catalogIndex].items[itemIndex];
@@ -220,6 +251,37 @@ const ArtistProfilePage = () => {
             )
         );
     };
+
+    {/* 
+    const handleDeleteItem = async (catalogIndex, itemIndex) => {
+    const itemId = catalogs[catalogIndex].items[itemIndex].id;
+
+    try {
+        const response = await fetch(
+            `https://placeholderapi.com/api/artwork/${itemId}`,
+            { method: "DELETE" }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to delete artwork.");
+        }
+
+        setCatalogs((prev) =>
+            prev.map((catalog, i) =>
+                i === catalogIndex
+                    ? {
+                        ...catalog,
+                        items: catalog.items.filter((_, j) => j !== itemIndex),
+                    }
+                    : catalog
+            )
+        );
+        setMessage("Artwork deleted successfully!");
+    } catch (error) {
+        setMessage(error.message || "Error: Failed to delete artwork.");
+    }
+    };
+    */}
 
     const handleDeleteCatalog = (index) => {
         const updatedCatalogs = catalogs.filter((_, i) => i !== index);
@@ -266,27 +328,46 @@ const ArtistProfilePage = () => {
         closeModal();
     };
 
-    const handleSaveItem = (updatedItem) => {
-        console.log("Updated Item:", updatedItem);
-        console.log("Catalog Index:", updatedItem.catalogIndex);
-        console.log("Item Index:", updatedItem.itemIndex);
+    {/*
+    const saveArtwork = async (updatedArtwork) => {
+    const { catalogIndex, itemIndex, ...artworkData } = updatedArtwork; // Exclude index metadata
 
+    try {
+        const response = await fetch(
+            `https://placeholderapi.com/api/artwork/${catalogs[catalogIndex].items[itemIndex].id}`,
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(artworkData),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to update artwork.");
+        }
+
+        const updatedItem = await response.json();
         setCatalogs((prev) =>
             prev.map((catalog, i) =>
-                i === updatedItem.catalogIndex
+                i === catalogIndex
                     ? {
                         ...catalog,
-                        items: updatedItem.itemIndex !== null
-                            ? catalog.items.map((item, j) =>
-                                j === updatedItem.itemIndex ? updatedItem : item
-                            )
-                            : [...catalog.items, updatedItem],
+                        items: catalog.items.map((item, j) =>
+                            j === itemIndex ? updatedItem : item
+                        ),
                     }
                     : catalog
             )
         );
-        setModalOpen(false);
+        setMessage("Artwork updated successfully!");
+    } catch (error) {
+        setMessage(error.message || "Error: Failed to update artwork.");
+    } finally {
+        closeModal();
+    }
     };
+    */}
+
 
     const openEventDialog = () => {
         setDialogMode('create');
@@ -303,6 +384,69 @@ const ArtistProfilePage = () => {
         setCurrentEvent(eventToEdit);
         setIsEventDialogOpen(true);
     };
+
+    {/* 
+    const editEvent = async (index, type) => {
+        try {
+            const eventToEdit =
+                type === 'upcoming' ? upcomingEvents[index] : pastEvents[index];
+            const updatedEvent = { ...eventToEdit, ...currentEvent }; // Combine updated fields
+
+            const response = await fetch(`/api/events/${updatedEvent.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedEvent),
+            });
+
+            if (response.ok) {
+                const savedEvent = await response.json();
+                const updatedEvents =
+                    type === 'upcoming' ? [...upcomingEvents] : [...pastEvents];
+                updatedEvents[index] = savedEvent;
+
+                type === 'upcoming'
+                    ? setUpcomingEvents(updatedEvents)
+                    : setPastEvents(updatedEvents); // Update local state
+            } else {
+                console.error('Failed to update event:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating event:', error);
+        }
+    };
+    */}
+
+
+    {/*
+    const deleteEvent = async (index, type) => {
+    try {
+        const eventToDelete =
+            type === 'upcoming' ? upcomingEvents[index] : pastEvents[index];
+
+        const response = await fetch(`/api/events/${eventToDelete.id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            if (type === 'upcoming') {
+                setUpcomingEvents((prevEvents) =>
+                    prevEvents.filter((_, i) => i !== index)
+                );
+            } else {
+                setPastEvents((prevEvents) =>
+                    prevEvents.filter((_, i) => i !== index)
+                );
+            }
+        } else {
+            console.error('Failed to delete event:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error deleting event:', error);
+    }
+};
+    */}
 
     const closeEventDialog = () => {
         setIsEventDialogOpen(false);
@@ -331,6 +475,29 @@ const ArtistProfilePage = () => {
 
         closeEventDialog(); // Close the dialog after saving
     };
+
+    {/* 
+    const saveEvent = async (newEvent) => {
+        try {
+            const response = await fetch('/api/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newEvent),
+            });
+
+            if (response.ok) {
+                const createdEvent = await response.json();
+                setUpcomingEvents((prevEvents) => [...prevEvents, createdEvent]); // Update local state
+            } else {
+                console.error('Failed to create event:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error creating event:', error);
+        }
+    };
+    */}
 
 
     const updateEventLists = () => {
